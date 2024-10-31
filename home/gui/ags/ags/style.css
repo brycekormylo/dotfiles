@@ -1,0 +1,150 @@
+@import url("./colors.css");
+
+* {
+  font-family: "CommitMono";
+  font-size: 10pt;
+  min-height: 0;
+  background-color: transparent;
+  text-shadow: none;
+  /* color: #691400; */
+}
+
+.top-bar {
+  /* margin-top: 2px; */
+  /* margin-right: 4px; */
+  /* margin-left: 4px; */
+  margin-bottom: 2px;
+}
+
+.right-box {
+  background: @base00;
+  color: @base06;
+  border-bottom-left-radius: 8px;
+  padding: 4px;
+}
+
+.left-box {
+  background: @base00;
+  color: @base06;
+  border-bottom-right-radius: 8px;
+  padding: 4px 12px 4px 12px;
+}
+
+.icon {
+  box-shadow: none;
+  outline: none;
+  text-decoration: none;
+}
+
+.battery-progress {
+  background-color: #bb7169;
+  border-radius: 6px;
+}
+
+.separator {
+  color: @base04;
+}
+
+.volume-indicator,
+.time,
+.date,
+.power-profile {
+  color: @base06;
+}
+
+.volume-indicator {
+  margin: 0 -12px 0 0;
+}
+
+.time {
+  margin-right: 6px;
+}
+
+.date {
+  margin-left: -6px;
+}
+
+.power-profile {
+  margin-left: -8px;
+}
+
+.brightness > * {
+  padding: 0 6px 0 0px;
+}
+
+.brightness > * * {
+  border-color: @base0C;
+  border-radius: 12px;
+  min-height: 6px;
+}
+
+.brightness > * > * {
+  background-color: @base01;
+}
+
+.brightness > * > * :nth-child(1) {
+  border-color: @base0C;
+  border-radius: 12px;
+  min-height: 6px;
+  margin: -6px 0px;
+}
+
+button {
+  min-width: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  background: transparent;
+  background-image: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+}
+
+/* button:active {
+    background-color: purple;
+}
+
+button:hover {
+    border-bottom: 3px solid red;
+} */
+
+label {
+  font-weight: 500;
+}
+
+.specialWorkspaces button {
+  color: @base0D;
+}
+
+.workspaces {
+  background-color: transparent;
+}
+
+.workspaces button {
+  color: @base02;
+  border-radius: 100%;
+}
+
+.workspaces button.focused {
+  color: @base0C;
+}
+
+levelbar trough {
+  border-radius: 8px;
+  margin: 2px 0px;
+  border-color: @base06;
+}
+
+levelbar trough block {
+  background-color: @base00;
+  border-color: transparent;
+  border-radius: 6px;
+}
+
+.cpu trough :nth-child(1) {
+  background-color: @base0E;
+}
+
+.ram trough :nth-child(1) {
+  background-color: @base0D;
+}

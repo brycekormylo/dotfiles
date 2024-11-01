@@ -32,7 +32,8 @@
   in {
     nixosConfigurations.pathfinder = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
-      system = "x86_64-linux";
+      inherit system;
+      # system = "x86_64-linux";
       modules = [
         ./configuration.nix
         # ./home/home.nix

@@ -35,12 +35,16 @@
       system = "x86_64-linux";
       modules = [
         ./configuration.nix
+        # ./home/home.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
           home-manager.users.bryce = import ./home/home.nix;
+          home-manager.extraSpecialArgs = {
+            inherit inputs;
+          };
         }
       ];
     };

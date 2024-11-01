@@ -1,12 +1,19 @@
-{ inputs, outputs, lib, config, pkgs, ... }: {
-  imports = [ ./hardware-configuration.nix ];
+{
+  inputs,
+  outputs,
+  lib,
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [./hardware-configuration.nix];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "pathfinder";
   networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 61458 61459 2416 ];
+  networking.firewall.allowedTCPPorts = [61458 61459 2416];
 
   time.timeZone = "America/Los_Angeles";
 
@@ -91,7 +98,7 @@
     NIXOS_OZONE_WL = "1";
   };
 
-#  services.printing.enable = true;
+  #  services.printing.enable = true;
 
   hardware.pulseaudio = {
     enable = false;
@@ -112,7 +119,7 @@
   users.users.bryce = {
     isNormalUser = true;
     description = "bryce";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
   };
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
@@ -120,7 +127,6 @@
   systemd.services."autovt@tty1".enable = false;
 
   environment.systemPackages = with pkgs; [
-
     firefox
     librewolf
     ungoogled-chromium
@@ -140,7 +146,7 @@
     brightnessctl
     bluez
     libdbusmenu-gtk3
-    networkmanagerapplet 
+    networkmanagerapplet
     zathura
     xfce.thunar
     pavucontrol
@@ -156,7 +162,7 @@
     ueberzugpp
     grim
     slurp
-  
+
     zip
     _7zz
     unzip
@@ -196,17 +202,20 @@
     xwayland
   ];
 
-  fonts.packages = with pkgs; [ 
+  fonts.packages = with pkgs; [
     commit-mono
-    meslo-lgs-nf 
-    nerdfonts 
+    meslo-lgs-nf
+    nerdfonts
   ];
 
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "23.11";
 
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # nix.nixPath = [
+  #   "nixpkgs=${pkgs}"
+  #   "nixos-config=${config.users.users.bryce.home}/dot/configuration.nix"
+  # ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.gc = {
     automatic = true;
     dates = "weekly";

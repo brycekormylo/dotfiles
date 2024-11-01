@@ -93,7 +93,8 @@
       "$health" = "kitty --single-instance -d ~/vaults/health vi .";
       "$browser" = "firefox";
       # "$config" = "kitty --single-instance -d ~/.config/home-manager vi .";
-      "$config" = "kitty --single-instance -d ~/.config/home-manager bash dev.sh";
+      # "$config" = "kitty --single-instance -d ~/.config/home-manager bash dev.sh";
+      "$config" = "kitty --single-instance -d ~/dot bash dev.sh";
 
       "$captureAll" = "~/scripts/screenshots/captureAll.sh";
       "$captureScreen" = "~/scripts/screenshots/captureScreen.sh";

@@ -32,7 +32,7 @@
                 };
                 home_manager = {
                   expr = ''
-                    (builtins.getFlake "./.config/home-manager").homeConfigurations."bryce".options',
+                    (builtins.getFlake "./dot/home").homeConfigurations."bryce".options',
                   '';
                 };
               };

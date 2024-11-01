@@ -26,9 +26,9 @@
     ./lsp/lsp.nix
     ./lsp/lsp-endhints.nix
     ./lsp/lsp-signature.nix
-    ./lsp/otter.nix
+    # ./lsp/otter.nix
     # ./lsp/tailwind-tools.nix
-    # ./lsp/workspace-diagnostics.nix
+    ./lsp/workspace-diagnostics.nix
     ./lsp/wrapping.nix
     # ./lsp/ufo.nix
 

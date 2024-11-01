@@ -211,10 +211,10 @@
   nixpkgs.config.allowUnfree = true;
   system.stateVersion = "23.11";
 
-  # nix.nixPath = [
-  #   "nixpkgs=${pkgs}"
-  #   "nixos-config=${config.users.users.bryce.home}/dot/configuration.nix"
-  # ];
+  nix.nixPath = [
+    "nixpkgs=/home/bryce/dot"
+    "nixos-config=${config.users.users.bryce.home}/dot/configuration.nix"
+  ];
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.gc = {
     automatic = true;

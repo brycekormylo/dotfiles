@@ -24,6 +24,7 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    flake-parts,
     home-manager,
     ...
   }: let
@@ -33,15 +34,17 @@
     nixosConfigurations.pathfinder = nixpkgs.lib.nixosSystem {
       specialArgs = {inherit inputs;};
       inherit system;
-      # system = "x86_64-linux";
       modules = [
         ./configuration.nix
-        # ./home/home.nix
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
 
+          # If home manager doesnt exist
+          # nix shell nixpkgs#home-manager
+
+          home-manager.backupFileExtension = "backup";
           home-manager.users.bryce = import ./home/home.nix;
           home-manager.extraSpecialArgs = {
             inherit inputs;

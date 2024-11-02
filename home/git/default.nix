@@ -12,7 +12,11 @@
       userName = "Bryce Kormylo";
       userEmail = "brycekormylo@outlook.com";
       extraConfig = {
+        push = {autoSetupRemote = true;};
         http.postBuffer = 157286400;
+        credential.helper = "${
+          pkgs.git.override {withLibsecret = true;}
+        }/bin/git-credential-libsecret";
       };
     };
   };

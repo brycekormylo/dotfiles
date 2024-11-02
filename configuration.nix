@@ -1,7 +1,7 @@
 {
-  inputs,
-  outputs,
-  lib,
+  # inputs,
+  # outputs,
+  # lib,
   config,
   pkgs,
   ...
@@ -104,7 +104,23 @@
     enable = false;
     support32Bit = true;
   };
+
   security.rtkit.enable = true;
+  security.sudo = {
+    wheelNeedsPassword = false;
+    extraRules = [
+      {
+        users = ["bryce"];
+        commands = [
+          {
+            command = "ALL";
+            options = ["NOPASSWD" "SETENV"]; # "SETENV" # Adding the following could be a good idea
+          }
+        ];
+      }
+    ];
+  };
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -180,7 +196,6 @@
     lld
     nix-prefetch-github
     nix-output-monitor
-    nh
     nvd
 
     egl-wayland

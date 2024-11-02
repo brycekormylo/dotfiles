@@ -22,9 +22,7 @@
   };
 
   outputs = inputs @ {
-    self,
     nixpkgs,
-    flake-parts,
     home-manager,
     ...
   }: let

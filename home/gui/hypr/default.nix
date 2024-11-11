@@ -9,6 +9,7 @@
     size = 32;
     gtk.enable = true;
   };
+
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;

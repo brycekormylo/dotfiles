@@ -21,7 +21,7 @@
           };
           performance = {
             debounce = 10;
-            fetchingTimeout = 1000;
+            fetchingTimeout = 10000;
             maxViewEntries = 7;
             throttle = 10;
           };
@@ -130,5 +130,14 @@
       cmp_luasnip.enable = true;
       # cmp-cmdline.enable = true;
     };
+    extraConfigLua = ''
+      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+      capabilities.workspace = {
+      	didChangeWatchedFiles = {
+      		dynamicRegistration = true,
+      	},
+      }
+    '';
   };
 }

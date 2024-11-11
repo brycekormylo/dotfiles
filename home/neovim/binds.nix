@@ -1,14 +1,13 @@
 {
   programs.nixvim = {
-    plugins.comment = {
-      enable = true;
-      settings = {
-        opleader.line = "<leader>x";
-        toggler.line = "<leader>x";
-      };
-    };
-
     # General keymaps only
+    # extraConfigLua = ''
+    #   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+    #   	callback = function()
+    #   		vim.lsp.buf.format()
+    #   	end,
+    #   })
+    # '';
     keymaps = [
       {
         key = "<leader>w";

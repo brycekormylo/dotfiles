@@ -4,7 +4,8 @@ pkgs.writeShellApplication {
   name = "switch";
   runtimeInputs = [pkgs.nh];
   text = ''
-    nh os switch ./dot
+    git add .
+    nh os switch ~/dot
   '';
 }
 # pkgs.writeShellScriptBin "hello" ''

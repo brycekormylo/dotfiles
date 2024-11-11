@@ -2,7 +2,7 @@
   programs.nixvim.plugins.fidget = {
     enable = true;
     logger = {
-      level = "debug"; # “off”, “error”, “warn”, “info”, “debug”, “trace”
+      level = "error"; # “off”, “error”, “warn”, “info”, “debug”, “trace”
       floatPrecision =
         1.0e-2; # Limit the number of decimals displayed for floats
     };
@@ -10,7 +10,7 @@
     progress = {
       pollRate = 30; # How and when to poll for progress messages
       suppressOnInsert = true; # Suppress new messages while in insert mode
-      ignoreDoneAlready = false; # Ignore new tasks that are already complete
+      ignoreDoneAlready = true; # Ignore new tasks that are already complete
       ignoreEmptyMessage =
         false; # Ignore new tasks that don't contain a message
       clearOnDetach =
@@ -60,9 +60,9 @@
             return tostring (group)
           end
         ''; # How to format a progress notification group's name
-        overrides = {
-          rust_analyzer = {name = "rust-analyzer";};
-        }; # Override options from the default notification config
+        # overrides = {
+        #   rust_analyzer = {name = "rust-analyzer";};
+        # }; # Override options from the default notification config
       };
     };
 

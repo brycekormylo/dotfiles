@@ -23,8 +23,6 @@
     ./colorscheme.nix
   ];
 
-  nixpkgs.config.allowUnfree = true;
-
   home.packages = with pkgs; [
     docker
     neovide
@@ -32,6 +30,7 @@
     neofetch
     vscode
     nix-prefetch-github
+    jq
 
     diskonaut
 

@@ -3,7 +3,7 @@
     plugins.lint = {
       enable = true;
       lintersByFt = {
-        nix = ["nix"];
+        # nix = ["nix"];
         # text = ["vale"];
         json = ["jsonlint"];
         javascript = ["eslint_d"];

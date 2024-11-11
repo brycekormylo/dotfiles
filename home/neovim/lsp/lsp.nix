@@ -1,10 +1,9 @@
 {pkgs, ...}: {
-  home.sessionVariables.NIXD_FLAGS = "-log=debug";
+  home.sessionVariables.NIXD_FLAGS = "-log=warn";
 
   programs.nixvim = {
     plugins = {
-      lsp-format.enable = true;
-      lsp-status.enable = true;
+      # lsp-status.enable = true; needs config
       # typescript-tools.enable = true;
       nvim-jdtls = {
         enable = true;
@@ -17,24 +16,16 @@
         servers = {
           nixd = {
             enable = true;
-            # cmd = ["nixd"];
-            # filetypes = ["nix"];
+            cmd = ["nixd"];
             settings = {
               formatting.command = ["alejandra"];
               nixpkgs = {
                 expr = "import <nixpkgs> { }";
               };
               options = {
-                nixos = {
-                  expr = ''
-                    (builtins.getFlake "./dot").nixosConfigurations.pathfinder.options',
-                  '';
-                };
-                home_manager = {
-                  expr = ''
-                    (builtins.getFlake "./dot/home").homeConfigurations."bryce".options',
-                  '';
-                };
+                nixos.expr = ''
+                  (builtins.getFlake "~/dot").nixosConfigurations.pathfinder.options
+                '';
               };
             };
           };
@@ -57,7 +48,6 @@
             };
           };
 
-          asm_lsp.enable = true;
           bashls.enable = true;
           clangd.enable = true;
           lua_ls.enable = true;
@@ -75,19 +65,10 @@
 
     extraPlugins = with pkgs.vimPlugins; [nvim-lspconfig];
     extraConfigLua = ''
-      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-      capabilities.workspace = {
-      	didChangeWatchedFiles = {
-      		dynamicRegistration = true,
-      	},
-      }
-
       local nvim_lsp = require("lspconfig")
 
       nvim_lsp.nixd.setup({
-      	-- on_attach = on_attach,
-      	capabilities = capabilities,
+      	offset_encoding = "utf-8",
       })
 
       -- Allows use of deno without removing npm
@@ -110,16 +91,3 @@
     '';
   };
 }
-# nixos = {
-#   expr = ''
-#     (let pkgs = import <nixpkgs> { }; in (pkgs.lib.evalModules { modules =  (import "${inputs.nixpkgs}/nixos/modules/module-list.nix") ++ [ ({...}: { nixpkgs.hostPlatform = builtins.currentSystem;} ) ] ; })).options
-#   '';
-# };
-# home-manager = {
-#   expr = ''
-#     (builtins.getFlake ("git+file://" + toString ./.config/home-manager)).homeConfigurations."bryce".options
-#   '';
-# expr = ''
-#   (let pkgs = import <nixpkgs> { }; lib = import "${inputs.home-manager}/modules/lib/stdlib-extended.nix" pkgs.lib; in (lib.evalModules { modules =  (import "${inputs.home-manager}/modules/modules.nix") { inherit lib pkgs; check = false; }; })).options
-# '';
-

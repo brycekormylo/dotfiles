@@ -1,2 +1,2 @@
 # dotfiles
-General config files
+General nixos config + home manager setup

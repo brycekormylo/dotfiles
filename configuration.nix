@@ -1,14 +1,19 @@
 {
-  # inputs,
-  # outputs,
-  # lib,
+  inputs,
   config,
   pkgs,
   ...
 }: {
-  imports = [./hardware-configuration.nix];
+  imports = [
+    ./hardware-configuration.nix
+    ./system
+    # TODO: ./disk-config.nix
+  ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+    configurationLimit = 12;
+  };
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "pathfinder";
@@ -18,26 +23,6 @@
   time.timeZone = "America/Los_Angeles";
 
   i18n.defaultLocale = "en_US.UTF-8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
-
-  nixpkgs.config.packageOverrides = pkgs: {
-    ivpn-service = pkgs.ivpn-service.override {
-      buildGoModule = pkgs.buildGo122Module;
-    };
-  };
-
-  services.ivpn.enable = true;
 
   services.displayManager = {
     defaultSession = "hyprland";
@@ -53,6 +38,22 @@
     xkb.variant = "";
     displayManager.gdm.enable = true;
     desktopManager.gnome.enable = true;
+  };
+
+  services.power-profiles-daemon.enable = false;
+  services.thermald.enable = true;
+  services.tlp = {
+    enable = true;
+    settings = {
+      CPU_SCALING_GOVERNOR_ON_AC = "performance";
+      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
+      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      CPU_MIN_PERF_ON_AC = 0;
+      CPU_MAX_PERF_ON_AC = 100;
+      CPU_MIN_PERF_ON_BAT = 0;
+      CPU_MAX_PERF_ON_BAT = 20;
+    };
   };
 
   xdg.portal.enable = true;
@@ -100,12 +101,8 @@
 
   #  services.printing.enable = true;
 
-  hardware.pulseaudio = {
-    enable = false;
-    support32Bit = true;
-  };
-
   security.rtkit.enable = true;
+  # security.polkit.enable = true;
   security.sudo = {
     wheelNeedsPassword = false;
     extraRules = [
@@ -114,7 +111,7 @@
         commands = [
           {
             command = "ALL";
-            options = ["NOPASSWD" "SETENV"]; # "SETENV" # Adding the following could be a good idea
+            options = ["NOPASSWD" "SETENV"];
           }
         ];
       }
@@ -138,7 +135,9 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  # Workaround for GNOME autologin:
+  # https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  # yes its still needed
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
@@ -147,56 +146,56 @@
     librewolf
     ungoogled-chromium
 
-    vlc
     inkscape
     libreoffice
     obsidian
-
-    dolphin-emu
-    clipgrab
-    qbittorrent
-    soulseekqt
-    nicotine-plus
-    jackett
-
-    brightnessctl
-    bluez
-    libdbusmenu-gtk3
-    networkmanagerapplet
+    vlc
     zathura
-    xfce.thunar
-    pavucontrol
-    pamixer
-    pulseaudio
+
+    bluez
+    brightnessctl
+    gotop
+    gparted
+    libdbusmenu-gtk3
     libnotify
-    lshw
-    imgp
-    lsix
+    networkmanagerapplet
+    pamixer
+    pavucontrol
+    pulseaudio
+    usbview
+    usbutils
+    unetbootin
+    xfce.thunar
+
     ffmpeg
     ffmpegthumbnailer
+    libpng
+    lsix
     mediainfo
     ueberzugpp
+
     grim
     slurp
 
-    zip
-    _7zz
-    unzip
-    ripgrep
-    fd
     bat
-    xdragon
     croc
-    usbview
-    gotop
-    gparted
+    fd
+    ripgrep
+    unzip
+    xdragon
+    zip
+    # _7zz
 
-    gcc
     libgcc
     lld
-    nix-prefetch-github
+
+    imgp
+    lshw
     nix-output-monitor
+    nix-prefetch-github
     nvd
+    wget
+    xidel
 
     egl-wayland
     gtk3
@@ -214,6 +213,7 @@
     wlroots
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
+    xorg.xhost
     xwayland
   ];
 
@@ -224,10 +224,11 @@
   ];
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: true;
   system.stateVersion = "23.11";
 
   nix.nixPath = [
-    "nixpkgs=/home/bryce/dot"
+    "nixpkgs=${inputs.nixpkgs}"
     "nixos-config=${config.users.users.bryce.home}/dot/configuration.nix"
   ];
   nix.settings.experimental-features = ["nix-command" "flakes"];

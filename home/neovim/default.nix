@@ -9,26 +9,24 @@
     ./cmp/autopairs.nix
     ./cmp/cmp.nix
     ./cmp/lspkind.nix
-    # ./cmp/tailwind-colorizer.nix
     ./cmp/wilder.nix
 
     # ./debug/dap.nix
 
     ./git/diffview.nix
-    # ./git/gitgraph.nix
+    ./git/gitgraph.nix
 
     ./lsp/boo.nix
     ./lsp/conform.nix
     ./lsp/fidget.nix
     ./lsp/goto-preview.nix
     ./lsp/inc-rename.nix
-    ./lsp/lint.nix
+    # ./lsp/lint.nix
     ./lsp/lsp.nix
     ./lsp/lsp-endhints.nix
     ./lsp/lsp-signature.nix
-    # ./lsp/otter.nix
-    # ./lsp/tailwind-tools.nix
-    ./lsp/workspace-diagnostics.nix
+    ./lsp/otter.nix
+    # ./lsp/workspace-diagnostics.nix
     ./lsp/wrapping.nix
     # ./lsp/ufo.nix
 
@@ -37,7 +35,7 @@
     ./motion/surround.nix
 
     ./nav/aerial.nix
-    ./nav/alpha.nix
+    # ./nav/alpha.nix
     # ./nav/grapple.nix
     ./nav/harpoon.nix
     ./nav/oil.nix
@@ -49,7 +47,6 @@
     ./pilot/encourage.nix
     # ./pilot/reverb.nix
 
-    # ./snip/emmet.nix
     ./snip/luasnip.nix
     ./snip/undotree.nix
 
@@ -62,23 +59,26 @@
     ./ui/markview.nix
     ./ui/modicator.nix
     ./ui/mini.nix
-    ./ui/noice.nix
+    # ./ui/noice.nix
     ./ui/relative-toggle.nix
     ./ui/satellite.nix
     ./ui/tiny-code-action.nix
     ./ui/tiny-inline-diagnostic.nix
 
-    ./utils/ccc.nix
+    ./utils/comment.nix
     ./utils/early-retirement.nix
     ./utils/floaterm.nix
     ./utils/icon-picker.nix
-    # ./utils/kulala.nix
-    # ./utils/mkdnflow.nix
-    # ./utils/molten.nix
+    ./utils/mkdnflow.nix
     ./utils/obsidian.nix
-    # ./utils/overseer.nix
+    ./utils/package-info.nix
     ./utils/pomo.nix
+    ./utils/schemastore.nix
     ./utils/tsc.nix
+    ./utils/which-key.nix
+    # ./utils/kulala.nix
+    # ./utils/molten.nix
+    # ./utils/overseer.nix
 
     ./binds.nix
     ./pkgs.nix
@@ -118,20 +118,20 @@
 
     opts = {
       mouse = "";
-      updatetime = 50;
+      updatetime = 10;
       number = true;
       relativenumber = true;
       shiftwidth = 4;
       tabstop = 4;
+      expandtab = true;
       textwidth = 80;
       linebreak = true;
       wrap = true;
-      columns = 80;
       wrapmargin = 0;
       termguicolors = true;
-      autoindent = false;
-      smartindent = false;
-      breakindent = false;
+      # autoindent = true;
+      # smartindent = true;
+      # breakindent = false;
       scrolloff = 24;
       conceallevel = 2;
       concealcursor = "";
@@ -139,6 +139,8 @@
       cursorcolumn = false;
       signcolumn = "yes";
     };
+
+    editorconfig.enable = false;
 
     extraPlugins = with pkgs.vimPlugins; [
       colorizer

@@ -16,13 +16,14 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-utils.url = "github:numtide/flake-utils";
-    flake-parts.url = "github:hercules-ci/flake-parts";
-    flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
+    # flake-utils.url = "github:numtide/flake-utils";
+    # flake-parts.url = "github:hercules-ci/flake-parts";
+    # flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
   };
 
   outputs = inputs @ {
     nixpkgs,
+    nixd,
     home-manager,
     ...
   }: let
@@ -34,6 +35,9 @@
       inherit system;
       modules = [
         ./configuration.nix
+        {
+          nixpkgs.overlays = [nixd.overlays.default];
+        }
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

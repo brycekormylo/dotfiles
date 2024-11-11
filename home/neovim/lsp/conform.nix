@@ -2,7 +2,7 @@
   programs.nixvim.plugins.conform-nvim = {
     enable = true;
     settings = {
-      format_on_save = {
+      format_after_save = {
         lsp_fallback = true;
         timeout_ms = 2000;
       };
@@ -21,7 +21,7 @@
         css = [["prettierd" "prettier"]];
         json = [["prettierd" "prettier"]];
 
-        # yaml = ["yamlfix"];
+        yaml = ["yamlfix"];
         markdown = ["injected"]; # mdformat inserts / before every bracket
         rust = ["rustfmt"];
 

@@ -2,7 +2,7 @@
   home.packages = with pkgs; [
     # Nix package dependencies for nvim plugins
     alejandra
-    asm-lsp
+    # asm-lsp
     bun
     ctags
     curl
@@ -15,7 +15,7 @@
     markdownlint-cli
     mdformat
     mono
-    nix
+    # nix
     nixd
     nodePackages.jsonlint
     nodejs_22

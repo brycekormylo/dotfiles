@@ -3,7 +3,12 @@
   pkgs,
   ...
 }: {
+  imports = [
+    ./env_var.nix
+  ];
+
   home.packages = [
-    (import ./script.nix {inherit pkgs;})
+    (import ./switch.nix {inherit pkgs;})
+    (import ./imgbb.nix {inherit pkgs;})
   ];
 }

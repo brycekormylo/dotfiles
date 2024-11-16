@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   programs.nixvim = {
     extraPlugins = [
       (pkgs.vimUtils.buildVimPlugin {
@@ -11,8 +11,34 @@
         };
       })
     ];
+    keymaps = [
+      {
+        key = "<leader><leader>k";
+        action = "<cmd>lua require('kulala').run()<cr>";
+        options = {
+          desc = "Kulala Run";
+        };
+      }
+    ];
     extraConfigLua = ''
-      require("kulala").setup({})
+      vim.filetype.add({
+      	extension = {
+      		["http"] = "http",
+      	},
+      })
+      require("kulala").setup({
+      	-- opts = {
+      	-- 	display_mode = "float",
+      	-- 	icons = {
+      	-- 		inlay = {
+      	-- 			loading = "⏳",
+      	-- 			done = "✅",
+      	-- 			error = "❌",
+      	-- 		},
+      	-- 		lualine = "🐼",
+      	-- 	},
+      	-- },
+      })
     '';
   };
 }

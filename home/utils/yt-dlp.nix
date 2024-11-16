@@ -2,9 +2,9 @@
   programs.yt-dlp = {
     enable = true;
 
-    settings = {
-      embed-thumbnail = true;
-    };
+    # settings = {
+    #   embed-thumbnail = true;
+    # };
 
     # extraConfig = ''
     #   --update

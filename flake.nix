@@ -30,29 +30,37 @@
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.x86_64-linux;
   in {
-    nixosConfigurations.pathfinder = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
-      inherit system;
-      modules = [
-        ./configuration.nix
-        {
-          nixpkgs.overlays = [nixd.overlays.default];
-        }
-        home-manager.nixosModules.home-manager
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
+    nixosConfigurations = {
+      pathfinder = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        inherit system;
+        modules = [
+          ./configuration.nix
+          {
+            nixpkgs.overlays = [nixd.overlays.default];
+          }
+          home-manager.nixosModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
 
-          # If home manager doesnt exist
-          # nix shell nixpkgs#home-manager
+            # If home manager doesnt exist
+            # nix shell nixpkgs#home-manager
 
-          home-manager.backupFileExtension = "backup";
-          home-manager.users.bryce = import ./home/home.nix;
-          home-manager.extraSpecialArgs = {
-            inherit inputs;
-          };
-        }
-      ];
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.bryce = import ./home/home.nix;
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+          }
+        ];
+      };
+      iso = nixpkgs.lib.nixosSystem {
+        specialArgs = {inherit inputs;};
+        modules = [
+          ./iso/configuration.nix
+        ];
+      };
     };
   };
 }

@@ -3,6 +3,7 @@
     luajitPackages.fzy
   ];
   programs.nixvim = {
+    plugins.fzf-lua.enable = true;
     plugins.wilder = {
       enable = true;
       modes = ["/" "?" ":"];

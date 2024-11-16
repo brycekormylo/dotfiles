@@ -1,6 +1,4 @@
 {pkgs, ...}: {
-  home.sessionVariables.NIXD_FLAGS = "-log=warn";
-
   programs.nixvim = {
     plugins = {
       # lsp-status.enable = true; needs config
@@ -9,7 +7,10 @@
         enable = true;
         data = "/home/bryce/.cache/jtdls/workspace/";
       };
-      rustaceanvim.enable = true;
+      rustaceanvim = {
+        enable = true;
+        settings.tools.enable_clippy = true;
+      };
 
       lsp = {
         enable = true;
@@ -52,6 +53,10 @@
           clangd.enable = true;
           lua_ls.enable = true;
           yamlls.enable = true;
+          kulala_ls = {
+            enable = true;
+            package = null;
+          };
 
           marksman.enable = true;
           # markdown_oxide.enable = true;

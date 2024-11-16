@@ -4,6 +4,7 @@
       enable = true;
       lintersByFt = {
         # nix = ["nix"];
+        rust = ["clippy"];
         # text = ["vale"];
         json = ["jsonlint"];
         javascript = ["eslint_d"];

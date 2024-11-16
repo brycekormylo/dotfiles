@@ -18,25 +18,25 @@ in {
       color8 = "#${palette.base01}";
       #: red
       color1 = "#${palette.base08}";
-      color9 = "#${palette.base08}";
+      color9 = "#${palette.base0E}";
       #: yellow
       color3 = "#${palette.base0B}";
-      color11 = "#${palette.base0B}";
+      color11 = "#${palette.base0F}";
       #: blue
-      color4 = "#${palette.base0C}";
-      color12 = "#${palette.base0D}";
+      color4 = "#${palette.base0D}"; ## tmux
+      color12 = "#${palette.base04}";
       #: magenta
       color5 = "#${palette.base04}";
-      color13 = "#${palette.base04}";
+      color13 = "#${palette.base0D}";
       #: white
       color7 = "#${palette.base05}";
       color15 = "#${palette.base06}";
       #: green
       color2 = "#${palette.base0D}";
-      color10 = "#${palette.base0D}";
+      color10 = "#${palette.base0C}";
       #: cyan
       color6 = "#${palette.base0E}";
-      color14 = "#${palette.base0E}";
+      color14 = "#${palette.base0A}";
     };
   };
 }

@@ -52,7 +52,7 @@
       CPU_MIN_PERF_ON_AC = 0;
       CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 20;
+      CPU_MAX_PERF_ON_BAT = 100;
     };
   };
 
@@ -102,7 +102,7 @@
   #  services.printing.enable = true;
 
   security.rtkit.enable = true;
-  # security.polkit.enable = true;
+  security.polkit.enable = true;
   security.sudo = {
     wheelNeedsPassword = false;
     extraRules = [
@@ -135,9 +135,7 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # Workaround for GNOME autologin:
-  # https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  # yes its still needed
+  # Autologin
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
@@ -148,7 +146,6 @@
 
     inkscape
     libreoffice
-    obsidian
     vlc
     zathura
 
@@ -159,9 +156,9 @@
     libdbusmenu-gtk3
     libnotify
     networkmanagerapplet
-    pamixer
-    pavucontrol
-    pulseaudio
+    # pamixer
+    # pavucontrol
+    # pulseaudio
     usbview
     usbutils
     unetbootin
@@ -176,6 +173,7 @@
 
     grim
     slurp
+    kooha
 
     bat
     croc
@@ -186,10 +184,12 @@
     zip
     # _7zz
 
+    gcc
     libgcc
     lld
 
     imgp
+    lux
     lshw
     nix-output-monitor
     nix-prefetch-github

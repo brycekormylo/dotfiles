@@ -2,34 +2,40 @@
   home.packages = with pkgs; [
     # Nix package dependencies for nvim plugins
     alejandra
-    # asm-lsp
     bun
     ctags
     curl
-    eslint_d
     deno
+    eslint_d
     go_1_22
     google-java-format
     hadolint
+    kulala-fmt
     manix
     markdownlint-cli
     mdformat
     mono
-    # nix
     nixd
     nodePackages.jsonlint
-    nodejs_22
-    python3
     nodePackages.prettier
+    nodejs_22
     npm-check
     prettierd
-    rustup
+    python3
+    rustlings
+    # rust-analyzer
+    rustfmt
+    clippy
+    # rustup
+    cargo
     rustywind
     semgrep
     statix
     stylua
+    tokei
     vale
     wasm-pack
+    cargo-generate
     wasm-tools
     yamlfix
     yamlfmt

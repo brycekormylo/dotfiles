@@ -21,7 +21,7 @@
     ./lsp/fidget.nix
     ./lsp/goto-preview.nix
     ./lsp/inc-rename.nix
-    # ./lsp/lint.nix
+    ./lsp/lint.nix
     ./lsp/lsp.nix
     ./lsp/lsp-endhints.nix
     ./lsp/lsp-signature.nix
@@ -59,7 +59,6 @@
     ./ui/markview.nix
     ./ui/modicator.nix
     ./ui/mini.nix
-    # ./ui/noice.nix
     ./ui/relative-toggle.nix
     ./ui/satellite.nix
     ./ui/tiny-code-action.nix
@@ -69,14 +68,14 @@
     ./utils/early-retirement.nix
     ./utils/floaterm.nix
     ./utils/icon-picker.nix
+    ./utils/kulala.nix
     ./utils/mkdnflow.nix
     ./utils/obsidian.nix
     ./utils/package-info.nix
     ./utils/pomo.nix
     ./utils/schemastore.nix
     ./utils/tsc.nix
-    ./utils/which-key.nix
-    # ./utils/kulala.nix
+    # ./utils/which-key.nix
     # ./utils/molten.nix
     # ./utils/overseer.nix
 
@@ -89,6 +88,7 @@
     enable = true;
     viAlias = true;
     vimAlias = true;
+    vimdiffAlias = true;
 
     luaLoader.enable = true;
 
@@ -129,9 +129,8 @@
       wrap = true;
       wrapmargin = 0;
       termguicolors = true;
-      # autoindent = true;
-      # smartindent = true;
-      # breakindent = false;
+      autoindent = true;
+      smartindent = true;
       scrolloff = 24;
       conceallevel = 2;
       concealcursor = "";

@@ -14,7 +14,7 @@
     extraConfigLua = ''
       require("early-retirement").setup({
       	defaultOps = {
-      		minimumBufferNum = 1,
+      		minimumBufferNum = 3,
       	},
       })
     '';

@@ -25,7 +25,16 @@
         markdown = ["injected"]; # mdformat inserts / before every bracket
         rust = ["rustfmt"];
 
+        http = ["kulala-fmt"];
+
         # "*" = ["injected"];
+      };
+      formatters = {
+        kulala = {
+          command = "kulala-fmt";
+          args = ["$FILENAME"];
+          stdin = false;
+        };
       };
     };
   };

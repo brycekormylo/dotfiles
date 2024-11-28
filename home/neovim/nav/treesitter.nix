@@ -4,6 +4,7 @@
       nix.enable = true;
       ts-autotag.enable = true;
       hmts.enable = true;
+
       treesitter = {
         enable = true;
         nixvimInjections = true;
@@ -28,10 +29,11 @@
             "java"
             "xml"
           ];
-          autoInstall = false;
+          autoInstall = true;
           sync_install = false;
         };
       };
+
       treesitter-refactor = {
         enable = true;
         highlightDefinitions = {
@@ -39,9 +41,11 @@
           clearOnCursorMove = true;
         };
       };
+
       treesitter-context = {
         enable = true;
       };
+
       treesitter-textobjects = {
         enable = true;
         lspInterop.enable = true;

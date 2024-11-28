@@ -3,19 +3,27 @@
     plugins = {
       telescope = {
         enable = true;
+
         extensions = {
           fzf-native.enable = true;
           ui-select.enable = true;
           frecency.enable = true;
         };
+
         keymaps = {
-          "<leader>ff" = "find_files";
           "<leader>fa" = "find_files";
-          "<leader>fg" = "live_grep";
+          "<leader>fz" = "live_grep";
           "<leader>b" = "buffers";
+          "<leader>fs" = "lsp_workspace_symbols";
+          "<leader>ff" = "resume";
           "<leader>fh" = "help_tags";
+          "<leader>fm" = "man_pages";
           "<leader>fd" = "diagnostics";
-          "<leader>fr" = "frecency";
+          "<leader>fj" = "jumplist";
+          "<leader>fr" = "lsp_references";
+          "<leader>fi" = "lsp_implementations";
+          "<leader>fe" = "lsp_definitions";
+          "<leader>fw" = "lsp_type_definitions";
 
           "<C-p>" = "git_files";
           "<leader>p" = "oldfiles";
@@ -25,10 +33,10 @@
         settings = {
           defaults = {
             file_ignore_patterns = [
+              "*.ico"
               "^.git/"
               "^.mypy_cache/"
               "^__pycache__/"
-              "tags"
               "^output/"
               "^data/"
               "%.ipynb"

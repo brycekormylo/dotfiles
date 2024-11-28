@@ -1,9 +1,10 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    # Nix package dependencies for nvim plugins
     alejandra
     bun
-    ctags
+    universal-ctags
+    cscope
+    global
     curl
     deno
     eslint_d
@@ -23,10 +24,8 @@
     prettierd
     python3
     rustlings
-    # rust-analyzer
     rustfmt
     clippy
-    # rustup
     cargo
     rustywind
     semgrep
@@ -41,6 +40,6 @@
     yamlfmt
     yamllint
     zig
-    # markdown-oxide
+    markdown-oxide
   ];
 }

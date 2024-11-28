@@ -40,19 +40,18 @@
     desktopManager.gnome.enable = true;
   };
 
+  boot.kernelParams = ["intel_pstate=disable"];
   services.power-profiles-daemon.enable = false;
   services.thermald.enable = true;
   services.tlp = {
     enable = true;
     settings = {
-      CPU_SCALING_GOVERNOR_ON_AC = "performance";
-      CPU_SCALING_GOVERNOR_ON_BAT = "powersave";
-      CPU_ENERGY_PERF_POLICY_ON_BAT = "power";
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-      CPU_MIN_PERF_ON_AC = 0;
-      CPU_MAX_PERF_ON_AC = 100;
-      CPU_MIN_PERF_ON_BAT = 0;
-      CPU_MAX_PERF_ON_BAT = 100;
+      CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
+      CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
+      CPU_MIN_PERF_ON_AC = 800000;
+      CPU_MAX_PERF_ON_AC = 4400000;
+      CPU_MIN_PERF_ON_BAT = 800000;
+      CPU_MAX_PERF_ON_BAT = 4400000;
     };
   };
 
@@ -86,10 +85,13 @@
   };
 
   programs.xfconf.enable = true;
-  programs.thunar.plugins = with pkgs.xfce; [
-    thunar-archive-plugin
-    thunar-volman
-  ];
+  programs.thunar = {
+    enable = true;
+    plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
+  };
 
   services.gvfs.enable = true; # Mount, trash, and other functionalities
   services.tumbler.enable = true; # Thumbnails
@@ -98,8 +100,6 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
   };
-
-  #  services.printing.enable = true;
 
   security.rtkit.enable = true;
   security.polkit.enable = true;
@@ -135,34 +135,27 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
-  # Autologin
-  systemd.services."getty@tty1".enable = false;
+  systemd.services."getty@tty1".enable = false; # Autologin
   systemd.services."autovt@tty1".enable = false;
 
   environment.systemPackages = with pkgs; [
     firefox
     librewolf
+    obsidian
     ungoogled-chromium
 
     inkscape
     libreoffice
     vlc
-    zathura
 
     bluez
     brightnessctl
-    gotop
     gparted
     libdbusmenu-gtk3
     libnotify
     networkmanagerapplet
-    # pamixer
-    # pavucontrol
-    # pulseaudio
     usbview
     usbutils
-    unetbootin
-    xfce.thunar
 
     ffmpeg
     ffmpegthumbnailer
@@ -176,26 +169,24 @@
     kooha
 
     bat
-    croc
     fd
+    imgp
+    lux
     ripgrep
     unzip
+    wget
     xdragon
+    xidel
     zip
-    # _7zz
 
     gcc
     libgcc
     lld
 
-    imgp
-    lux
     lshw
     nix-output-monitor
     nix-prefetch-github
     nvd
-    wget
-    xidel
 
     egl-wayland
     gtk3
@@ -225,7 +216,7 @@
 
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.allowUnfreePredicate = pkg: true;
-  system.stateVersion = "23.11";
+  system.stateVersion = "24.11";
 
   nix.nixPath = [
     "nixpkgs=${inputs.nixpkgs}"

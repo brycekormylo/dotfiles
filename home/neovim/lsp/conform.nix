@@ -8,7 +8,7 @@
       };
       notify_on_error = true;
       formatters_by_ft = {
-        nix = ["alejandra" "injected"];
+        nix = ["alejandra" "stylua"];
         lua = ["stylua"];
 
         java = ["google-java-format"];

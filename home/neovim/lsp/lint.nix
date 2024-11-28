@@ -12,7 +12,7 @@
         javascriptreact = ["eslint_d"];
         typescriptreact = ["eslint_d"];
         # yaml = ["yamllint"];
-        # markdown = ["markdownlint"];
+        markdown = ["markdownlint"];
         # ruby = ["ruby"];
         # dockerfile = ["hadolint"];
       };

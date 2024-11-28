@@ -32,7 +32,7 @@
         bind -n M-3 select-window -t 3
         bind -n M-4 select-window -t 4
 
-        bind -n M-q kill-session
+        bind -n M-Q kill-session
 
         # don't do anything when a 'bell' rings
         set -g visual-activity off

@@ -3,12 +3,17 @@
     globals = {
       gutentags_add_default_project_roots = 0;
       gutentags_project_root = ["package.json" ".git"];
+      gutentags_ctags_auto_set_tags = 1;
+      gutentags_ctags_auto_add_gtags_cscope = 1;
 
-      gutentags_cache_dir = "~/.nvim/tags//";
+      tags = "~/.nvim/tags/";
+      gutentags_cache_dir = "~/.nvim/tags/";
       gutentags_generate_on_new = 1;
       gutentags_generate_on_missing = 1;
       gutentags_generate_on_write = 1;
       gutentags_generate_on_empty_buffer = 0;
+
+      gutentags_trace = "0";
 
       gutentags_ctags_extra_args = [
         "--tag-relative=yes"
@@ -80,6 +85,7 @@
         "*.docx"
         "*.ppt"
         "*.pptx"
+        "*.next"
       ];
     };
 

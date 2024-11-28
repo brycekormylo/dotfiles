@@ -20,7 +20,12 @@
           }
         ];
         # dir = "~/psi";
-        disable_frontmatter = false;
+        templates = {
+          folder = "~/utils/obsidian_templates";
+          date_format = "%Y-%m-%d-%a";
+          time_format = "%H:%M";
+        };
+        disable_frontmatter = true;
         daily_notes = {
           folder = "notes/daily";
           date_format = "%Y-%m-%d";

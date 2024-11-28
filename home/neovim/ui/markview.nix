@@ -7,46 +7,46 @@
       local markview = require("markview")
       local presets = require("markview.presets")
 
-      local colors = require("base16-colorscheme").colors
+      local main = require("palette.theme").main
+      local accent = require("palette.theme").accent
 
       markview.setup({
-      	-- headings = presets.headings.glow_labels,
       	highlight_groups = {
       		{
       			group_name = "Heading1",
-      			value = { fg = colors.base0C, bg = colors.base01 },
+      			value = { fg = accent.accent3, bg = main.color1 },
       		},
       		{
       			group_name = "Heading1Sign",
-      			value = { fg = colors.base0C, bg = colors.base00 },
+      			value = { fg = accent.accent3, bg = main.color0 },
       		},
       		{
       			group_name = "Heading2",
-      			value = { fg = colors.base0E, bg = colors.base01 },
+      			value = { fg = accent.accent5, bg = main.color1 },
       		},
       		{
       			group_name = "Heading2Sign",
-      			value = { fg = colors.base0E, bg = colors.base00 },
+      			value = { fg = accent.accent5, bg = main.color0 },
       		},
       		{
       			group_name = "Heading3",
-      			value = { fg = colors.base0D, bg = colors.base01 },
+      			value = { fg = accent.accent4, bg = main.color1 },
       		},
       		{
       			group_name = "Heading3Sign",
-      			value = { fg = colors.base0D, bg = colors.base00 },
+      			value = { fg = accent.accent4, bg = main.color0 },
       		},
       		{
       			group_name = "HorizontalRules",
-      			value = { fg = colors.base0C, bg = colors.base00 },
+      			value = { fg = accent.accent3, bg = main.color0 },
       		},
       		{
       			group_name = "Link",
-      			value = { fg = colors.base08 },
+      			value = { fg = accent.accent1 },
       		},
       		{
       			group_name = "ListItems",
-      			value = { fg = colors.base09 },
+      			value = { fg = accent.accent2 },
       		},
       	},
 
@@ -173,7 +173,6 @@
       			text = "",
       			hl = "ListItems",
       		},
-      		-- marker_dot = { hl = "ListItems" },
       	},
       })
 

@@ -11,7 +11,7 @@
         };
       })
     ];
-    extraConfigLua = ''
+    extraConfigLuaPost = ''      --lua
       require("modicator").setup({})
     '';
   };

@@ -20,13 +20,14 @@
     ./lsp/conform.nix
     ./lsp/fidget.nix
     ./lsp/goto-preview.nix
+    # ./lsp/gutentags.nix
     ./lsp/inc-rename.nix
     ./lsp/lint.nix
     ./lsp/lsp.nix
     ./lsp/lsp-endhints.nix
     ./lsp/lsp-signature.nix
     ./lsp/otter.nix
-    # ./lsp/workspace-diagnostics.nix
+    ./lsp/workspace-diagnostics.nix
     ./lsp/wrapping.nix
     # ./lsp/ufo.nix
 
@@ -59,23 +60,25 @@
     ./ui/markview.nix
     ./ui/modicator.nix
     ./ui/mini.nix
+    # ./ui/rainbow-delimiters.nix
     ./ui/relative-toggle.nix
     ./ui/satellite.nix
+    ./ui/screenkey.nix
     ./ui/tiny-code-action.nix
     ./ui/tiny-inline-diagnostic.nix
 
     ./utils/comment.nix
-    ./utils/early-retirement.nix
+    # ./utils/early-retirement.nix
     ./utils/floaterm.nix
     ./utils/icon-picker.nix
     ./utils/kulala.nix
     ./utils/mkdnflow.nix
-    ./utils/obsidian.nix
+    # ./utils/obsidian.nix
     ./utils/package-info.nix
     ./utils/pomo.nix
     ./utils/schemastore.nix
     ./utils/tsc.nix
-    # ./utils/which-key.nix
+    ./utils/which-key.nix
     # ./utils/molten.nix
     # ./utils/overseer.nix
 
@@ -95,8 +98,7 @@
     globals = {
       mapleader = " ";
 
-      # Disable default file manager
-      loaded_netrw = "1";
+      loaded_netrw = "1"; # Disable default file manager
       loaded_netrwPlugin = "1";
 
       backupdir = "~/.nvim/backup//";

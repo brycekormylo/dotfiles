@@ -59,7 +59,7 @@
           };
 
           marksman.enable = true;
-          # markdown_oxide.enable = true;
+          markdown_oxide.enable = true;
           typos_lsp = {
             enable = true;
             filetypes = ["markdown" "md"];

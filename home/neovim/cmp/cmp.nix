@@ -68,11 +68,11 @@
               name = "nvim_lsp";
               max_item_count = 10;
               keywordLength = 2;
-              # option = {
-              #   markdown_oxide = {
-              #     keyword_pattern = "[[\(\k\| \|\/\|#\)\+]]";
-              #   };
-              # };
+              option = {
+                markdown_oxide = {
+                  keyword_pattern = "[[\(\k\| \|\/\|#\)\+]]";
+                };
+              };
             }
             {
               name = "treesitter";
@@ -133,11 +133,16 @@
     extraConfigLua = ''
       local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
-      capabilities.workspace = {
-      	didChangeWatchedFiles = {
-      		dynamicRegistration = true,
-      	},
-      }
+      require("lspconfig").markdown_oxide.setup({
+      	capabilities = vim.tbl_deep_extend("force", capabilities, {
+      		workspace = {
+      			didChangeWatchedFiles = {
+      				dynamicRegistration = true,
+      			},
+      		},
+      	}),
+      	on_attach = on_attach,
+      })
     '';
   };
 }

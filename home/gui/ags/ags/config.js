@@ -2,8 +2,6 @@ import brightness from "./brightness.js";
 import theme from "./theme.js";
 
 const hyprland = await Service.import("hyprland");
-// const notifications = await Service.import("notifications")
-const powerProfiles = await Service.import("powerprofiles");
 const audio = await Service.import("audio");
 const battery = await Service.import("battery");
 const systemtray = await Service.import("systemtray");
@@ -309,59 +307,12 @@ const Ram = () => {
   });
 };
 
-const PowerProfile = () => {
-  const label = () => {
-    const text = powerProfiles.bind("active_profile").as((value) => {
-      switch (value.toString()) {
-        case "balanced":
-          return "";
-        case "performance":
-          return "";
-        case "power-saver":
-          return "";
-        default:
-          return "";
-      }
-    });
-
-    return Widget.Label({
-      label: text,
-    });
-  };
-
-  const powerProfileBox = () =>
-    Widget.Box({
-      children: [label()],
-    });
-
-  return Widget.Button({
-    class_name: "power-profile",
-    on_clicked: () => {
-      switch (powerProfiles.active_profile.toString()) {
-        case "balanced":
-          powerProfiles.active_profile = "performance";
-          break;
-        case "performance":
-          powerProfiles.active_profile = "power-saver";
-          break;
-        case "power-saver":
-          powerProfiles.active_profile = "balanced";
-          break;
-        default:
-          powerProfiles.active_profile = "balanced";
-          break;
-      }
-    },
-    child: powerProfileBox(),
-  });
-};
-
 const leftBox = () => {
   return Widget.Box({
     spacing: 8,
     class_name: "left-box",
     hpack: "end",
-    children: [Cpu(), Separator(), Ram(), Separator(), PowerProfile()],
+    children: [Cpu(), Separator(), Ram()],
   });
 };
 

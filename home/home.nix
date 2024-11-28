@@ -27,12 +27,14 @@
     docker
     neovide
     bash
-    neofetch
-    vscode
+    fastfetch
+    vscodium
     nix-prefetch-github
     jq
 
     diskonaut
+    tcpdump
+    filezilla
 
     # PHOTOGRAPHY
     rawtherapee

@@ -8,7 +8,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    ags.url = "github:Aylur/ags";
+    ags.url = "github:Aylur/ags/v1";
     nixvim.url = "github:nix-community/nixvim";
     nix-colors.url = "github:misterio77/nix-colors";
     nixd.url = "github:nix-community/nixd";

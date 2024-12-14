@@ -1,10 +1,14 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    dolphin-emu
     clipgrab
+    dolphin-emu
+    jackett
+    kiwix
+    kiwix-tools
+    libgen-cli
+    nicotine-plus
     qbittorrent
     soulseekqt
-    nicotine-plus
-    jackett
+    stash
   ];
 }

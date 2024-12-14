@@ -8,9 +8,6 @@
       enable = true;
       modes = ["/" "?" ":"];
     };
-    extraPlugins = with pkgs.vimPlugins; [
-      # fzy-lua-native
-    ];
     extraConfigLua = ''
       local wilder = require("wilder")
 

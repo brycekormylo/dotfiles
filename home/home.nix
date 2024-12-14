@@ -15,6 +15,7 @@
 
     ./git
     ./gui
+    ./modules
     ./neovim
     ./shell
     ./terminal

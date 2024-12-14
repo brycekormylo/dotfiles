@@ -11,10 +11,11 @@
     ./cmp/lspkind.nix
     ./cmp/wilder.nix
 
-    # ./debug/dap.nix
+    ./debug/dap.nix
 
     ./git/diffview.nix
     ./git/gitgraph.nix
+    ./git/neogit.nix
 
     ./lsp/boo.nix
     ./lsp/conform.nix
@@ -25,9 +26,9 @@
     ./lsp/lint.nix
     ./lsp/lsp.nix
     ./lsp/lsp-endhints.nix
-    ./lsp/lsp-signature.nix
+    # ./lsp/lsp-signature.nix
     ./lsp/otter.nix
-    ./lsp/workspace-diagnostics.nix
+    # ./lsp/workspace-diagnostics.nix
     ./lsp/wrapping.nix
     # ./lsp/ufo.nix
 
@@ -67,6 +68,7 @@
     ./ui/tiny-code-action.nix
     ./ui/tiny-inline-diagnostic.nix
 
+    ./utils/snacks.nix
     ./utils/comment.nix
     # ./utils/early-retirement.nix
     ./utils/floaterm.nix
@@ -120,7 +122,7 @@
 
     opts = {
       mouse = "";
-      updatetime = 10;
+      updatetime = 50;
       number = true;
       relativenumber = true;
       shiftwidth = 4;

@@ -1,13 +1,14 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     alejandra
+    superhtml
     bun
+    biome
     universal-ctags
     cscope
     global
     curl
     deno
-    eslint_d
     go_1_22
     google-java-format
     hadolint
@@ -18,21 +19,22 @@
     mono
     nixd
     nodePackages.jsonlint
-    nodePackages.prettier
     nodejs_22
     npm-check
-    prettierd
     python3
     rustlings
-    rustfmt
-    clippy
-    cargo
+    # rustfmt
+    # clippy
+    # trunk
+    # leptosfmt
+    # cargo-leptos
+    rustup
+    # cargo
     rustywind
     semgrep
     statix
     stylua
     tokei
-    vale
     wasm-pack
     cargo-generate
     wasm-tools

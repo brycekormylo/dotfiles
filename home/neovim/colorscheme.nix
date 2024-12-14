@@ -1,7 +1,7 @@
 {config, ...}: let
   palette = {
     base00 = "#32302F";
-    base01 = "#3C3836";
+    base01 = "#282828";
     base02 = "#504945";
     base03 = "#665C54";
     base04 = "#72837C";
@@ -21,19 +21,21 @@ in {
   programs.nixvim = {
     colorschemes.palette = {
       enable = true;
+
       settings = {
         palettes = {
           main = "main_tempest";
           accent = "accent_tempest";
           state = "state_tempest";
         };
+
         custom_palettes = {
           main = {
             main_tempest = {
               color0 = "${palette.base00}";
               color1 = "${palette.base01}"; # Highlight row / scrollbar
               color2 = "${palette.base0A}"; # Lualine normal mode
-              color3 = "${palette.base04}"; # Line numbers / special (overriden)
+              color3 = "${palette.base04}"; # Line numbers / special (overridden)
               color4 = "${palette.base05}"; # Operators, delimiters
               color5 = "${palette.base06}"; # Lualine command mode, cmp text
               color6 = "${palette.base03}"; # Comments
@@ -46,8 +48,8 @@ in {
             accent_tempest = {
               accent0 = "${palette.base0F}"; # Numbers
               accent1 = "${palette.base09}"; # Illuminate
-              accent2 = "${palette.base0E}"; # Applies to nothing?
-              accent3 = "${palette.base0D}"; # Hl Pair
+              accent2 = "${palette.base0D}"; # Applies to nothing?
+              accent3 = "${palette.base0E}"; # Hl Pair
               accent4 = "${palette.base0A}"; # ! / booleans
               accent5 = "${palette.base0B}"; # Found nothing
               accent6 = "${palette.base0C}";
@@ -86,7 +88,7 @@ in {
           			},
           			{
           				"@tag.attribute.tsx",
-          				colors.accent.accent2,
+          				colors.accent.accent3,
           			},
           			{
           				"Search",
@@ -94,7 +96,7 @@ in {
           			},
           			{
           				"Keyword",
-          				colors.accent.accent2,
+          				colors.accent.accent3,
           			},
           			{
           				"VisualMode",
@@ -102,7 +104,7 @@ in {
           			},
           			{
           				"Directory",
-          				colors.accent.accent2,
+          				colors.accent.accent6,
           			},
           			{
           				"Special",
@@ -123,6 +125,10 @@ in {
           			{
           				"@variable",
           				colors.accent.accent4,
+          			},
+          			{
+          				"LspInlayHint",
+          				colors.main.color3,
           			},
           		},
           	},

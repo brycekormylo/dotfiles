@@ -11,8 +11,13 @@
         };
       })
     ];
-    extraConfigLuaPost = ''      --lua
-      require("modicator").setup({})
+    extraConfigLuaPost = ''        --lua
+      require("modicator").setup({
+        show_warnings = false;
+        highlights = {
+          use_cursorline_background = true,
+        },
+      })
     '';
   };
 }

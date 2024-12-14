@@ -32,22 +32,22 @@
           };
 
           # emmet_ls.enable = true;
-          denols.enable = true;
+          # denols.enable = true;
           dockerls.enable = true;
           html.enable = true;
           jsonls.enable = true;
           tailwindcss.enable = true;
           ts_ls.enable = true;
-          cssls = {
-            enable = true;
-            settings = {
-              css = {
-                lint = {
-                  unknownAtRules = "ignore";
-                };
-              };
-            };
-          };
+          # cssls = {
+          #   enable = true;
+          #   settings = {
+          #     css = {
+          #       lint = {
+          #         unknownAtRules = "ignore";
+          #       };
+          #     };
+          #   };
+          # };
 
           bashls.enable = true;
           clangd.enable = true;
@@ -71,22 +71,29 @@
     extraPlugins = with pkgs.vimPlugins; [nvim-lspconfig];
     extraConfigLua = ''
       local nvim_lsp = require("lspconfig")
+      local capabilities = require("cmp_nvim_lsp").default_capabilities(vim.lsp.protocol.make_client_capabilities())
+
+      capabilities.workspace = {
+      	didChangeWatchedFiles = {
+      		dynamicRegistration = true,
+      	},
+      }
 
       nvim_lsp.nixd.setup({
       	offset_encoding = "utf-8",
       })
 
       -- Allows use of deno without removing npm
-      nvim_lsp.denols.setup({
-      	on_attach = on_attach,
-      	root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
-      })
+      -- nvim_lsp.denols.setup({
+      -- 	on_attach = on_attach,
+      -- 	root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
+      -- })
 
-      nvim_lsp.ts_ls.setup({
-      	on_attach = on_attach,
-      	root_dir = nvim_lsp.util.root_pattern("package.json"),
-      	single_file_support = false,
-      })
+      -- nvim_lsp.ts_ls.setup({
+      -- 	on_attach = on_attach,
+      -- 	root_dir = nvim_lsp.util.root_pattern("package.json"),
+      -- 	single_file_support = false,
+      -- })
 
       local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
       for type, icon in pairs(signs) do

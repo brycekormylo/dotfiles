@@ -13,17 +13,17 @@
 
         java = ["google-java-format"];
 
-        javascript = ["prettierd" "rustywind"];
-        typescript = ["prettierd" "rustywind"];
-        javascriptreact = ["prettierd" "rustywind"];
-        typescriptreact = ["prettierd" "rustywind"];
-        html = [["prettierd" "prettier"]];
-        css = [["prettierd" "prettier"]];
-        json = [["prettierd" "prettier"]];
+        javascript = ["biome" "rustywind"];
+        typescript = ["biome" "rustywind"];
+        javascriptreact = ["biome" "rustywind"];
+        typescriptreact = ["biome" "rustywind"];
+        html = ["superhtml"];
+        css = ["biome"];
+        json = ["biome"];
 
         yaml = ["yamlfix"];
-        markdown = ["injected"]; # mdformat inserts / before every bracket
-        rust = ["rustfmt"];
+        # markdown = ["mdsf"]; # mdformat inserts / before every bracket
+        rust = ["rustfmt" "leptosfmt"];
 
         http = ["kulala-fmt"];
 

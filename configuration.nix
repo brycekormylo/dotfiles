@@ -46,12 +46,16 @@
   services.tlp = {
     enable = true;
     settings = {
+      TLP_DEFAULT_MODE = "AC";
+      TLP_PERSISTENT_DEFAULT = 1;
       CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
       CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
       CPU_MIN_PERF_ON_AC = 800000;
       CPU_MAX_PERF_ON_AC = 4400000;
       CPU_MIN_PERF_ON_BAT = 800000;
       CPU_MAX_PERF_ON_BAT = 4400000;
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+PLATFORM_PROFILE_ON_AC="performance";
     };
   };
 
@@ -99,6 +103,7 @@
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
   };
 
   security.rtkit.enable = true;
@@ -135,6 +140,15 @@
     extraGroups = ["networkmanager" "wheel"];
   };
 
+  fileSystems."/home/bryce/media/usb" = {
+    device = "/dev/disk/by-uuid/24FD-CF07";
+    options = [
+      "users"
+      "nofail"
+      "x-gvfs-show"
+    ];
+  };
+
   systemd.services."getty@tty1".enable = false; # Autologin
   systemd.services."autovt@tty1".enable = false;
 
@@ -153,10 +167,14 @@
     gparted
     libdbusmenu-gtk3
     libnotify
+    mount
     networkmanagerapplet
     usbview
     usbutils
 
+    exfat
+    exfatprogs
+    ntfs3g
     ffmpeg
     ffmpegthumbnailer
     libpng
@@ -210,8 +228,7 @@
 
   fonts.packages = with pkgs; [
     commit-mono
-    meslo-lgs-nf
-    nerdfonts
+    nerd-fonts.symbols-only
   ];
 
   nixpkgs.config.allowUnfree = true;
@@ -226,7 +243,7 @@
   nix.gc = {
     automatic = true;
     dates = "weekly";
-    options = "--delete-older-than 7d";
+    options = "--delete-older-than 8d";
   };
   nix.optimise.automatic = true;
 }

@@ -48,7 +48,7 @@
         pseudotile = "yes";
         preserve_split = true;
         force_split = 2;
-        no_gaps_when_only = 1;
+        # no_gaps_when_only = 1;
       };
 
       gestures = {
@@ -83,7 +83,7 @@
       ];
 
       "monitor" = ",preferred,auto,auto";
-      "exec-once" = "dbus-update-activation-environment & --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP & waypaper --restore & ags & firefox & ivpn connect --last";
+      "exec-once" = "dbus-update-activation-environment & --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP & waypaper --restore & ags & firefox & ivpn connect --last & sudo tlp ac";
       # "exec" = "ags";
       "$mod" = "SUPER";
       "$terminal" = "kitty";

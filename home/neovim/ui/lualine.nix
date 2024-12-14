@@ -28,37 +28,37 @@ in {
         	normal = {
         		a = { bg = colors.gray, fg = colors.black, gui = "bold" },
         		b = { bg = colors.lightgray, fg = colors.white },
-        		c = { bg = colors.darkgray, fg = colors.blue },
+        		c = { bg = palette.main.color1, fg = colors.blue },
         	},
         	terminal = {
         		a = { bg = colors.gray, fg = colors.black, gui = "bold" },
         		b = { bg = colors.lightgray, fg = colors.white },
-        		c = { bg = colors.darkgray, fg = colors.gray },
+        		c = { bg = palette.main.color1, fg = colors.gray },
         	},
         	insert = {
         		a = { bg = colors.green, fg = colors.black, gui = "bold" },
         		b = { bg = colors.lightgray, fg = colors.white },
-        		c = { bg = colors.lightgray, fg = colors.white },
+        		c = { bg = palette.main.color1, fg = colors.gray },
         	},
         	visual = {
         		a = { bg = colors.yellow, fg = colors.black, gui = "bold" },
         		b = { bg = colors.lightgray, fg = colors.white },
-        		c = { bg = colors.darkgray, fg = colors.black },
+        		c = { bg = palette.main.color1, fg = colors.black },
         	},
         	replace = {
         		a = { bg = colors.red, fg = colors.black, gui = "bold" },
         		b = { bg = colors.lightgray, fg = colors.white },
-        		c = { bg = colors.black, fg = colors.white },
+        		c = { bg = palette.main.color1, fg = colors.gray },
         	},
         	command = {
         		a = { bg = colors.gray, fg = colors.black, gui = "bold" },
         		b = { bg = colors.lightgray, fg = colors.white },
-        		c = { bg = colors.darkgray, fg = colors.gray },
+        		c = { bg = palette.main.color1, fg = colors.gray },
         	},
         	inactive = {
-        		a = { bg = colors.darkgray, fg = colors.gray, gui = "bold" },
-        		b = { bg = colors.darkgray, fg = colors.gray },
-        		c = { bg = colors.darkgray, fg = colors.gray },
+        		a = { bg = palette.main.color1, fg = colors.gray, gui = "bold" },
+        		b = { bg = palette.main.color1, fg = colors.gray },
+        		c = { bg = palette.main.color1, fg = colors.gray },
         	},
         }
 
@@ -71,38 +71,57 @@ in {
           end
         end
 
+        local function screenkey()
+          return require("screenkey").get_keys()
+        end
+
+        vim.g.screenkey_statusline_component = true
+
+        vim.keymap.set("n", "<leader><leader>l", function()
+            vim.g.screenkey_statusline_component = not vim.g.screenkey_statusline_component
+        end, { desc = "Toggle screenkey statusline component" })
+
         require("lualine").setup({
-          options = { theme = custom_theme },
+          options = {
+            theme = custom_theme
+          },
+
           sections = {
+            lualine_x = {
+              screenkey,
+              {
+                'filetype',
+                colored = false,
+                icon = {
+                  align = 'right'
+                },
+              }
+            },
+
             lualine_y = {
-            wordcount
-          },
+              wordcount
+            },
 
-          lualine_x = {
-            {
-              'filetype',
-              colored = false,
-              icon = {
-                align = 'right'
-              },
-            }
-          },
+            lualine_z = {
+              {'location'}
+            },
 
-          lualine_c = {
-            {
-              'filename',
-              file_status = true,
-              newfile_status = false,
-              path = 1,
-              symbols = {
-                modified = '[+]',
-                readonly = '[-]',
-                unnamed = '[No Name]',
-                newfile = '[New]',
+            lualine_c = {
+              {
+                'filename',
+                file_status = true,
+                newfile_status = false,
+                path = 1,
+                symbols = {
+                  modified = '[+]',
+                  readonly = '[-]',
+                  unnamed = '[No Name]',
+                  newfile = '[New]',
+                }
               }
             }
           }
-        }})
+        })
       '';
   };
 }

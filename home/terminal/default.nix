@@ -1,13 +1,15 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    tree
-    gotop
     croc
-    thefuck
-    hyperfine
-    termshark
-    tmpmail
     fzf
+    gotop
+    hyperfine
+    megacmd
+    rustplayer
+    termshark
+    thefuck
+    tmpmail
+    tree
     zoxide
   ];
 

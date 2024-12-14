@@ -5,19 +5,18 @@
       lintersByFt = {
         # nix = ["nix"];
         rust = ["clippy"];
-        # text = ["vale"];
         json = ["jsonlint"];
-        javascript = ["eslint_d"];
-        typescript = ["eslint_d"];
-        javascriptreact = ["eslint_d"];
-        typescriptreact = ["eslint_d"];
+        javascript = ["biomejs"];
+        typescript = ["biomejs"];
+        javascriptreact = ["biomejs"];
+        typescriptreact = ["biomejs"];
         # yaml = ["yamllint"];
         markdown = ["markdownlint"];
         # ruby = ["ruby"];
         # dockerfile = ["hadolint"];
       };
     };
-    extraConfigLua = ''
+    extraConfigLuaPost = ''
       vim.api.nvim_create_autocmd({ "BufWritePost" }, {
       	callback = function()
       		require("lint").try_lint()

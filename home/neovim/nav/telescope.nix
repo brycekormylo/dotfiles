@@ -16,6 +16,7 @@
           "<leader>b" = "buffers";
           "<leader>fs" = "lsp_workspace_symbols";
           "<leader>ff" = "resume";
+          "<leader>F" = "resume";
           "<leader>fh" = "help_tags";
           "<leader>fm" = "man_pages";
           "<leader>fd" = "diagnostics";
@@ -34,6 +35,7 @@
           defaults = {
             file_ignore_patterns = [
               "*.ico"
+              "*.next"
               "^.git/"
               "^.mypy_cache/"
               "^__pycache__/"

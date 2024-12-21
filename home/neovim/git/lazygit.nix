@@ -1,12 +1,12 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    plugins.neogit = {
+    plugins.lazygit = {
       enable = true;
     };
     keymaps = [
       {
         key = "<leader><leader>n";
-        action = "<cmd>:Neogit<CR>";
+        action = "<cmd>:LazyGit<CR>";
       }
     ];
   };

@@ -11,7 +11,7 @@
         nix = ["alejandra" "stylua"];
         lua = ["stylua"];
 
-        java = ["google-java-format"];
+        # java = ["google-java-format"];
 
         javascript = ["biome" "rustywind"];
         typescript = ["biome" "rustywind"];

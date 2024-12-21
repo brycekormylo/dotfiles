@@ -15,7 +15,7 @@
 
     ./git/diffview.nix
     ./git/gitgraph.nix
-    ./git/neogit.nix
+    ./git/lazygit.nix
 
     ./lsp/boo.nix
     ./lsp/conform.nix

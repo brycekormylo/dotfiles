@@ -13,19 +13,30 @@
         keymaps = {
           "<leader>fa" = "find_files";
           "<leader>fz" = "live_grep";
-          "<leader>b" = "buffers";
           "<leader>fs" = "lsp_workspace_symbols";
+          "<leader>ft" = "treesitter";
+
           "<leader>ff" = "resume";
           "<leader>F" = "resume";
+
           "<leader>fh" = "help_tags";
           "<leader>fm" = "man_pages";
+          "<leader>fv" = "vim_options";
+
           "<leader>fd" = "diagnostics";
           "<leader>fj" = "jumplist";
+          "<leader>fp" = "registers";
+
+
+          "<leader>fq" = "quickfix";
+          "<leader>fn" = "lsp_incoming_calls";
+          "<leader>fo" = "lsp_outgoing_calls";
           "<leader>fr" = "lsp_references";
           "<leader>fi" = "lsp_implementations";
           "<leader>fe" = "lsp_definitions";
           "<leader>fw" = "lsp_type_definitions";
 
+          "<leader>b" = "buffers";
           "<C-p>" = "git_files";
           "<leader>p" = "oldfiles";
           "<C-f>" = "live_grep";
@@ -35,6 +46,7 @@
           defaults = {
             file_ignore_patterns = [
               "*.ico"
+              "*.riv"
               "*.next"
               "^.git/"
               "^.mypy_cache/"

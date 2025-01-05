@@ -11,7 +11,7 @@
         javascriptreact = ["biomejs"];
         typescriptreact = ["biomejs"];
         # yaml = ["yamllint"];
-        markdown = ["markdownlint"];
+        # markdown = ["markdownlint"];
         # ruby = ["ruby"];
         # dockerfile = ["hadolint"];
       };

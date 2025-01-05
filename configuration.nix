@@ -10,18 +10,21 @@
     # TODO: ./disk-config.nix
   ];
 
-  boot.loader.systemd-boot = {
-    enable = true;
-    configurationLimit = 12;
+  boot.loader = {
+    systemd-boot = {
+      enable = true;
+      configurationLimit = 12;
+    };
+    efi.canTouchEfiVariables = true;
   };
-  boot.loader.efi.canTouchEfiVariables = true;
 
-  networking.hostName = "pathfinder";
-  networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [61458 61459 2416];
+  networking = {
+    hostName = "pathfinder";
+    networkmanager.enable = true;
+    firewall.allowedTCPPorts = [61458 61459 2416];
+  };
 
   time.timeZone = "America/Los_Angeles";
-
   i18n.defaultLocale = "en_US.UTF-8";
 
   services.displayManager = {
@@ -40,46 +43,34 @@
     desktopManager.gnome.enable = true;
   };
 
-  boot.kernelParams = ["intel_pstate=disable"];
-  services.power-profiles-daemon.enable = false;
-  services.thermald.enable = true;
-  services.tlp = {
-    enable = true;
-    settings = {
-      TLP_DEFAULT_MODE = "AC";
-      TLP_PERSISTENT_DEFAULT = 1;
-      CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
-      CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
-      CPU_MIN_PERF_ON_AC = 800000;
-      CPU_MAX_PERF_ON_AC = 4400000;
-      CPU_MIN_PERF_ON_BAT = 800000;
-      CPU_MAX_PERF_ON_BAT = 4400000;
-      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
-PLATFORM_PROFILE_ON_AC="performance";
-    };
-  };
-
   xdg.portal.enable = true;
 
+  nixpkgs.config.nvidia.acceptLicense = true;
+
   hardware = {
+    enableRedistributableFirmware = true;
     graphics = {
       enable = true;
       enable32Bit = true;
     };
+
     nvidia = {
-      open = true;
+      open = false;
       modesetting.enable = true;
       nvidiaSettings = true;
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
       prime = {
-        offload.enable = true;
-        offload.enableOffloadCmd = true;
+        sync.enable = true;
+        offload.enable = false;
+        offload.enableOffloadCmd = false;
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
       };
     };
+
     bluetooth = {
       enable = true;
-      powerOnBoot = true;
+      powerOnBoot = false;
     };
   };
 
@@ -88,14 +79,33 @@ PLATFORM_PROFILE_ON_AC="performance";
     xwayland.enable = true;
   };
 
-  programs.xfconf.enable = true;
-  programs.thunar = {
+  powerManagement.cpuFreqGovernor = "performance";
+  services.power-profiles-daemon.enable = false;
+  services.thermald.enable = true;
+  services.tlp = {
     enable = true;
-    plugins = with pkgs.xfce; [
-      thunar-archive-plugin
-      thunar-volman
-    ];
+    settings = {
+      TLP_DEFAULT_MODE = "BAT";
+      TLP_PERSISTENT_DEFAULT = 1;
+      CPU_SCALING_GOVERNOR_ON_AC = "schedutil";
+      CPU_SCALING_GOVERNOR_ON_BAT = "schedutil";
+      CPU_MIN_PERF_ON_AC = 800000;
+      CPU_MAX_PERF_ON_AC = 4400000;
+      CPU_MIN_PERF_ON_BAT = 800000;
+      CPU_MAX_PERF_ON_BAT = 4400000;
+      CPU_ENERGY_PERF_POLICY_ON_AC = "performance";
+      PLATFORM_PROFILE_ON_AC = "performance";
+    };
   };
+
+  # programs.xfconf.enable = true;
+  # programs.thunar = {
+  #   enable = true;
+  #   plugins = with pkgs.xfce; [
+  #     thunar-archive-plugin
+  #     thunar-volman
+  #   ];
+  # };
 
   services.gvfs.enable = true; # Mount, trash, and other functionalities
   services.tumbler.enable = true; # Thumbnails
@@ -132,6 +142,11 @@ PLATFORM_PROFILE_ON_AC="performance";
 
   services.blueman.enable = true;
 
+  # services.openssh.enable = true;
+  services.usbmuxd = {
+    enable = true;
+  };
+
   programs.steam.enable = true;
 
   users.users.bryce = {
@@ -161,6 +176,10 @@ PLATFORM_PROFILE_ON_AC="performance";
     inkscape
     libreoffice
     vlc
+    mpv
+
+    libimobiledevice
+    ifuse
 
     bluez
     brightnessctl
@@ -189,7 +208,6 @@ PLATFORM_PROFILE_ON_AC="performance";
     bat
     fd
     imgp
-    lux
     ripgrep
     unzip
     wget
@@ -228,7 +246,9 @@ PLATFORM_PROFILE_ON_AC="performance";
 
   fonts.packages = with pkgs; [
     commit-mono
+    liberation_ttf
     nerd-fonts.symbols-only
+    vistafonts
   ];
 
   nixpkgs.config.allowUnfree = true;

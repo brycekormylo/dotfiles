@@ -1,7 +1,8 @@
 {
-  description = "My NixOS configuration";
+  description = "Pathfinder NixOS";
 
   inputs = {
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     home-manager = {
@@ -16,14 +17,12 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # flake-utils.url = "github:numtide/flake-utils";
-    # flake-parts.url = "github:hercules-ci/flake-parts";
-    # flake-compat.url = "https://flakehub.com/f/edolstra/flake-compat/1.tar.gz";
   };
 
   outputs = inputs @ {
     nixpkgs,
     nixd,
+    nixos-hardware,
     home-manager,
     ...
   }: let
@@ -36,6 +35,7 @@
         inherit system;
         modules = [
           ./configuration.nix
+          # nixos-hardware.nixosModules.dell-precision-7520
           {
             nixpkgs.overlays = [nixd.overlays.default];
           }

@@ -5,6 +5,8 @@
     gotop
     hyperfine
     megacmd
+    nvitop
+    pciutils
     rustplayer
     termshark
     thefuck

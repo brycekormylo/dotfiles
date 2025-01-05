@@ -60,10 +60,6 @@
         vfr = 0;
       };
 
-      # binds = {
-      #   workspace_center_on = 0;
-      # };
-
       "env" = [
         "HYPRCURSOR_SIZE,24"
         "HYPRCURSOR_THEME,phinger-cursors"
@@ -80,6 +76,9 @@
         "XDG_CURRENT_DESKTOP,Hyprland"
         "XDG_SESSION_TYPE,wayland"
         "XDG_SESSION_DESKTOP,Hyprland"
+
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
       ];
 
       "monitor" = ",preferred,auto,auto";
@@ -128,6 +127,9 @@
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
         "$mod, 3, workspace, 3"
+        "$mod, J, workspace, 1"
+        "$mod, K, workspace, 2"
+        "$mod, L, workspace, 3"
         "$mod, 4, workspace, 4"
         "$mod, 5, workspace, 5"
         "$mod, 6, workspace, 6"

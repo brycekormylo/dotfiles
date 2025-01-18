@@ -2,7 +2,6 @@
   description = "Pathfinder NixOS";
 
   inputs = {
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1";
     home-manager = {
@@ -22,7 +21,6 @@
   outputs = inputs @ {
     nixpkgs,
     nixd,
-    nixos-hardware,
     home-manager,
     ...
   }: let
@@ -35,7 +33,6 @@
         inherit system;
         modules = [
           ./configuration.nix
-          # nixos-hardware.nixosModules.dell-precision-7520
           {
             nixpkgs.overlays = [nixd.overlays.default];
           }

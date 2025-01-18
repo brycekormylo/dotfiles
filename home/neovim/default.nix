@@ -67,6 +67,7 @@
     ./ui/screenkey.nix
     ./ui/tiny-code-action.nix
     ./ui/tiny-inline-diagnostic.nix
+    ./ui/tiny-glimmer.nix
 
     ./utils/snacks.nix
     ./utils/comment.nix

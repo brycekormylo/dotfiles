@@ -82,7 +82,7 @@
       ];
 
       "monitor" = ",preferred,auto,auto";
-      "exec-once" = "dbus-update-activation-environment & --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP & waypaper --restore & ags & firefox & ivpn connect --last & sudo tlp ac";
+      "exec-once" = "dbus-update-activation-environment & --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP & waypaper --restore & ags & firefox & ivpn connect --last & sudo tlp bat";
       # "exec" = "ags";
       "$mod" = "SUPER";
       "$terminal" = "kitty";
@@ -92,6 +92,8 @@
       "$notes" = "kitty --single-instance -d ~/psi vi .";
       "$health" = "kitty --single-instance -d ~/vaults/health vi .";
       "$browser" = "firefox";
+      "$ivpnOn" = "ivpn connect -last";
+      "$ivpnOff" = "ivpn disconnect";
       # "$config" = "kitty --single-instance -d ~/.config/home-manager vi .";
       # "$config" = "kitty --single-instance -d ~/.config/home-manager bash dev.sh";
       "$config" = "kitty --single-instance -d ~/dot bash dev.sh";
@@ -113,6 +115,8 @@
         "$mod, E, exec, $menu"
         "$mod, N, exec, $notes"
         "$mod, H, exec, $health"
+        "$mod, I, exec, $ivpnOn"
+        "$mod SHIFT, I, exec, $ivpnOff"
         "$mod SHIFT, A, exec, $captureAll"
         "$mod SHIFT, Y, exec, $captureArea"
         "$mod, Y, exec, $captureScreen"

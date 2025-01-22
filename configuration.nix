@@ -10,8 +10,8 @@
     # TODO: ./disk-config.nix
   ];
 
-  time.timeZone = "America/Los_Angeles";
-  i18n.defaultLocale = "en_US.UTF-8";
+  # time.timeZone = "America/Los_Angeles";
+  # i18n.defaultLocale = "en_US.UTF-8";
 
   boot = {
     loader = {
@@ -21,13 +21,11 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    kernelModules = ["kvm-intel"]; #? idk yet
-    blacklistedKernelModules = ["nouveau"]; #? Only proprietary drivers
+    kernelModules = ["kvm-intel"];
+    blacklistedKernelModules = ["nouveau"];
     kernelParams = [
       "intel_pstate=disable"
-      "i915.modeset=1" #? might only apply during boot
     ];
-    # extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
   };
 
   networking = {
@@ -41,13 +39,19 @@
     graphics = {
       enable = true;
       enable32Bit = true;
+      extraPackages = with pkgs; [
+        intel-media-driver
+        intel-vaapi-driver
+        vpl-gpu-rt
+        libvdpau-va-gl
+      ];
     };
 
     nvidia = {
       open = false;
       modesetting.enable = true;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.legacy_390; #?
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
       prime = {
         sync.enable = true;
         nvidiaBusId = "PCI:1:0:0";
@@ -73,20 +77,31 @@
       autorun = true;
       xkb.layout = "us";
       xkb.variant = "";
-      displayManager.gdm.enable = true;
+      displayManager.gdm = {
+        enable = true;
+        wayland = true;
+      };
       desktopManager.gnome.enable = true;
     };
   };
 
   xdg.portal.enable = true;
 
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
+  programs = {
+    hyprland = {
+      enable = true;
+      xwayland.enable = true;
+    };
   };
 
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement = {
+    enable = true;
+    cpuFreqGovernor = "performance";
+    powertop.enable = true; #?
+  };
+
   services = {
+    system76-scheduler.settings.cfsProfiles.enable = true; #?
     power-profiles-daemon.enable = false;
     thermald.enable = true;
     tlp = {
@@ -94,6 +109,7 @@
       settings = {
         TLP_DEFAULT_MODE = "BAT";
         TLP_PERSISTENT_DEFAULT = 1;
+        CPU_SCALING_GOVERNOR_ON_BAT = "performance";
       };
     };
   };
@@ -102,6 +118,7 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    LIBVA_DRIVER_NAME = "iHD";
   };
 
   security = {
@@ -143,14 +160,17 @@
     ];
   };
 
-  systemd.services."getty@tty1".enable = false; # Autologin
-  systemd.services."autovt@tty1".enable = false;
+  systemd.services = {
+    "getty@tty1".enable = false; # Autologin
+    "autovt@tty1".enable = false;
+  };
 
   environment.systemPackages = with pkgs; [
     firefox
     librewolf
     obsidian
     ungoogled-chromium
+    neovim
 
     inkscape
     libreoffice
@@ -180,24 +200,14 @@
     mediainfo
     ueberzugpp
 
-    # ?
     libva-vdpau-driver
     nvidia-vaapi-driver
     libva1
+    libva-utils
 
     grim
     slurp
     kooha
-
-    bat
-    fd
-    imgp
-    ripgrep
-    unzip
-    wget
-    xdragon
-    xidel
-    zip
 
     gcc
     libgcc
@@ -208,7 +218,6 @@
     nix-prefetch-github
     nvd
 
-    auto-cpufreq
     egl-wayland
     gtk3
     hyprcursor
@@ -236,7 +245,7 @@
     vistafonts
   ];
 
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.05";
 
   nixpkgs.config = {
     allowUnfree = true;

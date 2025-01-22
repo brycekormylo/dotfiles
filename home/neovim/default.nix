@@ -65,6 +65,7 @@
     ./ui/relative-toggle.nix
     ./ui/satellite.nix
     ./ui/screenkey.nix
+    ./ui/smear-cursor.nix
     ./ui/tiny-code-action.nix
     ./ui/tiny-inline-diagnostic.nix
     ./ui/tiny-glimmer.nix

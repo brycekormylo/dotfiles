@@ -2,7 +2,7 @@
   imports = [
     ./ivpn.nix
     ./thunar.nix
-    # ./locale.nix
+    ./locale.nix
     # ./power.nix
   ];
 }

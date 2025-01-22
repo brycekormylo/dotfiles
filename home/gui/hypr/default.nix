@@ -94,8 +94,6 @@
       "$browser" = "firefox";
       "$ivpnOn" = "ivpn connect -last";
       "$ivpnOff" = "ivpn disconnect";
-      # "$config" = "kitty --single-instance -d ~/.config/home-manager vi .";
-      # "$config" = "kitty --single-instance -d ~/.config/home-manager bash dev.sh";
       "$config" = "kitty --single-instance -d ~/dot bash dev.sh";
 
       "$captureAll" = "~/scripts/screenshots/captureAll.sh";
@@ -104,7 +102,6 @@
 
       "windowrulev2" = "suppressevent maximize, class:.*";
       "workspace" = "special:magic, on-created-empty: $config ";
-      # Add command to cycle power management
 
       bind = [
         "$mod, Q, killactive,"

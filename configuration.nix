@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./hardware-configuration.nix
+    ./hardware.nix
     ./system
     # TODO: ./disk-config.nix
   ];
@@ -18,15 +18,6 @@
       };
       efi.canTouchEfiVariables = true;
     };
-
-    kernelParams = [
-      "intel_pstate=disable"
-      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
-    ];
-
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_1.extend (final: prev: {
-      nvidia_x11 = prev.nvidia_x11_legacy390;
-    });
   };
 
   networking = {
@@ -100,14 +91,6 @@
     };
   };
 
-  environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
-    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
-    LIBVA_DRIVER_NAME = "iHD";
-    # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
-  };
-
   security = {
     rtkit.enable = true;
     polkit.enable = true;
@@ -154,9 +137,6 @@
     ungoogled-chromium
     vlc
 
-    ifuse
-    libimobiledevice
-
     bluez
     networkmanagerapplet
 
@@ -198,6 +178,14 @@
     nerd-fonts.symbols-only
     vistafonts
   ];
+
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+    NIXOS_OZONE_WL = "1";
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    LIBVA_DRIVER_NAME = "iHD";
+    # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
+  };
 
   system.stateVersion = "25.05";
 

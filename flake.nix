@@ -32,15 +32,18 @@
       pathfinder = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         inherit system;
+
         modules = [
           ./configuration.nix
           nixos-hardware.nixosModules.dell-precision-7520
+
           {
             nixpkgs.overlays = [
               nixd.overlays.default
               (self: super: {linuxPackages = super.linuxPackages_6_1;})
             ];
           }
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
@@ -56,6 +59,7 @@
           }
         ];
       };
+
       iso = nixpkgs.lib.nixosSystem {
         specialArgs = {inherit inputs;};
         modules = [

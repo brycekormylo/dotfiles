@@ -10,9 +10,6 @@
     # TODO: ./disk-config.nix
   ];
 
-  # time.timeZone = "America/Los_Angeles";
-  # i18n.defaultLocale = "en_US.UTF-8";
-
   boot = {
     loader = {
       systemd-boot = {
@@ -21,11 +18,15 @@
       };
       efi.canTouchEfiVariables = true;
     };
-    kernelModules = ["kvm-intel"];
-    blacklistedKernelModules = ["nouveau"];
+
     kernelParams = [
       "intel_pstate=disable"
+      "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
+
+    kernelPackages = pkgs.linuxKernel.packages.linux_6_1.extend (final: prev: {
+      nvidia_x11 = prev.nvidia_x11_legacy390;
+    });
   };
 
   networking = {
@@ -35,16 +36,20 @@
   };
 
   hardware = {
-    enableRedistributableFirmware = true;
     graphics = {
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
         intel-media-driver
-        intel-vaapi-driver
         vpl-gpu-rt
         libvdpau-va-gl
+
+        libva-vdpau-driver
+        nvidia-vaapi-driver
+        libva1
+        xrdp
       ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [intel-vaapi-driver];
     };
 
     nvidia = {
@@ -71,6 +76,7 @@
       autoLogin.enable = true;
       autoLogin.user = "bryce";
     };
+
     xserver = {
       enable = true;
       videoDrivers = ["nvidia"];
@@ -94,31 +100,12 @@
     };
   };
 
-  powerManagement = {
-    enable = true;
-    cpuFreqGovernor = "performance";
-    powertop.enable = true; #?
-  };
-
-  services = {
-    system76-scheduler.settings.cfsProfiles.enable = true; #?
-    power-profiles-daemon.enable = false;
-    thermald.enable = true;
-    tlp = {
-      enable = true;
-      settings = {
-        TLP_DEFAULT_MODE = "BAT";
-        TLP_PERSISTENT_DEFAULT = 1;
-        CPU_SCALING_GOVERNOR_ON_BAT = "performance";
-      };
-    };
-  };
-
   environment.sessionVariables = {
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
     LIBVA_DRIVER_NAME = "iHD";
+    # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
   };
 
   security = {
@@ -130,10 +117,11 @@
   users.users.bryce = {
     isNormalUser = true;
     description = "bryce";
-    extraGroups = ["networkmanager" "wheel"];
+    extraGroups = ["networkmanager" "wheel" "video"];
   };
 
   services = {
+    power-profiles-daemon.enable = false;
     pipewire = {
       enable = true;
       pulse.enable = true;
@@ -151,15 +139,6 @@
 
   programs.steam.enable = true;
 
-  fileSystems."/home/bryce/media/usb" = {
-    device = "/dev/disk/by-uuid/24FD-CF07";
-    options = [
-      "users"
-      "nofail"
-      "x-gvfs-show"
-    ];
-  };
-
   systemd.services = {
     "getty@tty1".enable = false; # Autologin
     "autovt@tty1".enable = false;
@@ -167,47 +146,19 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    librewolf
-    obsidian
-    ungoogled-chromium
-    neovim
-
     inkscape
     libreoffice
+    librewolf
+    neovim
+    obsidian
+    ungoogled-chromium
     vlc
-    mpv
 
-    libimobiledevice
     ifuse
+    libimobiledevice
 
     bluez
-    brightnessctl
-    gparted
-    libdbusmenu-gtk3
-    libnotify
-    mount
     networkmanagerapplet
-    usbview
-    usbutils
-
-    exfat
-    exfatprogs
-    ntfs3g
-    ffmpeg
-    ffmpegthumbnailer
-    libpng
-    lsix
-    mediainfo
-    ueberzugpp
-
-    libva-vdpau-driver
-    nvidia-vaapi-driver
-    libva1
-    libva-utils
-
-    grim
-    slurp
-    kooha
 
     gcc
     libgcc
@@ -218,11 +169,14 @@
     nix-prefetch-github
     nvd
 
+    brightnessctl
     egl-wayland
     gtk3
     hyprcursor
     hyprland
     hyprlang
+    libdbusmenu-gtk3
+    libnotify
     lxappearance
     nwg-look
     rofi-wayland

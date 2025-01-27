@@ -14,14 +14,18 @@
 
     extraConfigLua = ''
       require("smear_cursor").setup({
-        opts = {                         -- Default  Range
           stiffness = 0.9,               -- 0.6      [0, 1]
-          trailing_stiffness = 0.7,      -- 0.3      [0, 1]
+          trailing_stiffness = 0.6,      -- 0.3      [0, 1]
           distance_stop_animating = 0.5, -- 0.1      > 0
           trailing_exponent = 2,
+          slowdown_exponent = -0.2,
+          smear_to_cmd = false,
           legacy_computing_symbols_support = true,
-          hide_target_hack = false,      -- true     boolean
-        },
+          hide_target_hack = false,
+          smear_between_buffers = true,
+          smear_insert_mode = false,
+          distance_stop_animating_vertical_bar = 0.1,
+          cursor_color = "#A7D6AA",
       })
     '';
   };

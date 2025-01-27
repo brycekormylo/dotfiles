@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
     bat
+    powertop
     fd
     imgp
     ripgrep
@@ -10,6 +11,17 @@
     xidel
     zip
     acpi
+
+    ffmpeg
+    ffmpegthumbnailer
+    libpng
+    lsix
+    mediainfo
+    ueberzugpp
+
+    grim
+    slurp
+    kooha
 
     croc
     fzf

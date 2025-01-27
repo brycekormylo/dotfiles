@@ -60,6 +60,15 @@
         vfr = 0;
       };
 
+      exec-once = [
+        "dbus-update-activation-environment --systemd --all WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "waypaper --restore"
+        "ags"
+        "firefox"
+        "ivpn connect --last"
+        "sudo tlp bat"
+      ];
+
       "env" = [
         "HYPRCURSOR_SIZE,24"
         "HYPRCURSOR_THEME,phinger-cursors"
@@ -68,6 +77,7 @@
         "XCURSOR_THEME,phinger-cursors"
 
         "GDK_BACKEND,wayland,x11,*"
+        "NVD_backend,direct"
 
         "QT_QPA_PLATFORM,wayland;xcb"
         "SDL_VIDEODRIVER,wayland"
@@ -82,8 +92,6 @@
       ];
 
       "monitor" = ",preferred,auto,auto";
-      "exec-once" = "dbus-update-activation-environment & --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP & waypaper --restore & ags & firefox & ivpn connect --last & sudo tlp bat";
-      # "exec" = "ags";
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       "$fileManager" = "kitty ranger --confdir ~/.config/ranger";
@@ -112,16 +120,16 @@
         "$mod, E, exec, $menu"
         "$mod, N, exec, $notes"
         "$mod, H, exec, $health"
+
         "$mod, I, exec, $ivpnOn"
         "$mod SHIFT, I, exec, $ivpnOff"
+
         "$mod SHIFT, A, exec, $captureAll"
         "$mod SHIFT, Y, exec, $captureArea"
         "$mod, Y, exec, $captureScreen"
 
-        # "$mod, P, pseudo"
         "$mod, X, togglesplit"
         "$mod, P, togglefloating,"
-        # "$mod, R, layoutmsg, swapsplit"
         "$mod SHIFT, R, layoutmsg, swapsplit"
         "$mod, Tab, cyclenext"
 
@@ -155,12 +163,6 @@
 
         "$mod, S, togglespecialworkspace, magic"
         "$mod SHIFT, S, movetoworkspace, special:magic"
-
-        # "$mod, N, togglespecialworkspace, notes"
-        # "$mod SHIFT, N, movetoworkspace, special:notes"
-        #
-        # "$mod, C, togglespecialworkspace, config"
-        # "$mod SHIFT, C, movetoworkspace, special:config"
       ];
       binde = [
         ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
@@ -172,10 +174,5 @@
         "$mod, mouse:273, resizewindow"
       ];
     };
-
-    # extraConfig = ''
-    #   workspace = special:notes, on-created-empty: $notes
-    #   workspace = special:config, on-created-empty: $config
-    # '';
   };
 }

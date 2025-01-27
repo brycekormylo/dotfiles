@@ -14,27 +14,27 @@
           "<leader>fa" = "find_files";
           "<leader>fz" = "live_grep";
           "<leader>fs" = "lsp_workspace_symbols";
-          "<leader>ft" = "treesitter";
+          "<leader>fp" = "treesitter"; # Active buffer only
 
           "<leader>ff" = "resume";
           "<leader>F" = "resume";
 
+          "<leader>fe" = "diagnostics";
+          "<leader>fq" = "quickfix";
+
+          "<leader>fi" = "lsp_incoming_calls"; # Better than references
+          "<leader>fr" = "lsp_references"; # Includes imports
+          "<leader>fn" = "lsp_implementations";
+          "<leader>fd" = "lsp_definitions";
+
+          "<leader>fw" = "lsp_type_definitions";
+          "<leader>fo" = "lsp_outgoing_calls";
+
           "<leader>fh" = "help_tags";
           "<leader>fm" = "man_pages";
           "<leader>fv" = "vim_options";
-
-          "<leader>fd" = "diagnostics";
           "<leader>fj" = "jumplist";
-          "<leader>fp" = "registers";
-
-
-          "<leader>fq" = "quickfix";
-          "<leader>fn" = "lsp_incoming_calls";
-          "<leader>fo" = "lsp_outgoing_calls";
-          "<leader>fr" = "lsp_references";
-          "<leader>fi" = "lsp_implementations";
-          "<leader>fe" = "lsp_definitions";
-          "<leader>fw" = "lsp_type_definitions";
+          "<leader>ft" = "registers";
 
           "<leader>b" = "buffers";
           "<C-p>" = "git_files";

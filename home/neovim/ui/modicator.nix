@@ -1,21 +1,31 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    extraPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "modicator";
-        src = pkgs.fetchFromGitHub {
-          owner = "mawkler";
-          repo = "modicator.nvim";
-          rev = "d1d327fd4bdfc3af4cfdf83b85c2eaefa71de7a8";
-          hash = "sha256-XhAMRME5zfAKhe9z2LTq+DIM9gS5Fr4xYB82A9fyOfA=";
-        };
-      })
+    # extraPlugins = [
+    #   (pkgs.vimUtils.buildVimPlugin {
+    #     name = "modicator";
+    #     src = pkgs.fetchFromGitHub {
+    #       owner = "mawkler";
+    #       repo = "modicator.nvim";
+    #       rev = "45b64561e109cd04de551b081fb947b4f856009e";
+    #       hash = "sha256-WqygTdpNlABHdplKbsJAEpQI71OURHMT8OErPNKPD9w=";
+    #     };
+    #   })
+    # ];
+    extraPlugins = with pkgs.vimPlugins; [
+      modicator-nvim
     ];
-    extraConfigLuaPost = ''        --lua
+    extraConfigLua = ''        --lua
       require("modicator").setup({
-        show_warnings = false;
+        show_warnings = false,
         highlights = {
           use_cursorline_background = true,
+        },
+        integration = {
+          lualine = {
+            enabled = false,
+            mode_section = nil,
+            highlight = 'bg',
+          },
         },
       })
     '';

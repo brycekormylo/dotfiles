@@ -33,7 +33,6 @@
     nix-prefetch-github
     jq
 
-    diskonaut
     tcpdump
     filezilla
 

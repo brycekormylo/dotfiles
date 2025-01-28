@@ -52,6 +52,7 @@
     ./snip/luasnip.nix
     ./snip/undotree.nix
 
+    ./ui/code-action.nix
     ./ui/dressing.nix
     ./ui/gitsigns.nix
     ./ui/hlchunk.nix
@@ -60,13 +61,13 @@
     ./ui/lualine.nix
     ./ui/markview.nix
     ./ui/modicator.nix
+    # ./ui/modes.nix
     ./ui/mini.nix
     # ./ui/rainbow-delimiters.nix
     ./ui/relative-toggle.nix
     ./ui/satellite.nix
     ./ui/screenkey.nix
     ./ui/smear-cursor.nix
-    ./ui/tiny-code-action.nix
     ./ui/tiny-inline-diagnostic.nix
     ./ui/tiny-glimmer.nix
 
@@ -81,7 +82,7 @@
     ./utils/package-info.nix
     ./utils/pomo.nix
     ./utils/schemastore.nix
-    ./utils/tsc.nix
+    # ./utils/tsc.nix
     ./utils/which-key.nix
     # ./utils/molten.nix
     # ./utils/overseer.nix

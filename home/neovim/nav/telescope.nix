@@ -32,7 +32,6 @@
 
           "<leader>fh" = "help_tags";
           "<leader>fm" = "man_pages";
-          "<leader>fv" = "vim_options";
           "<leader>fj" = "jumplist";
           "<leader>ft" = "registers";
 

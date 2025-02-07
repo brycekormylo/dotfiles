@@ -72,7 +72,7 @@ in {
         end
 
         local function screenkey()
-          return require("screenkey").get_keys()
+          return require("screenkey").get_keys():gsub("%%","")
         end
 
         vim.g.screenkey_statusline_component = true
@@ -83,12 +83,22 @@ in {
 
         require("lualine").setup({
           options = {
-            theme = custom_theme
+            theme = custom_theme,
+            component_separators = "",
+            section_separators = { left = '', right = '' },
           },
 
           sections = {
-            lualine_x = {
-              screenkey,
+
+            lualine_a = {
+              {
+                'mode',
+                separator = { left = '', right = ''  },
+                right_padding = 2
+              }
+            },
+
+            lualine_y = {
               {
                 'filetype',
                 colored = false,
@@ -98,13 +108,10 @@ in {
               }
             },
 
-            lualine_y = {
-              wordcount
+            lualine_x = {
+              screenkey
             },
 
-            lualine_z = {
-              {'location'}
-            },
 
             lualine_c = {
               {
@@ -119,7 +126,12 @@ in {
                   newfile = '[New]',
                 }
               }
-            }
+            },
+
+            lualine_z = {
+              wordcount,
+              {'location', separator = { right = '' }, left_padding = 2 }
+            },
           }
         })
       '';

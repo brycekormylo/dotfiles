@@ -46,6 +46,7 @@
       	},
       })
     '';
+    # This plugin seems pointless when shift-K is the same thing but built in
     keymaps = [
       {
         mode = ["n"];

@@ -12,6 +12,11 @@
         key = "<leader>z";
         action = "<cmd>:UndotreeToggle<cr>";
       }
+
+      {
+        key = "<leader>z";
+        action = "<cmd>:UndotreeFocus<cr>";
+      }
     ];
   };
 }

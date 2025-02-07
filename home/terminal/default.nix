@@ -1,40 +1,51 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    bat
-    powertop
-    fd
+    bash
+
+    ffmpeg
+    libpng
+    mediainfo
+
+    grim
+    kooha
+    slurp
+
+    hyperfine
+    megacmd
+
+    croc
     imgp
-    ripgrep
+    pciutils
+    termshark
+
+    tmpmail
+    w3m
+    xclip
+    curl
+
     unzip
+    zip
+
+    bk
+    pandoc
+
+    acpi
+    fastfetch
+    gotop
+    nvitop
+    powertop
+    tree
+    zenith-nvidia 
+
+    bat
+    fd
+    fzf
+    jq
+    ripgrep
+    thefuck
     wget
     xdragon
     xidel
-    zip
-    acpi
-
-    ffmpeg
-    ffmpegthumbnailer
-    libpng
-    lsix
-    mediainfo
-    ueberzugpp
-
-    grim
-    slurp
-    kooha
-
-    croc
-    fzf
-    gotop
-    hyperfine
-    megacmd
-    nvitop
-    pciutils
-    rustplayer
-    termshark
-    thefuck
-    tmpmail
-    tree
     zoxide
   ];
 

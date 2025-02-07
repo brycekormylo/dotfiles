@@ -1,15 +1,7 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    extraPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "aerial";
-        src = pkgs.fetchFromGitHub {
-          owner = "stevearc";
-          repo = "aerial.nvim";
-          rev = "f6f74a04ba72f87c91a0f533d37e03c24518879a";
-          hash = "sha256-wTBQKDCTdEtEL02+3ysEvgKcBK8bGccUUJXNaKlC1JA=";
-        };
-      })
+    extraPlugins = with pkgs.vimPlugins; [
+      aerial-nvim
     ];
     extraConfigLua = ''
       require("aerial").setup({})

@@ -13,6 +13,7 @@
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
+    systemd.enable = false;
     systemd.variables = ["--all"];
 
     settings = {
@@ -79,8 +80,11 @@
         "GDK_BACKEND,wayland,x11,*"
         "NVD_backend,direct"
 
+        "HYPRLAND_TRACE,1"
+        "AQ_TRACE,1"
+
         "QT_QPA_PLATFORM,wayland;xcb"
-        "SDL_VIDEODRIVER,wayland"
+        "SDL_VIDEODRIVER,wayland,x11"
         "CLUTTER_BACKEND,wayland"
 
         "XDG_CURRENT_DESKTOP,Hyprland"
@@ -89,6 +93,8 @@
 
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "__GL_VRR_ALLOWED,0"
+        "GBM_BACKEND,nvidia-drm"
       ];
 
       "monitor" = ",preferred,auto,auto";

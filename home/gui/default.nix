@@ -3,5 +3,6 @@
     ./ags
     ./dunst
     ./hypr
+    ./rofi
   ];
 }

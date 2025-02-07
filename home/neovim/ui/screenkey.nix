@@ -25,7 +25,7 @@
       		col = vim.o.columns,
       		relative = "editor",
       		anchor = "SE",
-      		width = 20,
+      		width = 16,
       		height = 3,
       		border = "none",
       		title = "",
@@ -35,6 +35,7 @@
       		noautocmd = true,
       		zindex = 1,
       	},
+
       	compress_after = 3,
       	clear_after = 3,
       	disable = {
@@ -42,13 +43,16 @@
       		buftypes = {},
       		events = false,
       	},
+
       	show_leader = true,
-      	group_mappings = false,
+      	group_mappings = true,
       	display_infront = {},
       	display_behind = {},
+
       	filter = function(keys)
       		return keys
       	end,
+
       	keys = {
       		["<TAB>"] = "󰌒",
       		["<CR>"] = "󰌑",
@@ -81,7 +85,6 @@
       		["ALT"] = "",
       		["SUPER"] = "󰘳",
       		["<leader>"] = "⎵",
-            ["%"] = ""
       	},
       })
     '';

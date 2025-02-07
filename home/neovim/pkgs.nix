@@ -9,8 +9,9 @@
     global
     curl
     deno
-    go_1_22
+    go
     google-java-format
+    gradle
     hadolint
     kulala-fmt
     manix
@@ -43,5 +44,6 @@
     yamllint
     zig
     markdown-oxide
+    zulu
   ];
 }

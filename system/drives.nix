@@ -4,7 +4,6 @@
     libimobiledevice
 
     exfat
-    exfatprogs
     gparted
     mount
     ntfs3g

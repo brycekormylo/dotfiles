@@ -1,15 +1,7 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    extraPlugins = [
-      (pkgs.vimUtils.buildVimPlugin {
-        name = "goto-preview";
-        src = pkgs.fetchFromGitHub {
-          owner = "rmgatti";
-          repo = "goto-preview.nvim";
-          rev = "1519ea3512828c944eed5b2bbb66a8f8deb92447";
-          hash = "sha256-TyTijbaRUJjrVy3+fjR5WgRA30dNvawElFiOUb9HhuI=";
-        };
-      })
+    extraPlugins = with pkgs.vimPlugins; [
+      goto-preview
     ];
     extraConfigLua = ''
       require("goto-preview").setup({

@@ -55,6 +55,7 @@
     ./ui/code-action.nix
     ./ui/dressing.nix
     ./ui/gitsigns.nix
+    ./ui/helpview.nix
     ./ui/hlchunk.nix
     ./ui/inline-fold.nix
     ./ui/illuminate.nix

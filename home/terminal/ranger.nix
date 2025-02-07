@@ -1,4 +1,9 @@
-{
+{pkgs, ...}: {
+  home.packages = with pkgs; [
+    ffmpegthumbnailer
+    lsix
+    ueberzugpp
+  ];
   programs = {
     ranger = {
       enable = true;

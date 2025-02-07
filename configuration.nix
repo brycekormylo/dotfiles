@@ -61,8 +61,9 @@
   };
 
   services = {
+    dbus.enable = true;
     displayManager = {
-      defaultSession = "hyprland";
+      defaultSession = "hyprland-uwsm";
       autoLogin.enable = true;
       autoLogin.user = "bryce";
     };
@@ -81,21 +82,26 @@
     };
   };
 
-  # Helps wine stuff
-  services.flatpak.enable = true;
-  systemd.services.flatpak-repo = {
-    wantedBy = ["multi-user.target"];
-    path = [pkgs.flatpak];
-    script = ''
-      flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    '';
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true; #wlroots
   };
 
-  xdg.portal.enable = true;
-
   programs = {
+    uwsm = {
+      enable = true;
+      waylandCompositors = {
+        hyprland = {
+          prettyName = "Hyprland";
+          comment = "Hyprland compositor managed by UWSM";
+          binPath = "/run/current-system/sw/bin/Hyprland";
+        };
+      };
+    };
+
     hyprland = {
       enable = true;
+      withUWSM = true;
       xwayland.enable = true;
     };
   };
@@ -126,9 +132,12 @@
     usbmuxd.enable = true;
     gvfs.enable = true; # Mount, trash, etc
     tumbler.enable = true; # Thumbnails
-    # openssh.enable = true;
+    # openssh = {
+    #   enable = true;
+    # };
   };
 
+  # Steam wont launch
   programs.steam.enable = true;
 
   systemd.services = {
@@ -146,6 +155,8 @@
     ungoogled-chromium
     vlc
 
+    steam-run
+
     bluez
     networkmanagerapplet
 
@@ -157,6 +168,11 @@
     nix-output-monitor
     nix-prefetch-github
     nvd
+
+    wireplumber
+    dbus-broker
+    util-linux
+    newt
 
     brightnessctl
     egl-wayland

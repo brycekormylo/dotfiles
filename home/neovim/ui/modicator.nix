@@ -1,16 +1,5 @@
 {pkgs, ...}: {
   programs.nixvim = {
-    # extraPlugins = [
-    #   (pkgs.vimUtils.buildVimPlugin {
-    #     name = "modicator";
-    #     src = pkgs.fetchFromGitHub {
-    #       owner = "mawkler";
-    #       repo = "modicator.nvim";
-    #       rev = "45b64561e109cd04de551b081fb947b4f856009e";
-    #       hash = "sha256-WqygTdpNlABHdplKbsJAEpQI71OURHMT8OErPNKPD9w=";
-    #     };
-    #   })
-    # ];
     extraPlugins = with pkgs.vimPlugins; [
       modicator-nvim
     ];
@@ -22,7 +11,7 @@
         },
         integration = {
           lualine = {
-            enabled = false,
+            enabled = true,
             mode_section = nil,
             highlight = 'bg',
           },

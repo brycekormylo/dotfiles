@@ -11,10 +11,20 @@
 
   boot = {
     initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-    initrd.kernelModules = [];
+    initrd.kernelModules = [
+      "nvidia"
+      "nvidiafb"
+      "nvidia-drm"
+      "nvidia-uvm"
+      "nvidia-modeset"
+    ];
+    extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
+    blacklistedKernelModules = ["nouveau"];
 
     kernelParams = [
       "intel_pstate=disable"
+      "nvidia_drm"
+      "nvidia_drm.modeset=1"
       "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
 

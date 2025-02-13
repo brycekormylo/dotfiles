@@ -58,16 +58,16 @@
 
       misc = {
         force_default_wallpaper = 0;
-        vfr = 0;
+        vfr = true;
       };
 
       exec-once = [
-        "dbus-update-activation-environment --systemd --all WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "waypaper --restore"
-        "ags"
-        "firefox"
+        # "dbus-update-activation-environment --systemd --all WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
+        "uwsm app -- waypaper --restore"
+        "uwsm app -- ags"
+        "uwsm app -- firefox"
         "ivpn connect --last"
-        "sudo tlp bat"
+        "sudo tlp start"
       ];
 
       "env" = [
@@ -87,9 +87,9 @@
         "SDL_VIDEODRIVER,wayland,x11"
         "CLUTTER_BACKEND,wayland"
 
-        "XDG_CURRENT_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_DESKTOP,Hyprland"
+        # "XDG_CURRENT_DESKTOP,Hyprland"
+        # "XDG_SESSION_TYPE,wayland"
+        # "XDG_SESSION_DESKTOP,Hyprland"
 
         "LIBVA_DRIVER_NAME,nvidia"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
@@ -99,16 +99,16 @@
 
       "monitor" = ",preferred,auto,auto";
       "$mod" = "SUPER";
-      "$terminal" = "kitty";
-      "$fileManager" = "kitty ranger --confdir ~/.config/ranger";
-      "$menu" = "rofi -show drun -show-icons";
-      "$sysMonitor" = "kitty gotop";
-      "$notes" = "kitty --single-instance -d ~/psi vi .";
-      "$health" = "kitty --single-instance -d ~/vaults/health vi .";
-      "$browser" = "firefox";
+      "$terminal" = "uwsm app -- kitty";
+      "$fileManager" = "uwsm app -- kitty ranger --confdir ~/.config/ranger";
+      "$menu" = "rofi -show drun -show-icons  -run-command 'uwsm app -- {cmd}'";
+      "$sysMonitor" = "uwsm app -- kitty gotop";
+      "$notes" = "uwsm app -- kitty --single-instance -d ~/psi vi .";
+      "$health" = "uwsm app -- kitty --single-instance -d ~/vaults/health vi .";
+      "$browser" = "uwsm app -- firefox";
       "$ivpnOn" = "ivpn connect -last";
       "$ivpnOff" = "ivpn disconnect";
-      "$config" = "kitty --single-instance -d ~/dot bash dev.sh";
+      "$config" = "uwsm app -- kitty --single-instance -d ~/dot bash dev.sh";
 
       "$captureAll" = "~/scripts/screenshots/captureAll.sh";
       "$captureScreen" = "~/scripts/screenshots/captureScreen.sh";

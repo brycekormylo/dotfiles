@@ -30,9 +30,12 @@
       enable = true;
       enable32Bit = true;
       extraPackages = with pkgs; [
-        intel-media-driver
+        intel-compute-runtime
+        intel-vaapi-driver
         vpl-gpu-rt
         libvdpau-va-gl
+
+        mesa.drivers
 
         libva-vdpau-driver
         nvidia-vaapi-driver
@@ -48,6 +51,8 @@
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
       prime = {
+        # allowExternalGpu = true; # Why would this be needed its for reverse
+        # sync
         sync.enable = true;
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
@@ -61,7 +66,11 @@
   };
 
   services = {
-    dbus.enable = true;
+    dbus = {
+      enable = true;
+      implementation = "broker";
+    };
+
     displayManager = {
       defaultSession = "hyprland-uwsm";
       autoLogin.enable = true;
@@ -138,7 +147,10 @@
   };
 
   # Steam wont launch
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
 
   systemd.services = {
     "getty@tty1".enable = false; # Autologin
@@ -147,15 +159,13 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    inkscape
     libreoffice
     librewolf
     neovim
+    vscodium
     obsidian
     ungoogled-chromium
     vlc
-
-    steam-run
 
     bluez
     networkmanagerapplet
@@ -208,6 +218,7 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    UWSM_USE_SESSION_SLICE = "true";
     LIBVA_DRIVER_NAME = "iHD";
     # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
   };

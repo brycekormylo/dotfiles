@@ -25,14 +25,11 @@
 
   home.packages = with pkgs; [
     docker
-    vscodium
-
-    tcpdump
-    filezilla
 
     # PHOTOGRAPHY
-    rawtherapee
     ansel
+    # inkscape
+    # rawtherapee
   ];
 
   home.sessionVariables = {

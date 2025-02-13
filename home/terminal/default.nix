@@ -11,12 +11,14 @@
     slurp
 
     hyperfine
-    megacmd
 
     croc
     imgp
     pciutils
     termshark
+
+    tcpdump
+    filezilla
 
     tmpmail
     w3m
@@ -35,7 +37,8 @@
     nvitop
     powertop
     tree
-    zenith-nvidia 
+    zenith-nvidia
+    clinfo
 
     bat
     fd

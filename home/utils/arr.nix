@@ -2,7 +2,7 @@
   home.packages = with pkgs; [
     clipgrab
     dolphin-emu
-    element-desktop
+    # element-desktop
     jackett
     kiwix
     kiwix-tools
@@ -11,5 +11,6 @@
     qbittorrent
     soulseekqt
     stash
+    streamrip
   ];
 }

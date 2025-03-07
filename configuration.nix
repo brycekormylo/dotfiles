@@ -51,8 +51,6 @@
       nvidiaSettings = true;
       package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
       prime = {
-        # allowExternalGpu = true; # Why would this be needed its for reverse
-        # sync
         sync.enable = true;
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
@@ -72,6 +70,7 @@
     };
 
     displayManager = {
+      # defaultSession = "hyprland";
       defaultSession = "hyprland-uwsm";
       autoLogin.enable = true;
       autoLogin.user = "bryce";
@@ -107,7 +106,6 @@
         };
       };
     };
-
     hyprland = {
       enable = true;
       withUWSM = true;
@@ -147,10 +145,10 @@
   };
 
   # Steam wont launch
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = true;
-  };
+  # programs.steam = {
+  #   enable = true;
+  #   gamescopeSession.enable = true;
+  # };
 
   systemd.services = {
     "getty@tty1".enable = false; # Autologin
@@ -160,7 +158,7 @@
   environment.systemPackages = with pkgs; [
     firefox
     libreoffice
-    librewolf
+    # librewolf
     neovim
     vscodium
     obsidian
@@ -218,7 +216,7 @@
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
-    UWSM_USE_SESSION_SLICE = "true";
+    # UWSM_USE_SESSION_SLICE = "true";
     LIBVA_DRIVER_NAME = "iHD";
     # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
   };
@@ -231,7 +229,11 @@
   };
 
   nix = {
-    settings.experimental-features = ["nix-command" "flakes"];
+    settings = {
+      experimental-features = ["nix-command" "flakes"];
+      # substituters = ["https://hyprland.cachix.org"];
+      # trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    };
     gc = {
       automatic = true;
       dates = "weekly";

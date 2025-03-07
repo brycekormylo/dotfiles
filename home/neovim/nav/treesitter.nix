@@ -13,7 +13,6 @@
           indent.enable = false;
           highlight.enable = true;
           ensureInstalled = [
-            "tsx"
             "nix"
             "html"
             "markdown"
@@ -31,6 +30,9 @@
           ];
           autoInstall = true;
           sync_install = false;
+        };
+        languageRegister = {
+          tsx = "typescriptreact";
         };
       };
 

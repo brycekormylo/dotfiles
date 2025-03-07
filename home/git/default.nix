@@ -8,6 +8,7 @@
       enable = true;
       userName = "Bryce Kormylo";
       userEmail = "brycekormylo@outlook.com";
+      signing.format = "ssh";
       extraConfig = {
         push = {autoSetupRemote = true;};
         http.postBuffer = 157286400;

@@ -27,7 +27,7 @@
     docker
 
     # PHOTOGRAPHY
-    ansel
+    # ansel
     # inkscape
     # rawtherapee
   ];

@@ -9,7 +9,7 @@
     libgen-cli
     nicotine-plus
     qbittorrent
-    soulseekqt
+    # soulseekqt
     stash
     streamrip
   ];

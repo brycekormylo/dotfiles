@@ -48,6 +48,7 @@
 
     ./pilot/encourage.nix
     # ./pilot/reverb.nix
+    ./pilot/cellular-automaton.nix
 
     ./snip/luasnip.nix
     ./snip/undotree.nix

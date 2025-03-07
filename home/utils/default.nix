@@ -1,9 +1,9 @@
 {
   imports = [
     ./arr.nix
-    ./emacs.nix
+    # ./emacs.nix
     ./firefox.nix
-    ./gaming.nix
+    # ./gaming.nix
     ./mpv.nix
     ./nh.nix
     ./yt-dlp.nix

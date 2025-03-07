@@ -40,7 +40,7 @@
 
       # To find extension names run
       # $ nix flake show "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons"
-      extensions = with inputs.firefox-addons.packages."x86_64-linux"; [
+      extensions.packages = with inputs.firefox-addons.packages."x86_64-linux"; [
         darkreader
         duckduckgo-privacy-essentials
         # enhancer-for-youtube

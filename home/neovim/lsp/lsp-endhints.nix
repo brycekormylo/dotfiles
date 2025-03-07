@@ -4,7 +4,7 @@
       (pkgs.vimUtils.buildVimPlugin {
         name = "lsp-endhints";
         src = pkgs.fetchFromGitHub {
-          owner = "chrisgreiser";
+          owner = "chrisgrieser";
           repo = "nvim-lsp-endhints";
           rev = "a449f2f27b6b985ff216964572224ce432d94a86";
           hash = "sha256-kw7tX/bkzm68WcB/VB1tcRNiNKjEYsVboiUzowagId4=";

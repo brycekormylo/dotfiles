@@ -10,14 +10,10 @@
   ];
 
   boot = {
-    initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-    # initrd.kernelModules = [
-    #   "nvidia"
-    #   "nvidiafb"
-    #   "nvidia-drm"
-    #   "nvidia-uvm"
-    #   "nvidia-modeset"
-    # ];
+    initrd = {
+      systemd.enable = true;
+      availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+    };
     extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
     blacklistedKernelModules = ["nouveau"];
 
@@ -50,4 +46,5 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  services.fwupd.enable = true;
 }

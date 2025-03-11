@@ -1,4 +1,5 @@
 {
+  lib,
   inputs,
   config,
   pkgs,
@@ -35,7 +36,7 @@
         vpl-gpu-rt
         libvdpau-va-gl
 
-        mesa.drivers
+        # mesa.drivers
 
         libva-vdpau-driver
         nvidia-vaapi-driver
@@ -64,53 +65,43 @@
   };
 
   services = {
+    upower.enable = true;
     dbus = {
       enable = true;
       implementation = "broker";
+      packages = with pkgs; [
+        gcr
+        gnome-settings-daemon
+      ];
     };
 
     displayManager = {
-      # defaultSession = "hyprland";
       defaultSession = "hyprland-uwsm";
       autoLogin.enable = true;
       autoLogin.user = "bryce";
-    };
-
-    xserver = {
-      enable = true;
-      videoDrivers = ["nvidia"];
-      autorun = true;
-      xkb.layout = "us";
-      xkb.variant = "";
-      displayManager.gdm = {
-        enable = true;
-        wayland = true;
-      };
-      desktopManager.gnome.enable = true;
     };
   };
 
   xdg.portal = {
     enable = true;
-    wlr.enable = true; #wlroots
+    xdgOpenUsePortal = true;
+    config = {
+      common.default = ["gtk"];
+      hyprland.default = ["gtk" "hyprland"];
+    };
+
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
   };
 
   programs = {
-    uwsm = {
-      enable = true;
-      waylandCompositors = {
-        hyprland = {
-          prettyName = "Hyprland";
-          comment = "Hyprland compositor managed by UWSM";
-          binPath = "/run/current-system/sw/bin/Hyprland";
-        };
-      };
-    };
     hyprland = {
       enable = true;
       withUWSM = true;
-      xwayland.enable = true;
     };
+    dconf.enable = true;
+    zsh.enable = true;
   };
 
   security = {
@@ -121,8 +112,15 @@
 
   users.users.bryce = {
     isNormalUser = true;
+    shell = pkgs.zsh;
     description = "bryce";
-    extraGroups = ["networkmanager" "wheel" "video"];
+    extraGroups = [
+      "input"
+      "transmission"
+      "networkmanager"
+      "wheel"
+      "video"
+    ];
   };
 
   services = {
@@ -138,6 +136,7 @@
     blueman.enable = true;
     usbmuxd.enable = true;
     gvfs.enable = true; # Mount, trash, etc
+    gnome.gnome-keyring.enable = true;
     tumbler.enable = true; # Thumbnails
     # openssh = {
     #   enable = true;
@@ -219,6 +218,10 @@
     # UWSM_USE_SESSION_SLICE = "true";
     LIBVA_DRIVER_NAME = "iHD";
     # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
+    QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    XDG_SESSION_TYPE = "wayland";
+    # LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
   };
 
   system.stateVersion = "25.05";
@@ -231,8 +234,7 @@
   nix = {
     settings = {
       experimental-features = ["nix-command" "flakes"];
-      # substituters = ["https://hyprland.cachix.org"];
-      # trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+      trusted-users = ["root" "@wheel"];
     };
     gc = {
       automatic = true;

@@ -1,20 +1,51 @@
 {
   pkgs,
+  lib,
   config,
   ...
-}: {
+}: let
+  requiredDeps = with pkgs; [
+    aquamarine
+    glaze
+  ];
+
+  guiDeps = with pkgs; [
+    # gnome-control-center
+    # resources
+    # overskride
+    # wlogout
+  ];
+
+  dependencies = requiredDeps ++ guiDeps;
+in {
+  home.packages = dependencies;
+
   home.pointerCursor = {
     name = "phinger-cursors-light";
     package = pkgs.phinger-cursors;
     size = 32;
     gtk.enable = true;
+    x11.enable = true;
+  };
+
+  home.sessionVariables = {
+    QT_QPA_PLATFORM = "wayland";
+    SDL_VIDEODRIVER = "wayland";
+    XDG_SESSION_TYPE = "wayland";
   };
 
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    systemd.enable = false;
-    systemd.variables = ["--all"];
+
+    systemd = {
+      enable = false;
+      variables = ["--all"];
+      extraCommands = [
+        "systemctl --user stop graphical-session.target"
+        "systemctl --user start hyprland-session.target"
+      ];
+    };
 
     settings = {
       input = {
@@ -62,18 +93,15 @@
       };
 
       exec-once = [
-        "dbus-update-activation-environment --systemd --all WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        # "waypaper --restore"
-        # "ags"
-        # "firefox"
+        "uswm finalize"
         "uwsm app -- waypaper --restore"
         "uwsm app -- ags"
         "uwsm app -- firefox"
         "ivpn connect --last"
-        "sudo tlp start"
+        # "sudo tlp start"
       ];
 
-      "env" = [
+      env = [
         "HYPRCURSOR_SIZE,24"
         "HYPRCURSOR_THEME,phinger-cursors"
 
@@ -186,4 +214,6 @@
       ];
     };
   };
+
+  systemd.user.targets.tray.Unit.Requires = lib.mkForce ["graphical-session.target"];
 }

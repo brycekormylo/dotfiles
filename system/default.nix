@@ -2,6 +2,9 @@
   imports = [
     ./ivpn.nix
     # ./polkit-agent.nix
+    ./substituters.nix
+    ./bluetooth.nix
+    ./avahi.nix
     ./security.nix
     ./greetd.nix
     ./thunar.nix
@@ -9,6 +12,6 @@
     ./drives.nix
     ./hardware.nix
     ./arr.nix
-    # ./power.nix
+    ./zsh.nix
   ];
 }

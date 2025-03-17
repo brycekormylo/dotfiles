@@ -36,6 +36,7 @@
     statix
     stylua
     tokei
+    # swift
     wasm-pack
     cargo-generate
     wasm-tools

@@ -10,6 +10,24 @@
   ];
 
   guiDeps = with pkgs; [
+    # egl-wayland
+    # gtk3
+    # hyprcursor
+    # hyprland
+    # hyprlang
+    # libdbusmenu-gtk3
+    # lxappearance
+    # nwg-look
+    # rofi-wayland
+    # swaybg
+    # wayland-protocols
+    # wayland-utils
+    # waypaper
+    # wl-clipboard
+    # wlroots
+    # xdg-desktop-portal-hyprland
+    # xorg.xhost
+    # xwayland
     # gnome-control-center
     # resources
     # overskride
@@ -29,6 +47,7 @@ in {
   };
 
   home.sessionVariables = {
+    # Might not be needed
     QT_QPA_PLATFORM = "wayland";
     SDL_VIDEODRIVER = "wayland";
     XDG_SESSION_TYPE = "wayland";
@@ -102,26 +121,25 @@ in {
       ];
 
       env = [
+        # Cursors
         "HYPRCURSOR_SIZE,24"
         "HYPRCURSOR_THEME,phinger-cursors"
-
         "XCURSOR_SIZE,24"
         "XCURSOR_THEME,phinger-cursors"
 
-        "GDK_BACKEND,wayland,x11,*"
-        "NVD_backend,direct"
-
+        # Logs
         "HYPRLAND_TRACE,1"
         "AQ_TRACE,1"
 
+        # Compatibility
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
+        "GDK_BACKEND,wayland,x11,*"
         "QT_QPA_PLATFORM,wayland;xcb"
         "SDL_VIDEODRIVER,wayland,x11"
         "CLUTTER_BACKEND,wayland"
 
-        "XDG_CURRENT_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_DESKTOP,Hyprland"
-
+        # Nvidia
+        # "NVD_backend,direct" # Vaapi nvidia
         # "LIBVA_DRIVER_NAME,nvidia"
         # "__GLX_VENDOR_LIBRARY_NAME,nvidia"
         # "__GL_VRR_ALLOWED,0"

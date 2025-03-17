@@ -65,6 +65,7 @@
     ./ui/modicator.nix
     # ./ui/modes.nix
     ./ui/mini.nix
+    ./ui/nui.nix
     # ./ui/rainbow-delimiters.nix
     ./ui/relative-toggle.nix
     ./ui/satellite.nix
@@ -77,6 +78,7 @@
     ./utils/comment.nix
     # ./utils/early-retirement.nix
     ./utils/floaterm.nix
+    ./utils/leetcode.nix
     ./utils/icon-picker.nix
     ./utils/kulala.nix
     ./utils/mkdnflow.nix

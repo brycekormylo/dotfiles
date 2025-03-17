@@ -14,8 +14,8 @@
   fileSystems."/home/bryce/media/usb" = {
     device = "/dev/disk/by-uuid/24FD-CF07";
     options = [
-      "users"
       "nofail"
+      "users"
       "x-gvfs-show"
     ];
   };

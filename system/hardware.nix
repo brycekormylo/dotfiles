@@ -19,6 +19,7 @@
 
     kernelParams = [
       "intel_pstate=disable"
+      "i915.force_probe=3e94"
       # "nvidia_drm"
       # "nvidia_drm.modeset=1"
       # "nvidia.NVreg_PreserveVideoMemoryAllocations=1"

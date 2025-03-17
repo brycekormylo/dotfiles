@@ -49,6 +49,8 @@
           #   };
           # };
 
+          # sourcekit.enable = true; # Swift
+
           bashls.enable = true;
           clangd.enable = true;
           lua_ls.enable = true;

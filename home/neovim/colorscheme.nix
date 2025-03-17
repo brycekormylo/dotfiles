@@ -130,6 +130,34 @@ in {
           				"LspInlayHint",
           				colors.main.color3,
           			},
+
+          			-- {
+          			-- 	"leetcode_dyn_p",
+          			-- 	colors.main.color4,
+          			-- },
+          			-- {
+          			-- 	"leetcode_dyn_pre",
+          			-- 	colors.main.color4,
+          			-- },
+          			-- {
+          			-- 	"leetcode_dyn_ul_li",
+          			-- 	colors.main.color4,
+          			-- },
+             --
+          			-- {
+          			-- 	"leetcode_alt",
+          			-- 	colors.main.color4,
+          			-- },
+             --
+          			-- {
+          			-- 	"leetcode_all_alt",
+          			-- 	colors.main.color4,
+          			-- },
+             --
+          			-- {
+          			-- 	"leetcode_normal",
+          			-- 	colors.main.color5,
+          			-- },
           		},
           	},
           })

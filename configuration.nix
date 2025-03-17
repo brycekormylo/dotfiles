@@ -1,5 +1,4 @@
 {
-  lib,
   inputs,
   config,
   pkgs,
@@ -29,21 +28,25 @@
   hardware = {
     graphics = {
       enable = true;
-      enable32Bit = true;
       extraPackages = with pkgs; [
         intel-compute-runtime
-        intel-vaapi-driver
-        vpl-gpu-rt
+        intel-media-driver
+        intel-ocl
         libvdpau-va-gl
+        vpl-gpu-rt
+        mesa.drivers
 
-        # mesa.drivers
-
+        # intel-vaapi-driver
         libva-vdpau-driver
-        nvidia-vaapi-driver
         libva1
+        nvidia-vaapi-driver
+        vaapiVdpau
         xrdp
       ];
-      extraPackages32 = with pkgs.pkgsi686Linux; [intel-vaapi-driver];
+      enable32Bit = true;
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        intel-vaapi-driver
+      ];
     };
 
     nvidia = {
@@ -65,7 +68,6 @@
   };
 
   services = {
-    upower.enable = true;
     dbus = {
       enable = true;
       implementation = "broker";
@@ -101,7 +103,6 @@
       withUWSM = true;
     };
     dconf.enable = true;
-    zsh.enable = true;
   };
 
   security = {
@@ -125,6 +126,7 @@
 
   services = {
     power-profiles-daemon.enable = false;
+    upower.enable = true;
     pipewire = {
       enable = true;
       pulse.enable = true;
@@ -165,7 +167,11 @@
     vlc
 
     bluez
+    brightnessctl
+    dbus-broker
+    libnotify
     networkmanagerapplet
+    wireplumber
 
     gcc
     libgcc
@@ -176,19 +182,15 @@
     nix-prefetch-github
     nvd
 
-    wireplumber
-    dbus-broker
     util-linux
-    newt
+    # newt
 
-    brightnessctl
     egl-wayland
     gtk3
     hyprcursor
     hyprland
     hyprlang
     libdbusmenu-gtk3
-    libnotify
     lxappearance
     nwg-look
     rofi-wayland
@@ -198,30 +200,47 @@
     waypaper
     wl-clipboard
     wlroots
-    xdg-desktop-portal-gtk
+    xdg-desktop-portal-gtk # Might just be for a file picker
     xdg-desktop-portal-hyprland
     xorg.xhost
     xwayland
   ];
 
-  fonts.packages = with pkgs; [
-    commit-mono
-    liberation_ttf
-    nerd-fonts.symbols-only
-    vistafonts
-  ];
+  fonts = {
+    packages = with pkgs; [
+      commit-mono
+      liberation_ttf
+
+      nerd-fonts.symbols-only
+      material-symbols
+
+      # Sans(Serif) fonts
+      libertinus
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-emoji
+      roboto
+      vistafonts
+    ];
+
+    enableDefaultPackages = false;
+
+    fontconfig.defaultFonts = {
+      serif = ["Libertinus Serif"];
+      sansSerif = ["Inter"];
+      monospace = ["Commit Mono"];
+      emoji = ["Noto Color Emoji"];
+    };
+  };
 
   environment.sessionVariables = {
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+    LIBVA_DRIVER_NAME = "iHD";
+    VDPAU_DRIVER = "va_gl"; # or "nvidia"
+    # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
+
     WLR_NO_HARDWARE_CURSORS = "1";
     NIXOS_OZONE_WL = "1";
-    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
-    # UWSM_USE_SESSION_SLICE = "true";
-    LIBVA_DRIVER_NAME = "iHD";
-    # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
-    QT_QPA_PLATFORM = "wayland";
-    SDL_VIDEODRIVER = "wayland";
-    XDG_SESSION_TYPE = "wayland";
-    # LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
   };
 
   system.stateVersion = "25.05";
@@ -233,6 +252,7 @@
 
   nix = {
     settings = {
+      builders-use-substitutes = true;
       experimental-features = ["nix-command" "flakes"];
       trusted-users = ["root" "@wheel"];
     };

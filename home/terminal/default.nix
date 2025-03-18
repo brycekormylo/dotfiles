@@ -40,6 +40,9 @@
     zenith-nvidia
     clinfo
 
+    # Disk usage
+    gdu
+
     bat
     fd
     fzf

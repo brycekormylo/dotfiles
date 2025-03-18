@@ -17,16 +17,16 @@
 }
 
 .right-box {
-  background: @base00;
+  /* background: @base00; */
   color: @base06;
-  border-bottom-left-radius: 8px;
+  border-bottom-left-radius: 4px;
   padding: 4px;
 }
 
 .left-box {
-  background: @base00;
+  /* background: @base00; */
   color: @base06;
-  border-bottom-right-radius: 8px;
+  border-bottom-right-radius: 4px;
   padding: 4px 12px 4px 12px;
 }
 

@@ -154,11 +154,14 @@ in {
       "$sysMonitor" = "kitty gotop";
       "$notes" = "kitty --single-instance -d ~/psi vi .";
       "$health" = "kitty --single-instance -d ~/vaults/health vi .";
-      "$browser" = "firefox";
-      "$privateBrowser" = "librewolf";
+      "$browser" = "uwsm app -- firefox";
+      "$privateBrowser" = "uwsm app -- librewolf";
       "$ivpnOn" = "ivpn connect -last";
       "$ivpnOff" = "ivpn disconnect";
       "$config" = "kitty --single-instance -d ~/dot bash dev.sh";
+
+      "$ags" = "ags";
+      "$agsKill" = "ags -q";
 
       "$captureAll" = "~/scripts/screenshots/captureAll.sh";
       "$captureScreen" = "~/scripts/screenshots/captureScreen.sh";
@@ -177,6 +180,9 @@ in {
         "$mod, E, exec, $menu"
         "$mod, N, exec, $notes"
         "$mod, H, exec, $health"
+
+        "$mod, B, exec, $ags"
+        "$mod SHIFT, B, exec, $agsKill"
 
         "$mod, I, exec, $ivpnOn"
         "$mod SHIFT, I, exec, $ivpnOff"

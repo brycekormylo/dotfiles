@@ -42,10 +42,10 @@ const Network = () => {
 				Widget.Label({
 					label: `${network.wifi.strength}`,
 				}),
-				Widget.Icon({
-					class_name: "icon",
-					icon: network.wifi.bind("icon_name"),
-				}),
+				// Widget.Icon({
+				// 	class_name: "icon",
+				// 	icon: network.wifi.bind("icon_name"),
+				// }),
 			],
 		});
 
@@ -78,7 +78,8 @@ const Battery = () => {
 	return Widget.Box({
 		spacing: 4,
 		class_name: "battery-indicator",
-		children: [BatteryPercentage(), BatteryIcon()],
+		children: [BatteryPercentage()],
+		// children: [BatteryPercentage(), BatteryIcon()],
 	});
 };
 

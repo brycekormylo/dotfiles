@@ -208,13 +208,11 @@
 
   fonts = {
     packages = with pkgs; [
-      commit-mono
-      liberation_ttf
-
       nerd-fonts.symbols-only
       material-symbols
 
-      # Sans(Serif) fonts
+      commit-mono
+      liberation_ttf
       libertinus
       noto-fonts
       noto-fonts-cjk-sans

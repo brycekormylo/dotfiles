@@ -100,12 +100,6 @@
     dconf.enable = true;
   };
 
-  security = {
-    rtkit.enable = true;
-    polkit.enable = true;
-    sudo.wheelNeedsPassword = false;
-  };
-
   users.users.bryce = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -153,12 +147,14 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    libreoffice
-    librewolf
+    # librewolf
+    ungoogled-chromium
+
     neovim
     vscodium
+
+    libreoffice
     obsidian
-    ungoogled-chromium
     vlc
 
     bluez
@@ -172,13 +168,11 @@
     libgcc
     lld
 
-    lshw
     nix-output-monitor
     nix-prefetch-github
     nvd
 
     util-linux
-    # newt
 
     egl-wayland
     gtk3
@@ -237,7 +231,7 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  system.stateVersion = "25.05";
+  system.stateVersion = "23.11";
 
   nixpkgs.config = {
     allowUnfree = true;

@@ -1,16 +1,16 @@
 {
   imports = [
-    ./ivpn.nix
     # ./polkit-agent.nix
-    ./substituters.nix
-    ./bluetooth.nix
     ./avahi.nix
-    ./security.nix
-    ./greetd.nix
-    ./thunar.nix
-    ./locale.nix
+    ./bluetooth.nix
     ./drives.nix
+    ./greetd.nix
     ./hardware.nix
+    ./ivpn.nix
+    ./locale.nix
+    ./security.nix
+    ./substituters.nix
+    ./thunar.nix
     ./zsh.nix
   ];
 }

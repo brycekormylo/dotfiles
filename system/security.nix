@@ -52,5 +52,7 @@
 
     # don't ask for password for wheel group
     sudo.wheelNeedsPassword = false;
+
+    polkit.enable = true;
   };
 }

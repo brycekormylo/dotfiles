@@ -39,6 +39,7 @@
     tree
     zenith-nvidia
     clinfo
+    lshw
 
     # Disk usage
     gdu

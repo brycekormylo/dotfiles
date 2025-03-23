@@ -62,43 +62,43 @@
     };
   };
 
-  services = {
-    dbus = {
-      enable = true;
-      implementation = "broker";
-      packages = with pkgs; [
-        gcr
-        gnome-settings-daemon
-      ];
-    };
+  # services = {
+  #   dbus = {
+  #     enable = true;
+  #     implementation = "broker";
+  #     packages = with pkgs; [
+  #       gcr
+  #       gnome-settings-daemon
+  #     ];
+  #   };
+  #
+  #   displayManager = {
+  #     defaultSession = "hyprland-uwsm";
+  #     autoLogin.enable = true;
+  #     autoLogin.user = "bryce";
+  #   };
+  # };
+  #
+  # xdg.portal = {
+  #   enable = true;
+  #   xdgOpenUsePortal = true;
+  #   config = {
+  #     common.default = ["gtk"];
+  #     hyprland.default = ["gtk" "hyprland"];
+  #   };
+  #
+  #   extraPortals = [
+  #     pkgs.xdg-desktop-portal-gtk
+  #   ];
+  # };
 
-    displayManager = {
-      defaultSession = "hyprland-uwsm";
-      autoLogin.enable = true;
-      autoLogin.user = "bryce";
-    };
-  };
-
-  xdg.portal = {
-    enable = true;
-    xdgOpenUsePortal = true;
-    config = {
-      common.default = ["gtk"];
-      hyprland.default = ["gtk" "hyprland"];
-    };
-
-    extraPortals = [
-      pkgs.xdg-desktop-portal-gtk
-    ];
-  };
-
-  programs = {
-    hyprland = {
-      enable = true;
-      withUWSM = true;
-    };
-    dconf.enable = true;
-  };
+  # programs = {
+  #   hyprland = {
+  #     enable = true;
+  #     withUWSM = true;
+  #   };
+  #   dconf.enable = true;
+  # };
 
   users.users.bryce = {
     isNormalUser = true;
@@ -174,25 +174,25 @@
 
     util-linux
 
-    egl-wayland
-    gtk3
-    hyprcursor
-    hyprland
-    hyprlang
-    libdbusmenu-gtk3
-    lxappearance
-    nwg-look
-    rofi-wayland
-    swaybg
-    wayland-protocols
-    wayland-utils
-    waypaper
-    wl-clipboard
-    wlroots
-    xdg-desktop-portal-gtk # Might just be for a file picker
-    xdg-desktop-portal-hyprland
-    xorg.xhost
-    xwayland
+    # egl-wayland
+    # gtk3
+    # hyprcursor
+    # hyprland
+    # hyprlang
+    # libdbusmenu-gtk3
+    # lxappearance
+    # nwg-look
+    # rofi-wayland
+    # swaybg
+    # wayland-protocols
+    # wayland-utils
+    # waypaper
+    # wl-clipboard
+    # wlroots
+    # xdg-desktop-portal-gtk # Might just be for a file picker
+    # xdg-desktop-portal-hyprland
+    # xorg.xhost
+    # xwayland
   ];
 
   fonts = {

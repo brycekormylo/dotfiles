@@ -6,6 +6,7 @@
     ./drives.nix
     ./greetd.nix
     ./hardware.nix
+    ./hyprland.nix
     ./ivpn.nix
     ./locale.nix
     ./security.nix

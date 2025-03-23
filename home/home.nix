@@ -16,7 +16,7 @@
     ./gui
     ./modules
     ./neovim
-    ./shell
+    ./script
     ./terminal
     ./utils
 

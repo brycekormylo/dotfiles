@@ -39,6 +39,7 @@
 
         modules = [
           ./configuration.nix
+
           nixos-hardware.nixosModules.dell-precision-7520
 
           {

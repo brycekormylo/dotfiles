@@ -1,50 +1,58 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
+    # Fmt
     alejandra
-    superhtml
-    bun
     biome
-    universal-ctags
-    cscope
-    global
-    curl
-    deno
-    go
     google-java-format
-    gradle
     hadolint
     kulala-fmt
-    manix
     markdownlint-cli
     mdformat
-    mono
-    nixd
     nodePackages.jsonlint
-    nodejs_22
-    npm-check
-    python3
-    rustlings
-    # rustfmt
-    # clippy
-    # trunk
-    # leptosfmt
-    # cargo-leptos
-    rustup
-    # cargo
     rustywind
-    semgrep
     statix
     stylua
-    tokei
-    # swift
-    wasm-pack
-    cargo-generate
-    wasm-tools
-    yamlfix
     yamlfmt
     yamllint
+
+    # Web
+    superhtml
+    bun
+    deno
+    nodejs_22
+    mono
+
+    # Lang
+    go
+    gradle
+    nixd
+    python3
+    rustup
     zig
-    markdown-oxide
     zulu
+
+    # Tags
+    cscope
+    global
+    universal-ctags
+
+    # Utils
+    cargo-generate
+    manix
+    markdown-oxide
+    npm-check
+    rustlings
+    semgrep
+    tokei
+    wasm-pack
+    wasm-tools
+    yamlfix
+    # cargo
+    # cargo-leptos
+    # clippy
+    # leptosfmt
+    # rustfmt
+    # swift
+    # trunk
   ];
 }

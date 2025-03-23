@@ -11,7 +11,6 @@
     ./locale.nix
     ./drives.nix
     ./hardware.nix
-    ./arr.nix
     ./zsh.nix
   ];
 }

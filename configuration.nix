@@ -60,11 +60,6 @@
         intelBusId = "PCI:0:2:0";
       };
     };
-
-    bluetooth = {
-      enable = true;
-      powerOnBoot = false;
-    };
   };
 
   services = {
@@ -117,10 +112,10 @@
     description = "bryce";
     extraGroups = [
       "input"
-      "transmission"
       "networkmanager"
-      "wheel"
+      "transmission"
       "video"
+      "wheel"
     ];
   };
 
@@ -159,7 +154,7 @@
   environment.systemPackages = with pkgs; [
     firefox
     libreoffice
-    # librewolf
+    librewolf
     neovim
     vscodium
     obsidian
@@ -207,9 +202,11 @@
   ];
 
   fonts = {
+    enableDefaultPackages = false;
+
     packages = with pkgs; [
-      nerd-fonts.symbols-only
       material-symbols
+      nerd-fonts.symbols-only
 
       commit-mono
       liberation_ttf
@@ -221,8 +218,6 @@
       vistafonts
     ];
 
-    enableDefaultPackages = false;
-
     fontconfig.defaultFonts = {
       serif = ["Libertinus Serif"];
       sansSerif = ["Inter"];
@@ -233,6 +228,7 @@
 
   environment.sessionVariables = {
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+
     LIBVA_DRIVER_NAME = "iHD";
     VDPAU_DRIVER = "va_gl"; # or "nvidia"
     # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this

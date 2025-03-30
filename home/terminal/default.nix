@@ -58,8 +58,10 @@
 
   imports = [
     ./kitty.nix
+    ./lazygit.nix
     ./mutt.nix
     ./ranger.nix
     ./tmux.nix
+    ./yazi.nix
   ];
 }

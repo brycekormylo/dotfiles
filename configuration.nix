@@ -62,44 +62,6 @@
     };
   };
 
-  # services = {
-  #   dbus = {
-  #     enable = true;
-  #     implementation = "broker";
-  #     packages = with pkgs; [
-  #       gcr
-  #       gnome-settings-daemon
-  #     ];
-  #   };
-  #
-  #   displayManager = {
-  #     defaultSession = "hyprland-uwsm";
-  #     autoLogin.enable = true;
-  #     autoLogin.user = "bryce";
-  #   };
-  # };
-  #
-  # xdg.portal = {
-  #   enable = true;
-  #   xdgOpenUsePortal = true;
-  #   config = {
-  #     common.default = ["gtk"];
-  #     hyprland.default = ["gtk" "hyprland"];
-  #   };
-  #
-  #   extraPortals = [
-  #     pkgs.xdg-desktop-portal-gtk
-  #   ];
-  # };
-
-  # programs = {
-  #   hyprland = {
-  #     enable = true;
-  #     withUWSM = true;
-  #   };
-  #   dconf.enable = true;
-  # };
-
   users.users.bryce = {
     isNormalUser = true;
     shell = pkgs.zsh;
@@ -147,7 +109,7 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    # librewolf
+    floorp
     ungoogled-chromium
 
     neovim
@@ -173,26 +135,6 @@
     nvd
 
     util-linux
-
-    # egl-wayland
-    # gtk3
-    # hyprcursor
-    # hyprland
-    # hyprlang
-    # libdbusmenu-gtk3
-    # lxappearance
-    # nwg-look
-    # rofi-wayland
-    # swaybg
-    # wayland-protocols
-    # wayland-utils
-    # waypaper
-    # wl-clipboard
-    # wlroots
-    # xdg-desktop-portal-gtk # Might just be for a file picker
-    # xdg-desktop-portal-hyprland
-    # xorg.xhost
-    # xwayland
   ];
 
   fonts = {
@@ -224,14 +166,11 @@
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
 
     LIBVA_DRIVER_NAME = "iHD";
-    VDPAU_DRIVER = "va_gl"; # or "nvidia"
     # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
-
-    WLR_NO_HARDWARE_CURSORS = "1";
-    NIXOS_OZONE_WL = "1";
+    VDPAU_DRIVER = "va_gl"; # or "nvidia"
   };
 
-  system.stateVersion = "23.11";
+  system.stateVersion = "23.11"; # Do not change
 
   nixpkgs.config = {
     allowUnfree = true;

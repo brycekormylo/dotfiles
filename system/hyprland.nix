@@ -1,8 +1,5 @@
 {
-  inputs,
   pkgs,
-  lib,
-  config,
   ...
 }: let
   requiredDeps = with pkgs; [
@@ -37,6 +34,7 @@
   dependencies = requiredDeps ++ guiDeps;
 in {
   environment.systemPackages = dependencies;
+
   programs = {
     hyprland = {
       enable = true;
@@ -73,5 +71,10 @@ in {
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
     ];
+  };
+
+  environment.sessionVariables = {
+    WLR_NO_HARDWARE_CURSORS = "1";
+    NIXOS_OZONE_WL = "1";
   };
 }

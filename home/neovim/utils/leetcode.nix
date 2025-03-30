@@ -61,7 +61,7 @@
           description = {
               position = "left", ---@type lc.position
 
-              width = "40%", ---@type lc.size
+              width = "34%", ---@type lc.size
 
               show_stats = true, ---@type boolean
           },

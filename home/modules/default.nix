@@ -3,7 +3,7 @@
     ./tauri.nix
     ./openGLfix.nix
     ./firefox.nix
-    # ./librewolf.nix
+    ./floorp.nix
     ./mpv.nix
     # ./emacs.nix
   ];

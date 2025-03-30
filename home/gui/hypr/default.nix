@@ -4,37 +4,10 @@
   config,
   ...
 }: let
-  requiredDeps = with pkgs; [
+  dependencies = with pkgs; [
     aquamarine
     glaze
   ];
-
-  guiDeps = with pkgs; [
-    # egl-wayland
-    # gtk3
-    # hyprcursor
-    # hyprland
-    # hyprlang
-    # libdbusmenu-gtk3
-    # lxappearance
-    # nwg-look
-    # rofi-wayland
-    # swaybg
-    # wayland-protocols
-    # wayland-utils
-    # waypaper
-    # wl-clipboard
-    # wlroots
-    # xdg-desktop-portal-hyprland
-    # xorg.xhost
-    # xwayland
-    # gnome-control-center
-    # resources
-    # overskride
-    # wlogout
-  ];
-
-  dependencies = requiredDeps ++ guiDeps;
 in {
   home.packages = dependencies;
 
@@ -117,7 +90,6 @@ in {
         "uwsm app -- ags"
         "uwsm app -- firefox"
         "ivpn connect --last"
-        # "sudo tlp start"
       ];
 
       env = [
@@ -155,7 +127,7 @@ in {
       "$notes" = "kitty --single-instance -d ~/psi vi .";
       "$health" = "kitty --single-instance -d ~/vaults/health vi .";
       "$browser" = "uwsm app -- firefox";
-      "$privateBrowser" = "uwsm app -- librewolf";
+      "$privateBrowser" = "uwsm app -- floorp";
       "$ivpnOn" = "ivpn connect -last";
       "$ivpnOff" = "ivpn disconnect";
       "$config" = "kitty --single-instance -d ~/dot bash dev.sh";
@@ -167,7 +139,11 @@ in {
       "$captureScreen" = "~/scripts/screenshots/captureScreen.sh";
       "$captureArea" = "~/scripts/screenshots/captureArea.sh";
 
-      "windowrulev2" = "suppressevent maximize, class:.*";
+      windowrulev2 = [
+        "suppressevent maximize, class:.*"
+        "noborder, onworkspace:w[t1]"
+      ];
+
       "workspace" = "special:magic, on-created-empty: $config ";
 
       bind = [

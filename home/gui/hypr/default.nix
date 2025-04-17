@@ -121,7 +121,8 @@ in {
       "monitor" = ",preferred,auto,auto";
       "$mod" = "SUPER";
       "$terminal" = "kitty";
-      "$fileManager" = "kitty ranger --confdir ~/.config/ranger";
+      # "$fileManager" = "kitty ranger --confdir ~/.config/ranger";
+      "$fileManager" = "kitty --single-instance yazi";
       "$menu" = "rofi -show drun -show-icons  -run-command '{cmd}'";
       "$sysMonitor" = "kitty gotop";
       "$notes" = "kitty --single-instance -d ~/psi vi .";

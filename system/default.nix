@@ -9,6 +9,9 @@
     ./hyprland.nix
     ./ivpn.nix
     ./locale.nix
+    ./networking.nix
+    ./pipewire.nix
+    ./power.nix
     ./security.nix
     ./substituters.nix
     ./thunar.nix

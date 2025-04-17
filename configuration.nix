@@ -19,11 +19,16 @@
     };
   };
 
-  networking = {
-    hostName = "pathfinder";
-    networkmanager.enable = true;
-    firewall.allowedTCPPorts = [61458 61459 2416];
-  };
+  # networking = {
+  #   hostName = "pathfinder";
+  #   networkmanager = {
+  #     enable = true;
+  #     dns = "systemd-resolved";
+  #   };
+  #   firewall.allowedTCPPorts = [61458 61459 2416];
+  # };
+  #
+  # systemd.services.NetworkManager-wait-online.serviceConfig.ExecStart = ["" "${pkgs.networkmanager}/bin/nm-online -q"];
 
   hardware = {
     graphics = {
@@ -76,16 +81,16 @@
   };
 
   services = {
-    power-profiles-daemon.enable = false;
-    upower.enable = true;
-    pipewire = {
-      enable = true;
-      pulse.enable = true;
-      alsa = {
-        enable = true;
-        support32Bit = true;
-      };
-    };
+    # power-profiles-daemon.enable = false;
+    # upower.enable = true;
+    # pipewire = {
+    #   enable = true;
+    #   pulse.enable = true;
+    #   alsa = {
+    #     enable = true;
+    #     support32Bit = true;
+    #   };
+    # };
     blueman.enable = true;
     usbmuxd.enable = true;
     gvfs.enable = true; # Mount, trash, etc
@@ -128,7 +133,11 @@
 
     gcc
     libgcc
-    lld
+
+    # Rust needs these sometimes
+    # dlib
+    # llvmPackages.bintools
+    # libxkbcommon
 
     nix-output-monitor
     nix-prefetch-github

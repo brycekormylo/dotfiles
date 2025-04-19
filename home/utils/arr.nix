@@ -11,6 +11,6 @@
     qbittorrent
     # soulseekqt
     stash
-    streamrip
+    # streamrip
   ];
 }

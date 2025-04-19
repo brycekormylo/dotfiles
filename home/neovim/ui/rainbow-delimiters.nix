@@ -1,6 +1,4 @@
-{config, ...}: let
-  palette = config.colorScheme.palette;
-in {
+{
   programs.nixvim = {
     plugins.rainbow-delimiters = {
       enable = true;

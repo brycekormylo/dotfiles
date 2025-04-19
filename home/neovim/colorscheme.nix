@@ -1,4 +1,4 @@
-{config, ...}: let
+let
   palette = {
     base00 = "#32302F";
     base01 = "#282828";

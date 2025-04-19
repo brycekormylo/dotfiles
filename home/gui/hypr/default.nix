@@ -9,6 +9,11 @@
     glaze
   ];
 in {
+  imports = [
+    ./hypridle.nix
+    ./hyprlock.nix
+  ];
+
   home.packages = dependencies;
 
   home.pointerCursor = {

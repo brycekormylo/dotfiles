@@ -3,10 +3,6 @@
     plugins = {
       # lsp-status.enable = true; needs config
       # typescript-tools.enable = true;
-      nvim-jdtls = {
-        enable = true;
-        data = "/home/bryce/.cache/jtdls/workspace/";
-      };
       rustaceanvim = {
         enable = true;
         settings.tools.enable_clippy = true;

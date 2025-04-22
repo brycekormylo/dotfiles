@@ -121,9 +121,9 @@
     };
 
     diagnostics = {
-      virtual_lines = {
-        only_current_line = false;
-      };
+      # virtual_lines = {
+      #   current_line = true;
+      # };
       virtual_text = false;
     };
 

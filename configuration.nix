@@ -56,6 +56,8 @@
     };
   };
 
+  services.xserver.videoDrivers = ["nvidia"];
+
   users.users.bryce = {
     isNormalUser = true;
     shell = pkgs.zsh;

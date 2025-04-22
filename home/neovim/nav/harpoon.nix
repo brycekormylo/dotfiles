@@ -11,7 +11,7 @@
       }
       {
         mode = "n";
-        key = "<C-e>";
+        key = "<leader>h";
         action.__raw = "function() require'harpoon'.ui:toggle_quick_menu(require'harpoon':list()) end";
       }
       {

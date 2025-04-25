@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   pkgs,
   ...
@@ -22,12 +21,13 @@
         "fadeIn, 0"
       ];
 
-      # background = [
-      #   {
-      #     monitor = "";
-      #     path = config.theme.wallpaper;
-      #   }
-      # ];
+      background = [
+        {
+          monitor = "";
+          color = "rgba(0,0,0,0.4)";
+          blur_passes = 4;
+        }
+      ];
 
       input-field = [
         {

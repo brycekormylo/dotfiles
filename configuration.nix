@@ -30,7 +30,6 @@
         vpl-gpu-rt
         mesa
 
-        # intel-vaapi-driver
         libva-vdpau-driver
         libva1
         nvidia-vaapi-driver
@@ -55,8 +54,6 @@
       };
     };
   };
-
-  services.xserver.videoDrivers = ["nvidia"];
 
   users.users.bryce = {
     isNormalUser = true;

@@ -12,7 +12,21 @@
   boot = {
     initrd = {
       systemd.enable = true;
-      availableKernelModules = ["xhci_pci" "ahci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+      kernelModules = [
+        "nvidia"
+        "i915"
+        "nvidia_modeset"
+        # "nvidia_uvm"
+        "nvidia_drm"
+      ];
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+        "rtsx_pci_sdmmc"
+      ];
     };
     extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
     blacklistedKernelModules = ["nouveau"];
@@ -20,14 +34,15 @@
     kernelParams = [
       "intel_pstate=disable"
       "i915.force_probe=3e94"
+      "nvidia_drm.fbdev=1"
       # "nvidia_drm"
       # "nvidia_drm.modeset=1"
       # "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
 
-    kernelPackages = pkgs.linuxKernel.packages.linux_6_1.extend (final: prev: {
-      nvidia_x11 = prev.nvidia_x11_legacy390;
-    });
+    # kernelPackages = pkgs.linuxKernel.packages.linux_6_1.extend (final: prev: {
+    #   nvidia_x11 = prev.nvidia_x11_legacy390;
+    # });
   };
 
   fileSystems."/" = {

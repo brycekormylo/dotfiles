@@ -19,6 +19,8 @@
     };
   };
 
+  services.xserver.videoDrivers = ["nvidia"];
+
   hardware = {
     graphics = {
       enable = true;
@@ -46,9 +48,12 @@
       open = false;
       modesetting.enable = true;
       nvidiaSettings = true;
-      package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
+      # package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
       prime = {
-        sync.enable = true;
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
         nvidiaBusId = "PCI:1:0:0";
         intelBusId = "PCI:0:2:0";
       };
@@ -69,6 +74,7 @@
   };
 
   services = {
+    thermald.enable = true;
     blueman.enable = true;
     usbmuxd.enable = true;
     gvfs.enable = true; # Mount, trash, etc
@@ -79,11 +85,13 @@
     # };
   };
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   # Steam wont launch
-  # programs.steam = {
-  #   enable = true;
-  #   gamescopeSession.enable = true;
-  # };
+  programs.steam = {
+    enable = true;
+    gamescopeSession.enable = true;
+  };
 
   systemd.services = {
     "getty@tty1".enable = false; # Autologin

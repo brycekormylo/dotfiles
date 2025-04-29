@@ -38,6 +38,10 @@
 
   programs.home-manager.enable = true;
 
-  # Update plugins
-  # cd .config/home-manager && nix flake update && home-manager switch
+  # Needs to be declared separately here for home-manger
+  nix.gc = {
+    automatic = true;
+    frequency = "weekly";
+    options = "--delete-older-than 30d";
+  };
 }

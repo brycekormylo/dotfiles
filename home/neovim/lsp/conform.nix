@@ -1,4 +1,18 @@
-{
+{pkgs, ...}: let
+  dependencies = with pkgs; [
+    alejandra
+    biome
+    kulala-fmt
+    leptosfmt
+    rustywind
+    stylua
+    superhtml
+    yamlfix
+    # google-java-format
+  ];
+in {
+  home.packages = dependencies;
+
   programs.nixvim.plugins.conform-nvim = {
     enable = true;
     settings = {

@@ -33,17 +33,21 @@
     pandoc
 
     acpi
+    clinfo
+    duf
     fastfetch
     gotop
+    lshw
     nvitop
     powertop
     tree
     zenith-nvidia
-    clinfo
-    lshw
 
     # Disk usage
     gdu
+
+    # GPU
+    mesa-demos
 
     bat
     fd

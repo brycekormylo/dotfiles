@@ -1,4 +1,11 @@
-{
+{pkgs, ...}: let
+  dependencies = with pkgs; [
+    nodePackages.jsonlint
+    # yamllint
+    # hadolint
+  ];
+in {
+  home.packages = dependencies;
   programs.nixvim = {
     plugins.lint = {
       enable = true;

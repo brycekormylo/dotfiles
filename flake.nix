@@ -62,14 +62,14 @@
         modules = [
           ./configuration.nix
 
-          nixos-hardware.nixosModules.dell-precision-7520
+          # nixos-hardware.nixosModules.dell-precision-7520
 
-          {
-            nixpkgs.overlays = [
-              nixd.overlays.default
-              (self: super: {linuxPackages = super.linuxPackages_6_1;})
-            ];
-          }
+          # {
+          #   nixpkgs.overlays = [
+          #     nixd.overlays.default
+          #     (self: super: {linuxPackages = super.linuxPackages_6_1;})
+          #   ];
+          # }
 
           home-manager.nixosModules.home-manager
 

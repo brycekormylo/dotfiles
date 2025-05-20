@@ -16,7 +16,6 @@
         "nvidia"
         "i915"
         "nvidia_modeset"
-        # "nvidia_uvm"
         "nvidia_drm"
       ];
       availableKernelModules = [
@@ -39,10 +38,6 @@
       # "nvidia_drm.modeset=1"
       # "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
     ];
-
-    # kernelPackages = pkgs.linuxKernel.packages.linux_6_1.extend (final: prev: {
-    #   nvidia_x11 = prev.nvidia_x11_legacy390;
-    # });
   };
 
   fileSystems."/" = {

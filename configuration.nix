@@ -48,7 +48,6 @@
       open = false;
       modesetting.enable = true;
       nvidiaSettings = true;
-      # package = config.boot.kernelPackages.nvidiaPackages.legacy_390;
       prime = {
         offload = {
           enable = true;
@@ -87,7 +86,6 @@
 
   powerManagement.cpuFreqGovernor = "performance";
 
-  # Steam wont launch
   programs.steam = {
     enable = true;
     gamescopeSession.enable = true;

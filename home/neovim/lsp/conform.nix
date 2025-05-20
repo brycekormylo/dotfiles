@@ -1,6 +1,7 @@
 {pkgs, ...}: let
   dependencies = with pkgs; [
     alejandra
+    beautysh
     biome
     kulala-fmt
     leptosfmt
@@ -38,6 +39,7 @@ in {
         yaml = ["yamlfix"];
         # markdown = ["mdsf"]; # mdformat inserts / before every bracket
         rust = ["rustfmt" "leptosfmt"];
+        bash = ["beautysh"];
 
         http = ["kulala-fmt"];
 

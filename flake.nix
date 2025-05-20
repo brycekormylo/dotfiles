@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=nixos-unstable";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     hyprland.url = "github:hyprwm/Hyprland";
 
     hypridle = {
@@ -47,8 +46,6 @@
 
   outputs = inputs @ {
     home-manager,
-    nixd,
-    nixos-hardware,
     nixpkgs,
     ...
   }: let
@@ -61,15 +58,6 @@
 
         modules = [
           ./configuration.nix
-
-          # nixos-hardware.nixosModules.dell-precision-7520
-
-          # {
-          #   nixpkgs.overlays = [
-          #     nixd.overlays.default
-          #     (self: super: {linuxPackages = super.linuxPackages_6_1;})
-          #   ];
-          # }
 
           home-manager.nixosModules.home-manager
 

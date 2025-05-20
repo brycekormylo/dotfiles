@@ -11,6 +11,7 @@ in {
       enable = true;
       lintersByFt = {
         # nix = ["nix"];
+        bash = ["bash"];
         rust = ["clippy"];
         json = ["jsonlint"];
         javascript = ["biomejs"];

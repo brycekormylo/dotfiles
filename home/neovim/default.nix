@@ -45,6 +45,7 @@
     ./nav/snipe.nix
     ./nav/treesitter.nix
     ./nav/telescope.nix
+    # ./nav/fzf-lua.nix
 
     ./pilot/encourage.nix
     # ./pilot/reverb.nix

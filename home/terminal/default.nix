@@ -54,7 +54,7 @@
     fzf
     jq
     ripgrep
-    thefuck
+    # thefuck
     wget
     xdragon
     xidel

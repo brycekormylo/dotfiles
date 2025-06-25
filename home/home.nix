@@ -10,12 +10,13 @@
   };
 
   imports = [
-    inputs.nix-colors.homeManagerModules.default
+    # inputs.nix-colors.homeManagerModules.default
 
     ./git
     ./gui
     ./modules
     ./neovim
+    ./nixCats
     ./script
     ./terminal
     ./utils

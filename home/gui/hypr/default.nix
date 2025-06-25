@@ -92,7 +92,7 @@ in {
       exec-once = [
         "uswm finalize"
         "uwsm app -- waypaper --restore"
-        "uwsm app -- ags"
+        # "uwsm app -- ags"
         "uwsm app -- firefox"
         "ivpn connect --last"
       ];
@@ -127,7 +127,7 @@ in {
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       # "$fileManager" = "kitty ranger --confdir ~/.config/ranger";
-      "$fileManager" = "kitty --single-instance yazi";
+      "$fileManager" = "kitty --single-instance ranger";
       "$menu" = "rofi -show drun -show-icons  -run-command '{cmd}'";
       "$sysMonitor" = "kitty gotop";
       "$notes" = "kitty --single-instance -d ~/psi vi .";

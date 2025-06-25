@@ -118,11 +118,6 @@
     gcc
     libgcc
 
-    # Rust needs these sometimes
-    # dlib
-    # llvmPackages.bintools
-    # libxkbcommon
-
     deadnix
     nix-diff
     nix-output-monitor

@@ -6,5 +6,6 @@
     ./floorp.nix
     ./mpv.nix
     # ./emacs.nix
+    ./helix.nix
   ];
 }

@@ -13,7 +13,6 @@
     ];
     extraConfigLua = ''
       require("gitgraph").setup({
-
       	opts = {
       		symbols = {
       			merge_commit = "M",

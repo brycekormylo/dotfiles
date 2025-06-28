@@ -1,65 +1,45 @@
--- NOTE: These 2 need to be set up before any plugins are loaded.
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
+vim.g.backupdir = "~/.nvim/backup//"
+vim.g.directory = "~/.nvim/swap//"
+vim.g.undodir = "~/.nvim/undo//"
 
--- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
-vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-
--- Set highlight on search
 vim.opt.hlsearch = true
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
 
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+vim.api.nvim_set_option("clipboard", "unnamedplus")
 
--- Make line numbers default
 vim.wo.number = true
-
--- Enable mouse mode
-vim.o.mouse = "a"
-
--- Indent
--- vim.o.smarttab = true
+vim.o.mouse = ""
 vim.opt.cpoptions:append("I")
 vim.o.expandtab = true
--- vim.o.smartindent = true
--- vim.o.autoindent = true
--- vim.o.tabstop = 4
--- vim.o.softtabstop = 4
--- vim.o.shiftwidth = 4
+vim.o.smartindent = true
+vim.o.autoindent = true
+vim.o.tabstop = 4
+vim.o.textwidth = 80
+vim.o.conceallevel = 2
+vim.o.concealcursor = ""
+vim.o.shiftwidth = 4
 
--- stops line wrapping from being confusing
 vim.o.breakindent = true
-
--- Save undo history
+vim.o.wrap = true
+vim.o.wrap = true
+vim.o.wrapmargin = 0
 vim.o.undofile = true
-
--- Case-insensitive searching UNLESS \C or capital in search
 vim.o.ignorecase = true
 vim.o.smartcase = true
-
--- Keep signcolumn on by default
 vim.wo.signcolumn = "yes"
 vim.wo.relativenumber = true
+vim.o.updatetime = 50
+vim.o.timeoutlen = 1000
+vim.o.scrolloff = 24
+vim.o.cursorline = true
 
--- Decrease update time
-vim.o.updatetime = 250
-vim.o.timeoutlen = 300
-
--- Set completeopt to have a better completion experience
 vim.o.completeopt = "menu,preview,noselect"
 
--- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
 -- [[ Disable auto comment on enter ]]
@@ -71,160 +51,136 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
--- [[ Highlight on yank ]]
--- See `:help vim.highlight.on_yank()`
-local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
-vim.api.nvim_create_autocmd("TextYankPost", {
-	callback = function()
-		vim.highlight.on_yank()
-	end,
-	group = highlight_group,
-	pattern = "*",
-})
-
 vim.g.netrw_liststyle = 0
 vim.g.netrw_banner = 0
--- [[ Basic Keymaps ]]
 
--- Keymaps for better default experience
--- See `:help vim.keymap.set()`
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Moves Line Down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Moves Line Up" })
-vim.keymap.set("n", "<C-d>", "<C-d>zz", { desc = "Scroll Down" })
-vim.keymap.set("n", "<C-u>", "<C-u>zz", { desc = "Scroll Up" })
-vim.keymap.set("n", "n", "nzzzv", { desc = "Next Search Result" })
-vim.keymap.set("n", "N", "Nzzzv", { desc = "Previous Search Result" })
-
-vim.keymap.set("n", "<leader><leader>[", "<cmd>bprev<CR>", { desc = "Previous buffer" })
-vim.keymap.set("n", "<leader><leader>]", "<cmd>bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<leader><leader>l", "<cmd>b#<CR>", { desc = "Last buffer" })
-vim.keymap.set("n", "<leader><leader>d", "<cmd>bdelete<CR>", { desc = "delete buffer" })
-
--- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- Diagnostic keymaps
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostics list" })
 
--- kickstart.nvim starts you with this.
--- But it constantly clobbers your system clipboard whenever you delete anything.
+vim.keymap.set("n", "<leader>w", "<cmd>:wall<CR>", { desc = "Write all open buffers" })
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
--- vim.o.clipboard = 'unnamedplus'
-
--- You should instead use these keybindings so that they are still easy to use, but dont conflict
-vim.keymap.set({ "v", "x", "n" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to clipboard" })
-vim.keymap.set(
-	{ "n", "v", "x" },
-	"<leader>Y",
-	'"+yy',
-	{ noremap = true, silent = true, desc = "Yank line to clipboard" }
-)
-vim.keymap.set({ "n", "v", "x" }, "<leader>p", '"+p', { noremap = true, silent = true, desc = "Paste from clipboard" })
-vim.keymap.set(
-	"i",
-	"<C-p>",
-	"<C-r><C-p>+",
-	{ noremap = true, silent = true, desc = "Paste from clipboard from within insert mode" }
-)
-vim.keymap.set(
-	"x",
-	"<leader>P",
-	'"_dP',
-	{ noremap = true, silent = true, desc = "Paste over selection without erasing unnamed register" }
-)
-
-vim.cmd.colorscheme("onedark")
 require("snacks").setup({
-	explorer = {},
-	picker = {},
 	bigfile = {},
-	image = {},
-	lazygit = {},
-	terminal = {},
-	rename = {},
-	notifier = {},
-	indent = {},
-	gitbrowse = {},
-	scope = {},
+	quickfile = {},
+	zen = {},
 })
-vim.keymap.set("n", "-", function()
-	Snacks.explorer.open()
-end, { desc = "Snacks Explorer" })
-vim.keymap.set("n", "<c-\\>", function()
-	Snacks.terminal.open()
-end, { desc = "Snacks Terminal" })
-vim.keymap.set("n", "<leader>_", function()
-	Snacks.lazygit.open()
-end, { desc = "Snacks LazyGit" })
-vim.keymap.set("n", "<leader>sf", function()
-	Snacks.picker.smart()
-end, { desc = "Smart Find Files" })
-vim.keymap.set("n", "<leader><leader>s", function()
-	Snacks.picker.buffers()
-end, { desc = "Search Buffers" })
--- find
-vim.keymap.set("n", "<leader>ff", function()
-	Snacks.picker.files()
-end, { desc = "Find Files" })
-vim.keymap.set("n", "<leader>fg", function()
-	Snacks.picker.git_files()
-end, { desc = "Find Git Files" })
--- Grep
-vim.keymap.set("n", "<leader>sb", function()
-	Snacks.picker.lines()
-end, { desc = "Buffer Lines" })
-vim.keymap.set("n", "<leader>sB", function()
-	Snacks.picker.grep_buffers()
-end, { desc = "Grep Open Buffers" })
-vim.keymap.set("n", "<leader>sg", function()
-	Snacks.picker.grep()
-end, { desc = "Grep" })
-vim.keymap.set({ "n", "x" }, "<leader>sw", function()
-	Snacks.picker.grep_word()
-end, { desc = "Visual selection or ord" })
--- search
-vim.keymap.set("n", "<leader>sb", function()
-	Snacks.picker.lines()
-end, { desc = "Buffer Lines" })
-vim.keymap.set("n", "<leader>sd", function()
-	Snacks.picker.diagnostics()
-end, { desc = "Diagnostics" })
-vim.keymap.set("n", "<leader>sD", function()
-	Snacks.picker.diagnostics_buffer()
-end, { desc = "Buffer Diagnostics" })
-vim.keymap.set("n", "<leader>sh", function()
-	Snacks.picker.help()
-end, { desc = "Help Pages" })
-vim.keymap.set("n", "<leader>sj", function()
-	Snacks.picker.jumps()
-end, { desc = "Jumps" })
-vim.keymap.set("n", "<leader>sk", function()
-	Snacks.picker.keymaps()
-end, { desc = "Keymaps" })
-vim.keymap.set("n", "<leader>sl", function()
-	Snacks.picker.loclist()
-end, { desc = "Location List" })
-vim.keymap.set("n", "<leader>sm", function()
-	Snacks.picker.marks()
-end, { desc = "Marks" })
-vim.keymap.set("n", "<leader>sM", function()
-	Snacks.picker.man()
-end, { desc = "Man Pages" })
-vim.keymap.set("n", "<leader>sq", function()
-	Snacks.picker.qflist()
-end, { desc = "Quickfix List" })
-vim.keymap.set("n", "<leader>sR", function()
-	Snacks.picker.resume()
-end, { desc = "Resume" })
-vim.keymap.set("n", "<leader>su", function()
-	Snacks.picker.undo()
-end, { desc = "Undo History" })
+
+local colors = {
+	base01 = "#282828",
+	base00 = "#32302F",
+	base02 = "#504945",
+	base03 = "#665C54",
+	base04 = "#72837C",
+	base05 = "#BDAE93",
+	base06 = "#D5C4A1",
+	base07 = "#EBDBB2",
+	base08 = "#FBF1C7",
+	base09 = "#B2DBC7",
+	base0A = "#A7D6AA",
+	base0B = "#8FC2B6",
+	base0C = "#8BCCA5",
+	base0D = "#DA9B58",
+	base0E = "#9FC2B1",
+	base0F = "#EB7757",
+}
+
 require("lze").load({
+
+	{
+		"gruvbox",
+		enabled = nixCats("general") or false,
+		event = "DeferredUIEnter",
+		after = function(_)
+			require("gruvbox").setup({
+				palette_overrides = {
+					dark0_hard = "#1d2021",
+					dark0 = "#32302f",
+					dark0_soft = "#282828",
+					dark1 = "#282828",
+					dark2 = "#504945",
+					dark3 = "#665c54",
+					dark4 = "#7c6f64",
+
+					light0_hard = "#f9f5d7",
+					light0 = "#fbf1c7",
+					light0_soft = "#f2e5bc",
+					light1 = "#ebdbb2",
+					light2 = "#d5c4a1",
+					light3 = "#bdae93",
+					light4 = "#a89984",
+
+					bright_red = colors.base0F,
+					bright_green = colors.base0C,
+					bright_yellow = colors.base09,
+					bright_blue = colors.base07,
+					bright_purple = colors.base0E,
+					bright_aqua = colors.base0A,
+					bright_orange = colors.base0D,
+
+					neutral_red = colors.base0F,
+					neutral_green = colors.base0C,
+					neutral_yellow = colors.base09,
+					neutral_blue = colors.base0B,
+					neutral_purple = colors.base0E,
+					neutral_aqua = colors.base0A,
+					neutral_orange = colors.base0D,
+
+					faded_red = colors.base0F,
+					faded_green = colors.base0C,
+					faded_yellow = colors.base09,
+					faded_blue = colors.base0B,
+					faded_purple = colors.base0E,
+					faded_aqua = colors.base0A,
+					faded_orange = colors.base0D,
+
+					dark_red_hard = "#792329",
+					dark_red = "#722529",
+					dark_red_soft = "#7b2c2f",
+					light_red_hard = "#fc9690",
+					light_red = "#fc9487",
+					light_red_soft = "#f78b7f",
+
+					dark_green_hard = "#5a633a",
+					dark_green = "#62693e",
+					dark_green_soft = "#686d43",
+					light_green_hard = "#d3d6a5",
+					light_green = "#d5d39b",
+					light_green_soft = "#cecb94",
+
+					dark_aqua_hard = "#3e4934",
+					dark_aqua = "#49503b",
+					dark_aqua_soft = "#525742",
+					light_aqua_hard = "#e6e9c1",
+					light_aqua = "#e8e5b5",
+					light_aqua_soft = "#e1dbac",
+
+					gray = "#928374",
+				},
+
+				overrides = {
+					["@tag.builtin.tsx"] = { fg = colors.base0B },
+					["@tag.tsx"] = { fg = colors.base0C },
+					["@tag.attribute.tsx"] = { fg = colors.base0E },
+					["Search"] = { fg = colors.base0E },
+					["Keyword"] = { fg = colors.base0E },
+					["VisualMode"] = { fg = colors.base0D },
+					["Directory"] = { fg = colors.base0C },
+					["Special"] = { fg = colors.base06 },
+					["SpecialChar"] = { fg = colors.base06 },
+					["Type"] = { fg = colors.base0B },
+					["String"] = { fg = colors.base05 },
+					["@variable"] = { fg = colors.base0A },
+					["LspInlayHint"] = { fg = colors.base04 },
+					["Operator"] = { fg = colors.base07 },
+					["Delimiter"] = { fg = colors.base07 },
+					["ErrorMessage"] = { fg = colors.base0D, bg = colors.base01 },
+				},
+			})
+
+			vim.cmd.colorscheme("gruvbox")
+		end,
+	},
+
 	{
 		"blink.cmp",
 		enabled = nixCats("general") or false,
@@ -232,9 +188,24 @@ require("lze").load({
 		on_require = "blink",
 		after = function(plugin)
 			require("blink.cmp").setup({
-				-- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
-				-- See :h blink-cmp-config-keymap for configuring keymaps
-				keymap = { preset = "default" },
+				keymap = {
+					preset = "enter",
+					["<Tab>"] = {
+						"select_next",
+						"snippet_forward",
+						"fallback",
+					},
+					["<S-Tab>"] = {
+						"select_prev",
+						"snippet_backward",
+						"fallback",
+					},
+				},
+				completion = {
+					list = {
+						selection = { preselect = false, auto_insert = false },
+					},
+				},
 				appearance = {
 					nerd_font_variant = "mono",
 				},
@@ -245,21 +216,540 @@ require("lze").load({
 			})
 		end,
 	},
+
+	{
+		"wilder.nvim",
+		enabled = nixCats("general") or false,
+		event = "DeferredUIEnter",
+		load = function(name)
+			vim.cmd.packadd(name)
+			vim.cmd.packadd("fzf-lua")
+		end,
+		after = function(_)
+			local wilder = require("wilder")
+			wilder.setup({ modes = { ":", "/", "?" } })
+			wilder.set_option(
+				"renderer",
+				wilder.popupmenu_renderer(wilder.popupmenu_palette_theme({
+					border = "rounded",
+					max_height = "30%", -- max height of the palette
+					min_height = 0, -- set to the same as 'max_height' for a fixed height window
+					max_width = "40%",
+					min_width = "40%",
+					prompt_position = "top", -- 'top' or 'bottom' to set the location of the prompt
+					reverse = 0, -- set to 1 to reverse the order of the list, use in combination with 'prompt_position'
+					highlighter = wilder.basic_highlighter(),
+					left = { " ", wilder.popupmenu_devicons() },
+				}))
+			)
+		end,
+	},
+
+	{
+		"nvim-comment",
+		enabled = nixCats("general") or false,
+		event = "DeferredUIEnter",
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("nvim_comment").setup({
+				comment_empty = false,
+				line_mapping = "<leader>X",
+				operator_mapping = "<leader>x",
+			})
+		end,
+	},
+
+	{
+		"otter.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("otter").setup({
+				handle_leading_whitespace = true,
+			})
+		end,
+	},
+
+	{
+		"modicator.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("modicator").setup({
+				show_warnings = false,
+				highlights = {
+					use_cursorline_background = true,
+				},
+				integration = {
+					lualine = {
+						enabled = true,
+						mode_section = nil,
+						highlight = "bg",
+					},
+				},
+			})
+		end,
+	},
+
+	{
+		"dressing.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("dressing").setup()
+		end,
+	},
+
+	{
+		"vimplugin-encourage",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("encourage").setup({
+				messages = {
+					"pilot ejecting  ",
+					"viper's got you in the pipe, 5x5",
+					"eject now eject  ",
+					"core break in progress  ",
+					"destruct sequence engaged  ",
+					"eject-system engaged  ",
+					"protocol [03]  ",
+					"it was fun.  ",
+					"ain't over till it's over.  ",
+					"until next time, then.  ",
+					"second star to the right.  ",
+					"go get 'em, tiger.  ",
+					"make it so.  ",
+					"see you on the other side.  ",
+					"wait for the wheel.  ",
+					"do not throw your shot.  ",
+					"drop and burn 'em up.  ",
+					"exhibit no restraint.  ",
+					"rip and saw.  ",
+					"code zero zero zero. destruct. zero.  ",
+					"authorization alpha-alpha 3-0-5.  ",
+					"have just the greatest day.  ",
+					"avenge me.  ",
+					"stay safe.  ",
+					"situation normal.  ",
+					"protocol <3  ",
+					"fly, you fool.  ",
+					"never give up. never surrender.  ",
+					"in case of doubt, attack.  ",
+					"you’re never beaten until you admit it.  ",
+					"wrong us, shall we not revenge?  ",
+					"tilt all are one.  ",
+					"nothing but the rain.  ",
+					"sometimes, you have to roll a hard six.  ",
+					"and sometimes, when you fall, you fly.  ",
+					"see you space cowboy...  ",
+					"just another day at the office.  ",
+					"end of line.  ",
+					"fortune favors the bold.  ",
+					"a leaf on the wind.  ",
+					"you are who you choose to be.  ",
+					"always.  ",
+					"finish the fight.  ",
+				},
+			})
+		end,
+	},
+
+	{
+		"vimplugin-icon-picker",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("icon-picker").setup({ disable_legacy_commands = true })
+			local opts = { noremap = true, silent = true }
+			vim.keymap.set("n", "<Leader><Leader>i", "<cmd>IconPickerNormal<cr>", opts)
+			vim.keymap.set("n", "<Leader><Leader>y", "<cmd>IconPickerYank<cr>", opts)
+			vim.keymap.set("i", "<C-i>", "<cmd>IconPickerInsert<cr>", opts)
+		end,
+	},
+
+	{
+		"inc-rename.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+			vim.cmd.packadd("dressing.nvim")
+		end,
+		after = function(_)
+			require("inc_rename").setup({
+				input_buffer_type = "dressing",
+			})
+			vim.keymap.set("n", "<leader>cr", ":IncRename ")
+		end,
+	},
+
+	{
+		"vimplugin-reverb",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("reverb").setup({
+				opts = {
+					BufWrite = { path = "~/.vim/sounds/ttf2_kill.mp3", volume = 50 },
+					-- QuitPre = { path = "~/.vim/sounds/kraber.mp3", volume = 100 },
+					-- CursorMoved = { path = "~/.vim/sounds/alternator.mp3", volume = 100 },
+					-- InsertCharPre = { path = "~/.vim/sounds/alternator.mp3", volume = 100 },
+					-- CmdlineEnter = { path = "~/.vim/sounds/kraber.mp3", volume = 100 },
+					-- CmdlineLeave = { path = "~/.vim/sounds/kraber.mp3", volume = 100 },
+				},
+			})
+		end,
+	},
+
+	{
+		"satellite.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("satellite").setup({
+				width = 1,
+			})
+		end,
+	},
+
+	{
+		"nvim-ts-autotag",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("nvim-ts-autotag").setup()
+		end,
+	},
+
+	{
+		"hmts.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("hmts").setup()
+		end,
+	},
+
+	{
+		"fidget.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("fidget").setup({
+				{
+					progress = {
+						poll_rate = 0,
+						suppress_on_insert = false,
+						ignore_done_already = false,
+						ignore_empty_message = false,
+						clear_on_detach = function(client_id)
+							local client = vim.lsp.get_client_by_id(client_id)
+							return client and client.name or nil
+						end,
+						notification_group = function(msg)
+							return msg.lsp_client.name
+						end,
+						ignore = {},
+						display = {
+							render_limit = 8,
+							done_ttl = 6,
+							done_icon = "✔",
+							done_style = "Constant",
+							progress_icon = { "dots" },
+							progress_style = "WarningMsg",
+							group_style = "Title",
+							icon_style = "Question",
+							priority = 30,
+							skip_history = true,
+							format_message = require("fidget.progress.display").default_format_message,
+							format_annote = function(msg)
+								return msg.title
+							end,
+							format_group_name = function(group)
+								return tostring(group)
+							end,
+							overrides = {
+								rust_analyzer = { name = "rust-analyzer" },
+							},
+						},
+						lsp = {
+							progress_ringbuf_size = 0,
+							log_handler = false,
+						},
+					},
+					notification = {
+						poll_rate = 10,
+						filter = vim.log.levels.INFO,
+						history_size = 128,
+						override_vim_notify = true,
+						configs = {
+							default = {
+								iconOnLeft = false,
+								infoAnnote = "⁝",
+								warnAnnote = "",
+								errorAnnote = "",
+								debugAnnote = "",
+							},
+						},
+						redirect = function(msg, level, opts)
+							if opts and opts.on_open then
+								return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
+							end
+						end,
+						view = {
+							stack_upwards = false,
+							icon_separator = " ",
+							group_separator = "---",
+							group_separator_hl = "Comment",
+							render_message = function(msg, cnt)
+								return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
+							end,
+						},
+						window = {
+							normal_hl = "Comment",
+							winblend = 100,
+							border = "solid",
+							zindex = 45,
+							max_width = 100,
+							max_height = 200,
+							x_padding = 3,
+							y_padding = 3,
+							align = "top",
+							relative = "editor",
+						},
+					},
+					logger = {
+						level = vim.log.levels.ERROR,
+						max_size = 10000,
+						float_precision = 0.01,
+						path = string.format("%s/fidget.nvim.log", vim.fn.stdpath("cache")),
+					},
+				},
+			})
+		end,
+	},
+
+	{
+		"vimplugin-relative-toggle",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("relative-toggle").setup({
+				pattern = "*",
+				events = {
+					on = { "BufEnter", "FocusGained", "InsertLeave", "WinEnter", "CmdlineLeave" },
+					off = { "BufLeave", "FocusLost", "InsertEnter", "WinLeave", "CmdlineEnter" },
+				},
+			})
+		end,
+	},
+
+	{
+		"vimplugin-gitgraph",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("gitgraph").setup({
+				opts = {
+					symbols = {
+						merge_commit = "M",
+						commit = "*",
+					},
+				},
+			})
+		end,
+	},
+
+	{
+		"lazygit.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			vim.keymap.set("n", "<leader>L", "<cmd>:LazyGit<cr>", { desc = "LazyGit" })
+		end,
+	},
+
+	{
+		"diffview.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("diffview").setup({})
+			vim.keymap.set("n", "<leader><leader>d", "<cmd>:DiffviewOpen<cr>", { desc = "Open Diffview" })
+			vim.keymap.set("n", "<leader><leader>D", "<cmd>:DiffviewClose<cr>", { desc = "Close Diffview" })
+		end,
+	},
+
+	{
+		"nvim-surround",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("nvim-surround").setup()
+		end,
+	},
+
+	{
+		"package-info.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("package-info").setup()
+		end,
+	},
+
+	{
+		"mkdnflow.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("mkdnflow").setup()
+		end,
+	},
+
+	{
+		"markview.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("markview").setup()
+		end,
+	},
+
+	{
+		"nvim-colorizer.lua",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("colorizer").setup({
+				user_default_options = {
+					names = false,
+					tailwind = true,
+				},
+			})
+		end,
+	},
+
+	{
+		"vimplugin-tiny-glimmer",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("tiny-glimmer").setup({
+				enabled = true,
+				disable_warnings = false,
+				default_animation = "bounce",
+				animations = {
+					bounce = {
+						max_duration = 500,
+						min_duration = 300,
+						oscillation_count = 2,
+						from_color = "#32302f",
+						to_color = "#72837c",
+					},
+				},
+				overwrite = {
+					auto_map = true,
+					yank = {
+						enabled = true,
+						default_animation = "bounce",
+					},
+					search = {
+						enabled = true,
+						default_animation = "bounce",
+					},
+					paste = {
+						enabled = false,
+						default_animation = "bounce",
+					},
+					undo = {
+						enabled = true,
+						default_animation = "bounce",
+					},
+					redo = {
+						enabled = true,
+						default_animation = "bounce",
+					},
+				},
+			})
+		end,
+	},
+
+	{
+		"smear-cursor.nvim",
+		enabled = nixCats("general") or false,
+		after = function(_)
+			require("smear_cursor").setup({
+				enabled = true,
+				opts = {
+					stiffness = 0.9,
+					trailing_stiffness = 0.6,
+					distance_stop_animating = 0.5,
+					trailing_exponent = 2,
+					slowdown_exponent = -0.2,
+					smear_to_cmd = false,
+					legacy_computing_symbols_support = true,
+					hide_target_hack = false,
+					smear_between_buffers = true,
+					smear_insert_mode = false,
+					distance_stop_animating_vertical_bar = 0.1,
+					cursor_color = "#A7D6AA",
+				},
+			})
+		end,
+	},
+
 	{
 		"nvim-treesitter",
 		enabled = nixCats("general") or false,
-		-- cmd = { "" },
 		event = "DeferredUIEnter",
-		-- ft = "",
-		-- keys = "",
-		-- colorscheme = "",
 		load = function(name)
 			vim.cmd.packadd(name)
 			vim.cmd.packadd("nvim-treesitter-textobjects")
 		end,
 		after = function(plugin)
-			-- [[ Configure Treesitter ]]
-			-- See `:help nvim-treesitter`
 			require("nvim-treesitter.configs").setup({
 				highlight = { enable = true },
 				indent = { enable = false },
@@ -309,26 +799,136 @@ require("lze").load({
 					swap = {
 						enable = true,
 						swap_next = {
-							["<leader>a"] = "@parameter.inner",
+							["<leader>s"] = "@parameter.inner",
 						},
 						swap_previous = {
-							["<leader>A"] = "@parameter.inner",
+							["<leader>S"] = "@parameter.inner",
 						},
 					},
 				},
 			})
 		end,
 	},
+
+	{
+		"nvim-treesitter-context",
+		enabled = nixCats("general") or false,
+		event = "DeferredUIEnter",
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(plugin)
+			require("treesitter-context").setup()
+		end,
+	},
+
 	{
 		"mini.nvim",
 		enabled = nixCats("general") or false,
 		event = "DeferredUIEnter",
-		after = function(plugin)
+		after = function(_)
 			require("mini.pairs").setup()
 			require("mini.icons").setup()
-			require("mini.ai").setup()
 		end,
 	},
+
+	{
+		"aerial.nvim",
+		enabled = nixCats("general") or false,
+		event = "DeferredUIEnter",
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("aerial").setup()
+			vim.keymap.set("n", "<leader>cw", "<cmd>AerialToggle!<cr>")
+		end,
+	},
+
+	{
+		"tiny-inline-diagnostic.nvim",
+		enabled = nixCats("general") or false,
+		event = "DeferredUIEnter",
+		after = function(_)
+			require("tiny-inline-diagnostic").setup()
+		end,
+	},
+
+	{
+		"vimplugin-screenkey",
+		enabled = nixCats("general") or false,
+		event = "DeferredUIEnter",
+		load = function(name)
+			vim.cmd.packadd(name)
+		end,
+		after = function(_)
+			require("screenkey").setup({
+				win_opts = {
+					row = vim.o.lines - vim.o.cmdheight - 1,
+					col = vim.o.columns,
+					relative = "editor",
+					anchor = "SE",
+					width = 16,
+					height = 3,
+					border = "none",
+					title = "",
+					title_pos = "center",
+					style = "minimal",
+					focusable = false,
+					noautocmd = true,
+					zindex = 1,
+				},
+				compress_after = 3,
+				clear_after = 3,
+				disable = {
+					filetypes = {},
+					buftypes = {},
+					events = false,
+				},
+				show_leader = true,
+				group_mappings = true,
+				display_infront = {},
+				display_behind = {},
+				filter = function(keys)
+					return keys
+				end,
+				keys = {
+					["<TAB>"] = "󰌒",
+					["<CR>"] = "󰌑",
+					["<ESC>"] = "",
+					["<SPACE>"] = "␣",
+					["<BS>"] = "",
+					["<DEL>"] = "",
+					["<LEFT>"] = "",
+					["<RIGHT>"] = "",
+					["<UP>"] = "",
+					["<DOWN>"] = "",
+					["<HOME>"] = "",
+					["<END>"] = "󰨿",
+					["<PAGEUP>"] = "⥣",
+					["<PAGEDOWN>"] = "⥥",
+					["<INSERT>"] = "",
+					["<F1>"] = "󱊫",
+					["<F2>"] = "󱊬",
+					["<F3>"] = "󱊭",
+					["<F4>"] = "󱊮",
+					["<F5>"] = "󱊯",
+					["<F6>"] = "󱊰",
+					["<F7>"] = "󱊱",
+					["<F8>"] = "󱊲",
+					["<F9>"] = "󱊳",
+					["<F10>"] = "󱊴",
+					["<F11>"] = "󱊵",
+					["<F12>"] = "󱊶",
+					["CTRL"] = "",
+					["ALT"] = "",
+					["SUPER"] = "󰘳",
+					["<leader>"] = "⎵",
+				},
+			})
+		end,
+	},
+
 	{
 		"vim-startuptime",
 		enabled = nixCats("general") or false,
@@ -339,64 +939,366 @@ require("lze").load({
 			vim.g.startuptime_exe_path = nixCats.packageBinPath
 		end,
 	},
+
 	{
-		"lualine.nvim",
+		"hlchunk.nvim",
 		enabled = nixCats("general") or false,
-		-- cmd = { "" },
-		event = "DeferredUIEnter",
-		-- ft = "",
-		-- keys = "",
-		-- colorscheme = "",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("lualine-lsp-progress")
-		end,
-		after = function(plugin)
-			require("lualine").setup({
-				options = {
-					icons_enabled = false,
-					theme = "onedark",
-					component_separators = "|",
-					section_separators = "",
-				},
-				sections = {
-					lualine_c = {
-						{
-							"filename",
-							path = 1,
-							status = true,
-						},
+		after = function(_)
+			require("hlchunk").setup({
+				chunk = {
+					enable = true,
+					duration = 0,
+					delay = 0,
+					style = {
+						{ fg = "#665c54" },
+						{ fg = "#ebdbb2" },
+					},
+					chars = {
+						horizontal_line = "─",
+						vertical_line = "│",
+						left_top = "╭",
+						left_bottom = "╰",
+						right_arrow = "─",
 					},
 				},
-				inactive_sections = {
-					lualine_b = {
-						{
-							"filename",
-							path = 3,
-							status = true,
-						},
+				indent = {
+					enable = true,
+					chars = {
+						"│",
 					},
-					lualine_x = { "filetype" },
-				},
-				tabline = {
-					lualine_a = { "buffers" },
-					lualine_b = { "lsp_progress" },
-					lualine_z = { "tabs" },
+					style = {
+						{ fg = "#3c3836" },
+					},
+					ahead_lines = 2,
+					delay = 0,
+					filter_list = {
+						function(v)
+							return v.level ~= 1
+						end,
+					},
 				},
 			})
 		end,
 	},
+
+	{
+		"oil.nvim",
+		enabled = nixCats("general") or false,
+		after = function(_)
+			require("oil").setup({
+				default_file_explorer = true,
+				delete_to_trash = true,
+				skip_confirm_for_simple_edits = true,
+				lsp_file_method = {
+					autosave_changes = true,
+				},
+				columns = { "icon" },
+				view_options = {
+					show_hidden = true,
+					natural_order = true,
+				},
+				float = {
+					padding = 2,
+					max_width = 72,
+				},
+				win_options = {
+					wrap = true,
+				},
+				keymaps = {
+					["<C-c>"] = "actions.parent",
+					["-"] = "actions.close",
+					["<C-h>"] = "actions.select_split",
+					["<C-l>"] = "actions.refresh",
+					["<C-p>"] = "actions.preview",
+					["<C-s>"] = "actions.select_vsplit",
+					["<C-t>"] = "actions.select_tab",
+					["<CR>"] = "actions.select",
+					["_"] = "actions.open_cwd",
+					["`"] = "actions.cd",
+					["g."] = "actions.toggle_hidden",
+					["g?"] = "actions.show_help",
+					["g\\"] = "actions.toggle_trash",
+					["gs"] = "actions.change_sort",
+					["gx"] = "actions.open_external",
+					["~"] = "actions.tcd",
+				},
+			})
+			vim.keymap.set("n", "-", "<cmd>:Oil --float<cr>", { desc = "Oil float" })
+		end,
+	},
+
+	{
+		"telescope.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+			vim.cmd.packadd("plenary.nvim")
+			vim.cmd.packadd("telescope-fzf-native.nvim")
+			vim.cmd.packadd("telescope-ui-select.nvim")
+		end,
+		after = function(_)
+			local layout_strategies = require("telescope.pickers.layout_strategies")
+
+			layout_strategies.horizontal_fused = function(picker, max_columns, max_lines, layout_config)
+				local layout = layout_strategies.horizontal(picker, max_columns, max_lines, layout_config)
+				layout.prompt.title = ""
+				layout.results.title = ""
+				layout.preview.title = ""
+				layout.prompt.borderchars = { "─", "│", "─", "│", "╭", "┬", "┤", "├" }
+				layout.preview.borderchars = { "─", "│", "─", " ", "─", "╮", "╯", "─" }
+				layout.results.borderchars = { " ", "│", "─", "│", "│", "│", "┴", "╰" }
+				layout.max_columns = 80
+				return layout
+			end
+
+			layout_strategies.vertical_fused = function(picker, max_columns, max_lines, layout_config)
+				local layout = layout_strategies.vertical(picker, max_columns, max_lines, layout_config)
+				layout.prompt.title = ""
+				layout.results.title = ""
+				layout.preview.title = ""
+				layout.prompt.borderchars = { "─", "│", "─", "│", "╭", "╮", "┤", "├" }
+				layout.results.borderchars = { " ", "│", " ", "│", "│", "│", "│", "│" }
+				layout.preview.borderchars = { "─", "│", "─", "│", "├", "┤", "╯", "╰" }
+				return layout
+			end
+
+			local horizontal_width = 0.8
+			local horizontal_height = 0.8
+
+			require("telescope").setup({
+				defaults = {
+					file_ignore_patterns = {
+						"*.ico",
+						"*.riv",
+						"*.next",
+						"^.git/",
+						"^.mypy_cache/",
+						"^__pycache__/",
+						"^output/",
+						"^data/",
+						"%.ipynb",
+					},
+					path_display = { "filename_first" },
+					sorting_strategy = "ascending",
+					layout_strategy = "horizontal_fused",
+					layout_config = {
+						prompt_position = "top",
+						width = horizontal_width,
+						height = horizontal_height,
+						horizontal = {
+							preview_cutoff = 80, --forces stretch on half-windows
+						},
+					},
+					mappings = {
+						i = {
+							["<esc>"] = require("telescope.actions").close,
+						},
+					},
+				},
+
+				pickers = {
+					buffers = {
+						layout_strategy = "vertical_fused",
+						layout_config = {
+							mirror = true,
+							width = 0.5,
+							height = 0.8,
+						},
+					},
+				},
+			})
+
+			pcall(require("telescope").load_extension, "fzf")
+			pcall(require("telescope").load_extension, "ui-select")
+
+			local builtin = require("telescope.builtin")
+			vim.keymap.set("n", "<leader>fa", builtin.find_files, { desc = "Telescope find files" })
+			vim.keymap.set("n", "<leader>fz", builtin.live_grep, { desc = "Telescope live grep" })
+			vim.keymap.set(
+				"n",
+				"<leader>fs",
+				builtin.lsp_workspace_symbols,
+				{ desc = "Telescope LSP workspace symbols" }
+			)
+			vim.keymap.set(
+				"n",
+				"<leader>fp",
+				builtin.treesitter,
+				{ desc = "Telescope treesitter (active buffer only)" }
+			)
+			vim.keymap.set("n", "<leader>ff", builtin.resume, { desc = "Telescope resume last search" })
+			vim.keymap.set("n", "<leader>F", builtin.resume, { desc = "Telescope resume last search" })
+			vim.keymap.set("n", "<leader>fe", builtin.diagnostics, { desc = "Telescope diagnostics" })
+			vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix list" })
+			vim.keymap.set("n", "<leader>fi", builtin.lsp_incoming_calls, { desc = "Telescope LSP incoming calls" })
+			vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "Telescope LSP references" })
+			vim.keymap.set("n", "<leader>fn", builtin.lsp_implementations, { desc = "Telescope LSP implementations" })
+			vim.keymap.set("n", "<leader>fd", builtin.lsp_definitions, { desc = "Telescope LSP definitions" })
+			vim.keymap.set("n", "<leader>fw", builtin.lsp_type_definitions, { desc = "Telescope LSP type definitions" })
+			vim.keymap.set("n", "<leader>fo", builtin.lsp_outgoing_calls, { desc = "Telescope LSP outgoing calls" })
+			vim.keymap.set("n", "<leader>fm", builtin.man_pages, { desc = "Telescope man pages" })
+			vim.keymap.set("n", "<leader>fj", builtin.jumplist, { desc = "Telescope jumplist" })
+			vim.keymap.set("n", "<leader>ft", builtin.registers, { desc = "Telescope registers" })
+			vim.keymap.set("n", "<leader>b", builtin.buffers, { desc = "Telescope buffers" })
+			vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Telescope git files" })
+			vim.keymap.set("n", "<leader>p", builtin.oldfiles, { desc = "Telescope old files" })
+			vim.keymap.set("n", "<C-f>", builtin.live_grep, { desc = "Telescope live grep" })
+		end,
+	},
+
+	{
+		"grapple.nvim",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+			vim.cmd.packadd("nvim-web-devicons")
+		end,
+		after = function(_)
+			require("grapple").setup({
+				win_opts = {
+					footer = "",
+				},
+			})
+			vim.keymap.set("n", "<leader>a", "<cmd>Grapple toggle<cr>")
+			vim.keymap.set("n", "<leader>h", "<cmd>Grapple toggle_tags<cr>")
+		end,
+	},
+
+	{
+		"lualine.nvim",
+		enabled = nixCats("general") or false,
+		event = "DeferredUIEnter",
+		load = function(name)
+			vim.cmd.packadd(name)
+			vim.cmd.packadd("lualine-lsp-progress")
+			vim.cmd.packadd("vimplugin-screenkey-nvim")
+		end,
+		after = function(plugin)
+			local palette = {
+				black = colors.base00,
+				white = colors.base08,
+				red = colors.base0B,
+				green = colors.base0A,
+				blue = colors.base03,
+				yellow = colors.base0F,
+				gray = colors.base05,
+				darkgray = colors.base01,
+				lightgray = colors.base02,
+			}
+
+			local custom_theme = {
+				normal = {
+					a = { bg = palette.gray, fg = colors.black, gui = "bold" },
+					b = { bg = palette.lightgray, fg = colors.white },
+					c = { bg = colors.base01, fg = palette.blue },
+				},
+				terminal = {
+					a = { bg = palette.gray, fg = colors.black, gui = "bold" },
+					b = { bg = palette.lightgray, fg = colors.white },
+					c = { bg = colors.base01, fg = palette.gray },
+				},
+				insert = {
+					a = { bg = palette.green, fg = colors.black, gui = "bold" },
+					b = { bg = palette.lightgray, fg = colors.white },
+					c = { bg = colors.base01, fg = palette.gray },
+				},
+				visual = {
+					a = { bg = palette.yellow, fg = colors.black, gui = "bold" },
+					b = { bg = palette.lightgray, fg = colors.white },
+					c = { bg = colors.base01, fg = palette.black },
+				},
+				replace = {
+					a = { bg = palette.red, fg = colors.black, gui = "bold" },
+					b = { bg = palette.lightgray, fg = colors.white },
+					c = { bg = colors.base01, fg = palette.gray },
+				},
+				command = {
+					a = { bg = palette.gray, fg = colors.black, gui = "bold" },
+					b = { bg = palette.lightgray, fg = colors.white },
+					c = { bg = colors.base01, fg = palette.gray },
+				},
+				inactive = {
+					a = { bg = colors.base01, fg = palette.gray, gui = "bold" },
+					b = { bg = colors.base01, fg = palette.gray },
+					c = { bg = colors.base01, fg = palette.gray },
+				},
+			}
+
+			local function wordcount()
+				local wc = vim.api.nvim_eval("wordcount()")
+				if wc["visual_words"] then
+					return wc["visual_words"]
+				else
+					return wc["words"]
+				end
+			end
+
+			local function screenkey()
+				return require("screenkey").get_keys():gsub("%%", "")
+			end
+
+			vim.g.screenkey_statusline_component = true
+
+			vim.keymap.set("n", "<leader><leader>l", function()
+				vim.g.screenkey_statusline_component = not vim.g.screenkey_statusline_component
+			end, { desc = "Toggle screenkey statusline component" })
+
+			require("lualine").setup({
+				options = {
+					theme = custom_theme,
+					component_separators = "",
+					section_separators = { left = "", right = "" },
+				},
+
+				sections = {
+					lualine_a = {
+						{
+							"mode",
+							separator = { left = "", right = "" },
+							right_padding = 2,
+						},
+					},
+					lualine_y = {
+						{
+							"filetype",
+							colored = false,
+							icon = {
+								align = "right",
+							},
+						},
+					},
+					lualine_x = {
+						screenkey,
+					},
+					lualine_c = {
+						{
+							"filename",
+							file_status = true,
+							newfile_status = false,
+							path = 1,
+							symbols = {
+								modified = "[+]",
+								readonly = "[-]",
+								unnamed = "[No Name]",
+								newfile = "[New]",
+							},
+						},
+					},
+					lualine_z = {
+						wordcount,
+						{ "location", separator = { right = "" }, left_padding = 2 },
+					},
+				},
+			})
+		end,
+	},
+
 	{
 		"gitsigns.nvim",
 		enabled = nixCats("general") or false,
 		event = "DeferredUIEnter",
-		-- cmd = { "" },
-		-- ft = "",
-		-- keys = "",
-		-- colorscheme = "",
-		after = function(plugin)
+		after = function(_)
 			require("gitsigns").setup({
-				-- See `:help gitsigns.txt`
 				signs = {
 					add = { text = "+" },
 					change = { text = "~" },
@@ -404,72 +1306,10 @@ require("lze").load({
 					topdelete = { text = "‾" },
 					changedelete = { text = "~" },
 				},
-				on_attach = function(bufnr)
-					local gs = package.loaded.gitsigns
-
-					local function map(mode, l, r, opts)
-						opts = opts or {}
-						opts.buffer = bufnr
-						vim.keymap.set(mode, l, r, opts)
-					end
-
-					-- Navigation
-					map({ "n", "v" }, "]c", function()
-						if vim.wo.diff then
-							return "]c"
-						end
-						vim.schedule(function()
-							gs.next_hunk()
-						end)
-						return "<Ignore>"
-					end, { expr = true, desc = "Jump to next hunk" })
-
-					map({ "n", "v" }, "[c", function()
-						if vim.wo.diff then
-							return "[c"
-						end
-						vim.schedule(function()
-							gs.prev_hunk()
-						end)
-						return "<Ignore>"
-					end, { expr = true, desc = "Jump to previous hunk" })
-
-					-- Actions
-					-- visual mode
-					map("v", "<leader>hs", function()
-						gs.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
-					end, { desc = "stage git hunk" })
-					map("v", "<leader>hr", function()
-						gs.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
-					end, { desc = "reset git hunk" })
-					-- normal mode
-					map("n", "<leader>gs", gs.stage_hunk, { desc = "git stage hunk" })
-					map("n", "<leader>gr", gs.reset_hunk, { desc = "git reset hunk" })
-					map("n", "<leader>gS", gs.stage_buffer, { desc = "git Stage buffer" })
-					map("n", "<leader>gu", gs.undo_stage_hunk, { desc = "undo stage hunk" })
-					map("n", "<leader>gR", gs.reset_buffer, { desc = "git Reset buffer" })
-					map("n", "<leader>gp", gs.preview_hunk, { desc = "preview git hunk" })
-					map("n", "<leader>gb", function()
-						gs.blame_line({ full = false })
-					end, { desc = "git blame line" })
-					map("n", "<leader>gd", gs.diffthis, { desc = "git diff against index" })
-					map("n", "<leader>gD", function()
-						gs.diffthis("~")
-					end, { desc = "git diff against last commit" })
-
-					-- Toggles
-					map("n", "<leader>gtb", gs.toggle_current_line_blame, { desc = "toggle git blame line" })
-					map("n", "<leader>gtd", gs.toggle_deleted, { desc = "toggle git show deleted" })
-
-					-- Text object
-					map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "select git hunk" })
-				end,
 			})
-			vim.cmd([[hi GitSignsAdd guifg=#04de21]])
-			vim.cmd([[hi GitSignsChange guifg=#83fce6]])
-			vim.cmd([[hi GitSignsDelete guifg=#fa2525]])
 		end,
 	},
+
 	{
 		"which-key.nvim",
 		enabled = nixCats("general") or false,
@@ -498,20 +1338,21 @@ require("lze").load({
 			})
 		end,
 	},
+
 	{
 		"nvim-lint",
 		enabled = nixCats("general") or false,
 		event = "FileType",
-		after = function(plugin)
+		after = function(_)
 			require("lint").linters_by_ft = {
-				-- NOTE: download some linters in lspsAndRuntimeDeps
-				-- and configure them here
-				-- markdown = {'vale',},
-				-- javascript = { 'eslint' },
-				-- typescript = { 'eslint' },
-				go = nixCats("go") and { "golangcilint" } or nil,
+				bash = { "bash" },
+				rust = { "clippy" },
+				json = { "jsonlint" },
+				javascript = { "biomejs" },
+				typescript = { "biomejs" },
+				javascriptreact = { "biomejs" },
+				typescriptreact = { "biomejs" },
 			}
-
 			vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 				callback = function()
 					require("lint").try_lint()
@@ -519,151 +1360,37 @@ require("lze").load({
 			})
 		end,
 	},
+
 	{
 		"conform.nvim",
 		enabled = nixCats("general") or false,
-		keys = {
-			{ "<leader>FF", desc = "[F]ormat [F]ile" },
-		},
-		-- colorscheme = "",
-		after = function(plugin)
+		after = function(_)
 			local conform = require("conform")
-
 			conform.setup({
-				formatters_by_ft = {
-					-- NOTE: download some formatters in lspsAndRuntimeDeps
-					-- and configure them here
-					lua = nixCats("lua") and { "stylua" } or nil,
-					go = nixCats("go") and { "gofmt", "golint" } or nil,
-					-- templ = { "templ" },
-					-- Conform will run multiple formatters sequentially
-					-- python = { "isort", "black" },
-					-- Use a sub-list to run only the first available formatter
-					-- javascript = { { "prettierd", "prettier" } },
-				},
-			})
-
-			vim.keymap.set({ "n", "v" }, "<leader>FF", function()
-				conform.format({
+				format_on_save = {
 					lsp_fallback = true,
-					async = false,
-					timeout_ms = 1000,
-				})
-			end, { desc = "[F]ormat [F]ile" })
-		end,
-	},
-	{
-		"nvim-dap",
-		enabled = nixCats("general") or false,
-		-- cmd = { "" },
-		-- event = "",
-		-- ft = "",
-		keys = {
-			{ "<F5>", desc = "Debug: Start/Continue" },
-			{ "<F1>", desc = "Debug: Step Into" },
-			{ "<F2>", desc = "Debug: Step Over" },
-			{ "<F3>", desc = "Debug: Step Out" },
-			{ "<leader>b", desc = "Debug: Toggle Breakpoint" },
-			{ "<leader>B", desc = "Debug: Set Breakpoint" },
-			{ "<F7>", desc = "Debug: See last session result." },
-		},
-		-- colorscheme = "",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("nvim-dap-ui")
-			vim.cmd.packadd("nvim-dap-virtual-text")
-		end,
-		after = function(plugin)
-			local dap = require("dap")
-			local dapui = require("dapui")
-
-			-- Basic debugging keymaps, feel free to change to your liking!
-			vim.keymap.set("n", "<F5>", dap.continue, { desc = "Debug: Start/Continue" })
-			vim.keymap.set("n", "<F1>", dap.step_into, { desc = "Debug: Step Into" })
-			vim.keymap.set("n", "<F2>", dap.step_over, { desc = "Debug: Step Over" })
-			vim.keymap.set("n", "<F3>", dap.step_out, { desc = "Debug: Step Out" })
-			vim.keymap.set("n", "<leader>b", dap.toggle_breakpoint, { desc = "Debug: Toggle Breakpoint" })
-			vim.keymap.set("n", "<leader>B", function()
-				dap.set_breakpoint(vim.fn.input("Breakpoint condition: "))
-			end, { desc = "Debug: Set Breakpoint" })
-
-			-- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
-			vim.keymap.set("n", "<F7>", dapui.toggle, { desc = "Debug: See last session result." })
-
-			dap.listeners.after.event_initialized["dapui_config"] = dapui.open
-			dap.listeners.before.event_terminated["dapui_config"] = dapui.close
-			dap.listeners.before.event_exited["dapui_config"] = dapui.close
-
-			-- Dap UI setup
-			-- For more information, see |:help nvim-dap-ui|
-			dapui.setup({
-				-- Set icons to characters that are more likely to work in every terminal.
-				--    Feel free to remove or use ones that you like more! :)
-				--    Don't feel like these are good choices.
-				icons = { expanded = "▾", collapsed = "▸", current_frame = "*" },
-				controls = {
-					icons = {
-						pause = "⏸",
-						play = "▶",
-						step_into = "⏎",
-						step_over = "⏭",
-						step_out = "⏮",
-						step_back = "b",
-						run_last = "▶▶",
-						terminate = "⏹",
-						disconnect = "⏏",
-					},
+					timeout_ms = 2000,
+				},
+				notify_on_error = true,
+				formatters_by_ft = {
+					lua = nixCats("lua") and { "stylua" } or nil,
+					nix = { "alejandra", "stylua" },
+					javascript = { "biome", "rustywind" },
+					typescript = { "biome", "rustywind" },
+					javascriptreact = { "biome", "rustywind" },
+					typescriptreact = { "biome", "rustywind" },
+					html = { "superhtml" },
+					css = { "biome" },
+					json = { "biome" },
+					yaml = { "yamlfix" },
+					rust = { "rustfmt", "leptosfmt" },
+					bash = { "beautysh" },
 				},
 			})
-
-			require("nvim-dap-virtual-text").setup({
-				enabled = true, -- enable this plugin (the default)
-				enabled_commands = true, -- create commands DapVirtualTextEnable, DapVirtualTextDisable, DapVirtualTextToggle, (DapVirtualTextForceRefresh for refreshing when debug adapter did not notify its termination)
-				highlight_changed_variables = true, -- highlight changed values with NvimDapVirtualTextChanged, else always NvimDapVirtualText
-				highlight_new_as_changed = false, -- highlight new variables in the same way as changed variables (if highlight_changed_variables)
-				show_stop_reason = true, -- show stop reason when stopped for exceptions
-				commented = false, -- prefix virtual text with comment string
-				only_first_definition = true, -- only show virtual text at first definition (if there are multiple)
-				all_references = false, -- show virtual text on all all references of the variable (not only definitions)
-				clear_on_continue = false, -- clear virtual text on "continue" (might cause flickering when stepping)
-				--- A callback that determines how a variable is displayed or whether it should be omitted
-				--- variable Variable https://microsoft.github.io/debug-adapter-protocol/specification#Types_Variable
-				--- buf number
-				--- stackframe dap.StackFrame https://microsoft.github.io/debug-adapter-protocol/specification#Types_StackFrame
-				--- node userdata tree-sitter node identified as variable definition of reference (see `:h tsnode`)
-				--- options nvim_dap_virtual_text_options Current options for nvim-dap-virtual-text
-				--- string|nil A text how the virtual text should be displayed or nil, if this variable shouldn't be displayed
-				display_callback = function(variable, buf, stackframe, node, options)
-					if options.virt_text_pos == "inline" then
-						return " = " .. variable.value
-					else
-						return variable.name .. " = " .. variable.value
-					end
-				end,
-				-- position of virtual text, see `:h nvim_buf_set_extmark()`, default tries to inline the virtual text. Use 'eol' to set to end of line
-				virt_text_pos = vim.fn.has("nvim-0.10") == 1 and "inline" or "eol",
-
-				-- experimental features:
-				all_frames = false, -- show virtual text for all stack frames not only current. Only works for debugpy on my machine.
-				virt_lines = false, -- show virtual lines instead of virtual text (will flicker!)
-				virt_text_win_col = nil, -- position the virtual text at a fixed window column (starting from the first text column) ,
-				-- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
-			})
-
-			-- NOTE: Install lang specific config
-			-- either in here, or in a separate plugin spec as demonstrated for go below.
 		end,
 	},
+
 	{
-		"nvim-dap-go",
-		enabled = nixCats("go") or false,
-		on_plugin = { "nvim-dap" },
-		after = function(plugin)
-			require("dap-go").setup()
-		end,
-	},
-	{
-		-- lazydev makes your lsp way better in your config without needing extra lsp configuration.
 		"lazydev.nvim",
 		enabled = nixCats("lua") or false,
 		cmd = { "LazyDev" },
@@ -676,12 +1403,57 @@ require("lze").load({
 			})
 		end,
 	},
+
+	{
+		"vimplugin-nvim-lsp-endhints",
+		enabled = nixCats("general") or false,
+		load = function(name)
+			vim.cmd.packadd(name)
+			vim.cmd.packadd("nvim-lspconfig")
+		end,
+		after = function(_)
+			require("lsp-endhints").setup({
+				icons = {
+					type = "󰔷 ",
+					parameter = "󰇙",
+					offspec = " ", -- hint kind not defined in official LSP spec
+					unknown = "⊣ ", -- hint kind is nil
+				},
+				label = {
+					truncateAtChars = 40,
+					padding = 1,
+					marginLeft = 0,
+					bracketedParameters = false,
+				},
+				autoEnableHints = true,
+			})
+
+			-- tsserver
+			local inlayHints = {
+				includeInlayParameterNameHints = "all",
+				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+				includeInlayFunctionParameterTypeHints = true,
+				includeInlayVariableTypeHints = true,
+				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+				includeInlayPropertyDeclarationTypeHints = true,
+				includeInlayFunctionLikeReturnTypeHints = true,
+				includeInlayEnumMemberValueHints = true,
+			}
+			require("lspconfig").ts_ls.setup({
+				settings = {
+					typescript = {
+						inlayHints = inlayHints,
+					},
+					javascript = {
+						inlayHints = inlayHints,
+					},
+				},
+			})
+		end,
+	},
 })
 
 local function lsp_on_attach(_, bufnr)
-	-- we create a function that lets us more easily define mappings specific
-	-- for LSP related items. It sets the mode, buffer and description for us each time.
-
 	local nmap = function(keys, func, desc)
 		if desc then
 			desc = "LSP: " .. desc
@@ -694,61 +1466,27 @@ local function lsp_on_attach(_, bufnr)
 
 	nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition")
 
-	if nixCats("general") then
-		nmap("gr", function()
-			Snacks.picker.lsp_references()
-		end, "[G]oto [R]eferences")
-		nmap("gI", function()
-			Snacks.picker.lsp_implementations()
-		end, "[G]oto [I]mplementation")
-		nmap("<leader>ds", function()
-			Snacks.picker.lsp_symbols()
-		end, "[D]ocument [S]ymbols")
-		nmap("<leader>ws", function()
-			Snacks.picker.lsp_workspace_symbols()
-		end, "[W]orkspace [S]ymbols")
-	end
-
 	nmap("<leader>D", vim.lsp.buf.type_definition, "Type [D]efinition")
 
-	-- See `:help K` for why this keymap
 	nmap("K", vim.lsp.buf.hover, "Hover Documentation")
 	nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
-	-- Lesser used LSP functionality
-	nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
-	nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "[W]orkspace [A]dd Folder")
-	nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "[W]orkspace [R]emove Folder")
-	nmap("<leader>wl", function()
-		print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-	end, "[W]orkspace [L]ist Folders")
-
-	-- Create a command `:Format` local to the LSP buffer
 	vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 		vim.lsp.buf.format()
 	end, { desc = "Format current buffer with LSP" })
 end
 
--- NOTE: Register a handler from lzextras. This one makes it so that
--- you can set up lsps within lze specs,
--- and trigger vim.lsp.enable and the rtp config collection only on the correct filetypes
--- it adds the lsp field used below
--- (and must be registered before any load calls that use it!)
 require("lze").register_handlers(require("lzextras").lsp)
--- also replace the fallback filetype list retrieval function with a slightly faster one
 require("lze").h.lsp.set_ft_fallback(function(name)
 	return dofile(nixCats.pawsible({ "allPlugins", "opt", "nvim-lspconfig" }) .. "/lsp/" .. name .. ".lua").filetypes
 		or {}
 end)
+
 require("lze").load({
 	{
 		"nvim-lspconfig",
 		enabled = nixCats("general") or false,
-		-- the on require handler will be needed here if you want to use the
-		-- fallback method of getting filetypes if you don't provide any
 		on_require = { "lspconfig" },
-		-- define a function to run over all type(plugin.lsp) == table
-		-- when their filetype trigger loads them
 		lsp = function(plugin)
 			vim.lsp.config(plugin.name, plugin.lsp or {})
 			vim.lsp.enable(plugin.name)
@@ -759,19 +1497,18 @@ require("lze").load({
 			})
 		end,
 	},
+
 	{
-		-- name of the lsp
 		"lua_ls",
 		enabled = nixCats("lua") or false,
-		-- provide a table containing filetypes,
-		-- and then whatever your functions defined in the function type specs expect.
-		-- in our case, it just expects the normal lspconfig setup options.
 		lsp = {
-			-- if you provide the filetypes it doesn't ask lspconfig for the filetypes
 			filetypes = { "lua" },
 			settings = {
 				Lua = {
 					runtime = { version = "LuaJIT" },
+					hint = {
+						enable = true,
+					},
 					formatters = {
 						ignoreComments = true,
 					},
@@ -784,16 +1521,52 @@ require("lze").load({
 				},
 			},
 		},
-		-- also these are regular specs and you can use before and after and all the other normal fields
 	},
+
 	{
-		"gopls",
-		enabled = nixCats("go") or false,
-		-- if you don't provide the filetypes it asks lspconfig for them using the function we set above
+		"ts_ls",
+		enabled = nixCats("web") or false,
 		lsp = {
-			-- filetypes = { "go", "gomod", "gowork", "gotmpl" },
+			filetypes = { "ts", "tsx", "js", "jsx" },
+			settings = {
+				ts_ls = {},
+			},
 		},
 	},
+
+	{
+		"tailwindcss",
+		enabled = nixCats("web") or false,
+		lsp = {
+			filetypes = { "tsx", "jsx" },
+			settings = {
+				tailwindcss = {},
+			},
+		},
+	},
+
+	{
+		"jsonls",
+		enabled = nixCats("web") or false,
+		lsp = {
+			filetypes = { "json" },
+			settings = {
+				jsonls = {},
+			},
+		},
+	},
+
+	{
+		"bashls",
+		enabled = nixCats("bash") or false,
+		lsp = {
+			filetypes = { "sh" },
+			settings = {
+				bashls = {},
+			},
+		},
+	},
+
 	{
 		"nixd",
 		enabled = nixCats("nix") or false,
@@ -801,23 +1574,14 @@ require("lze").load({
 			filetypes = { "nix" },
 			settings = {
 				nixd = {
-					-- nixd requires some configuration.
-					-- luckily, the nixCats plugin is here to pass whatever we need!
-					-- we passed this in via the `extra` table in our packageDefinitions
-					-- for additional configuration options, refer to:
-					-- https://github.com/nix-community/nixd/blob/main/nixd/docs/configuration.md
 					nixpkgs = {
-						-- in the extras set of your package definition:
-						-- nixdExtras.nixpkgs = ''import ${pkgs.path} {}''
 						expr = nixCats.extra("nixdExtras.nixpkgs") or [[import <nixpkgs> {}]],
 					},
 					options = {
 						nixos = {
-							-- nixdExtras.nixos_options = ''(builtins.getFlake "path:${builtins.toString inputs.self.outPath}").nixosConfigurations.configname.options''
 							expr = nixCats.extra("nixdExtras.nixos_options"),
 						},
 						["home-manager"] = {
-							-- nixdExtras.home_manager_options = ''(builtins.getFlake "path:${builtins.toString inputs.self.outPath}").homeConfigurations.configname.options''
 							expr = nixCats.extra("nixdExtras.home_manager_options"),
 						},
 					},

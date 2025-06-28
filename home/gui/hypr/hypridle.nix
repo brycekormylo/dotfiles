@@ -40,7 +40,7 @@ in {
           on-resume = "hyprctl dispatch dpms on";
         }
         {
-          timeout = timeout + 10;
+          timeout = timeout + 600;
           on-timeout = lock;
         }
       ];

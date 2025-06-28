@@ -36,6 +36,7 @@
     };
     ags.url = "github:Aylur/ags/v1";
     nixvim.url = "github:nix-community/nixvim";
+    nixCats.url = "github:BirdeeHub/nixCats-nvim";
     nix-colors.url = "github:misterio77/nix-colors";
     nixd.url = "github:nix-community/nixd";
     firefox-addons = {

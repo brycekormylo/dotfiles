@@ -80,19 +80,26 @@ in {
         # no_gaps_when_only = 1;
       };
 
-      gestures = {
-        workspace_swipe = "on";
-      };
+      # This got deprecated
+      # gestures = {
+      #   workspace_swipe = "on";
+      # };
 
       misc = {
         force_default_wallpaper = 0;
         vfr = true;
       };
 
+      monitor = [
+        "eDP-1,1920x1080@60,0x0,1"
+        "HDMI-A-2,2560x1440@60,1920x0,1"
+      ];
+
       exec-once = [
         "uswm finalize"
         "uwsm app -- waypaper --restore"
-        # "uwsm app -- ags"
+        "pkill ags"
+        "uwsm app -- ags"
         "uwsm app -- firefox"
         "ivpn connect --last"
       ];
@@ -123,7 +130,7 @@ in {
         # "GBM_BACKEND,nvidia-drm"
       ];
 
-      "monitor" = ",preferred,auto,auto";
+      # "monitor" = ",preferred,auto,auto";
       "$mod" = "SUPER";
       "$terminal" = "kitty";
       # "$fileManager" = "kitty ranger --confdir ~/.config/ranger";

@@ -29,8 +29,6 @@
 
     # PHOTOGRAPHY
     darktable
-    # inkscape
-    # rawtherapee
   ];
 
   home.sessionVariables = {

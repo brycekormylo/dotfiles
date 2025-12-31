@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: let
+{pkgs, ...}: let
   requiredDeps = with pkgs; [
     egl-wayland
     gtk3
@@ -10,8 +7,9 @@
     hyprlang
     libdbusmenu-gtk3
     lxappearance
+    nwg-displays
     nwg-look
-    rofi-wayland
+    # rofi
     swaybg
     wayland-protocols
     wayland-utils

@@ -1,5 +1,5 @@
 {
- inputs,
+  inputs,
   config,
   pkgs,
   ...
@@ -27,7 +27,6 @@
       extraPackages = with pkgs; [
         intel-compute-runtime
         intel-media-driver
-        intel-ocl
         libvdpau-va-gl
         vpl-gpu-rt
         mesa
@@ -35,7 +34,6 @@
         libva-vdpau-driver
         libva1
         nvidia-vaapi-driver
-        vaapiVdpau
         xrdp
       ];
       enable32Bit = true;
@@ -86,10 +84,10 @@
 
   powerManagement.cpuFreqGovernor = "performance";
 
-  programs.steam = {
-    enable = true;
-    gamescopeSession.enable = true;
-  };
+  # programs.steam = {
+  #   enable = true;
+  #   gamescopeSession.enable = true;
+  # };
 
   systemd.services = {
     "getty@tty1".enable = false; # Autologin
@@ -98,7 +96,8 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    floorp
+    ladybird
+    # floorp-bin
     ungoogled-chromium
 
     neovim
@@ -112,6 +111,7 @@
     brightnessctl
     dbus-broker
     libnotify
+    nftables
     networkmanagerapplet
     wireplumber
 
@@ -140,9 +140,9 @@
       libertinus
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       roboto
-      vistafonts
+      vista-fonts
     ];
 
     fontconfig.defaultFonts = {

@@ -59,6 +59,75 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 
 vim.keymap.set("n", "<leader>w", "<cmd>:wall<CR>", { desc = "Write all open buffers" })
 
+vim.pack.add({
+	{
+		src = "https://github.com/mason-org/mason.nvim",
+		name = "mason.nvim",
+	},
+	{
+		src = "https://github.com/mason-org/mason-lspconfig.nvim",
+		name = "mason-lspconfig.nvim",
+	},
+	{
+		src = "https://github.com/neovim/nvim-lspconfig",
+		name = "nvim-lspconfig",
+	},
+	{
+		src = "https://github.com/BirdeeHub/lze",
+		name = "lze",
+	},
+	{
+		src = "https://github.com/BirdeeHub/lzextras",
+		name = "lzextras",
+	},
+	{
+		src = "https://github.com/folke/snacks.nvim",
+		name = "snacks.nvim",
+	},
+})
+
+-- require("mason").setup()
+-- require("mason-lspconfig").setup({
+--     ensure_installed = { "lua_ls" }, 
+-- })
+--
+-- local lspconfig = require('lspconfig')
+-- lspconfig.lua_ls.setup({
+--     settings = {
+--         Lua = {
+--             runtime = { version = "LuaJIT" },
+--             diagnostics = { globals = { "vim" } },
+--             workspace = { library = vim.api.nvim_get_runtime_file("", true) },
+--         },
+--     },
+-- })
+
+-- vim.lsp.config["lua_ls"] = {
+-- 	cmd = { "lua-language-server" },
+-- 	filetypes = { "lua" },
+-- 	root_markers = { { ".luarc.json", ".luarc.jsonc" }, ".git" },
+-- 	settings = {
+-- 		Lua = {
+-- 			runtime = {
+-- 				version = "LuaJIT",
+-- 			},
+-- 			-- hint = {
+-- 			-- 	enable = true,
+-- 			-- },
+-- 			-- formatters = {
+-- 			-- 	ignoreComments = true,
+-- 			-- },
+-- 			-- signatureHelp = { enabled = true },
+-- 			-- diagnostics = {
+-- 			-- 	globals = { "nixCats", "vim" },
+-- 			-- 	disable = { "missing-fields" },
+-- 			-- },
+-- 			-- telemetry = { enabled = false },
+-- 		},
+-- 	},
+-- }
+-- vim.lsp.enable('lua_ls')
+
 require("snacks").setup({
 	bigfile = {},
 	quickfile = {},
@@ -90,6 +159,14 @@ require("lze").load({
 		"gruvbox",
 		enabled = nixCats("general") or false,
 		event = "DeferredUIEnter",
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/ellisonleao/gruvbox.nvim",
+					name = "gruvbox.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			require("gruvbox").setup({
 				palette_overrides = {
@@ -183,11 +260,20 @@ require("lze").load({
 
 	{
 		"blink.cmp",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
 		on_require = "blink",
-		after = function(plugin)
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/Saghen/blink.cmp",
+					name = "blink.nvim",
+				},
+			})
+		end,
+		after = function(_)
 			require("blink.cmp").setup({
+				fuzzy = { implementation = "lua" },
 				keymap = {
 					preset = "enter",
 					["<Tab>"] = {
@@ -219,11 +305,19 @@ require("lze").load({
 
 	{
 		"wilder.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("fzf-lua")
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/ibhagwan/fzf-lua",
+					name = "fzf-lua",
+				},
+				{
+					src = "https://github.com/gelguy/wilder.nvim",
+					name = "wilder.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			local wilder = require("wilder")
@@ -246,26 +340,52 @@ require("lze").load({
 	},
 
 	{
-		"nvim-comment",
-		enabled = nixCats("general") or false,
+		"comment.nvim",
+		enabled = true,
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/numToStr/Comment.nvim",
+					name = "comment.nvim",
+				},
+			})
 		end,
 		after = function(_)
-			require("nvim_comment").setup({
-				comment_empty = false,
-				line_mapping = "<leader>X",
-				operator_mapping = "<leader>x",
+			require("Comment").setup({
+				padding = true,
+				sticky = true,
+				toggler = {
+					line = "<leader>x",
+					block = "<leader>X",
+				},
+				opleader = {
+					line = "<leader>x",
+					block = "<leader>X",
+				},
+				extra = {
+					above = "gcO",
+					below = "gco",
+					eol = "gcA",
+				},
+				mappings = {
+					basic = true,
+					extra = true,
+				},
 			})
 		end,
 	},
 
 	{
 		"otter.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/jmbuhr/otter.nvim",
+					name = "otter.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("otter").setup({
@@ -276,9 +396,14 @@ require("lze").load({
 
 	{
 		"modicator.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/mawkler/modicator.nvim",
+					name = "modicator.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("modicator").setup({
@@ -299,9 +424,14 @@ require("lze").load({
 
 	{
 		"dressing.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/stevearc/dressing.nvim",
+					name = "dressing.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("dressing").setup()
@@ -309,16 +439,21 @@ require("lze").load({
 	},
 
 	{
-		"vimplugin-encourage",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		"encourage.nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/r-cha/encourage.nvim",
+					name = "encourage.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("encourage").setup({
 				messages = {
 					"pilot ejecting  ",
-					"viper's got you in the pipe, 5x5",
+					"viper's got you in the pipe, 5x5  ",
 					"eject now eject  ",
 					"core break in progress  ",
 					"destruct sequence engaged  ",
@@ -366,10 +501,15 @@ require("lze").load({
 	},
 
 	{
-		"vimplugin-icon-picker",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		"icon-picker",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/ziontee113/icon-picker.nvim",
+					name = "icon-picker.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("icon-picker").setup({ disable_legacy_commands = true })
@@ -383,9 +523,17 @@ require("lze").load({
 	{
 		"inc-rename.nvim",
 		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("dressing.nvim")
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/stevearc/dressing.nvim",
+					name = "dressing.nvim",
+				},
+				{
+					src = "https://github.com/smjonas/inc-rename.nvim",
+					name = "inc-rename.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("inc_rename").setup({
@@ -396,30 +544,58 @@ require("lze").load({
 	},
 
 	{
-		"vimplugin-reverb",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		"reverb-nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/whleucka/reverb.nvim",
+					name = "reverb",
+				},
+			})
 		end,
 		after = function(_)
 			require("reverb").setup({
 				opts = {
-					BufWrite = { path = "~/.vim/sounds/ttf2_kill.mp3", volume = 50 },
-					-- QuitPre = { path = "~/.vim/sounds/kraber.mp3", volume = 100 },
-					-- CursorMoved = { path = "~/.vim/sounds/alternator.mp3", volume = 100 },
-					-- InsertCharPre = { path = "~/.vim/sounds/alternator.mp3", volume = 100 },
-					-- CmdlineEnter = { path = "~/.vim/sounds/kraber.mp3", volume = 100 },
-					-- CmdlineLeave = { path = "~/.vim/sounds/kraber.mp3", volume = 100 },
+					player = "mpv", -- options: paplay (default), pw-play, mpv
+					max_sounds = 20,
+					BufWrite = { path = "~/.nvim/sounds/ttf2_kill.mp3", volume = 50 },
+					-- QuitPre = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
+					-- CursorMoved = { path = "~/.nvim/sounds/alternator.mp3", volume = 100 },
+					-- InsertCharPre = { path = "~/.nvim/sounds/alternator.mp3", volume = 100 },
+					-- CmdlineEnter = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
+					-- CmdlineLeave = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
 				},
 			})
 		end,
 	},
 
 	{
+		"csvview.nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/hat0uma/csvview.nvim",
+					name = "csvview.nvim",
+				},
+			})
+		end,
+		after = function(_)
+			require("csvview").setup({})
+		end,
+	},
+
+	{
 		"satellite.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/lewis6991/satellite.nvim",
+					name = "satellite.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("satellite").setup({
@@ -430,9 +606,14 @@ require("lze").load({
 
 	{
 		"nvim-ts-autotag",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/windwp/nvim-ts-autotag",
+					name = "nvim-ts-autotag",
+				},
+			})
 		end,
 		after = function(_)
 			require("nvim-ts-autotag").setup()
@@ -441,9 +622,14 @@ require("lze").load({
 
 	{
 		"hmts.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/calops/hmts.nvim",
+					name = "hmts.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("hmts").setup()
@@ -452,9 +638,14 @@ require("lze").load({
 
 	{
 		"fidget.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function()
+			vim.pack.add({
+				{
+					src = "https://github.com/j-hui/fidget.nvim",
+					name = "fidget.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("fidget").setup({
@@ -496,12 +687,12 @@ require("lze").load({
 						},
 						lsp = {
 							progress_ringbuf_size = 0,
-							log_handler = false,
+							-- log_handler = false,
 						},
 					},
 					notification = {
 						poll_rate = 10,
-						filter = vim.log.levels.INFO,
+						-- filter = vim.log.levels.INFO,
 						history_size = 128,
 						override_vim_notify = true,
 						configs = {
@@ -509,23 +700,20 @@ require("lze").load({
 								iconOnLeft = false,
 								infoAnnote = "⁝",
 								warnAnnote = "",
-								errorAnnote = "",
-								debugAnnote = "",
+								-- errorAnnote = "",
+								-- debugAnnote = "",
 							},
 						},
-						redirect = function(msg, level, opts)
-							if opts and opts.on_open then
-								return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
-							end
-						end,
+						-- redirect = function(msg, level, opts)
+						-- 	if opts and opts.on_open then
+						-- 		return require("fidget.integration.nvim-notify").delegate(msg, level, opts)
+						-- 	end
+						-- end,
 						view = {
 							stack_upwards = false,
 							icon_separator = " ",
 							group_separator = "---",
 							group_separator_hl = "Comment",
-							render_message = function(msg, cnt)
-								return cnt == 1 and msg or string.format("(%dx) %s", cnt, msg)
-							end,
 						},
 						window = {
 							normal_hl = "Comment",
@@ -552,10 +740,15 @@ require("lze").load({
 	},
 
 	{
-		"vimplugin-relative-toggle",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		"relative-toggle",
+		enabled = true,
+		load = function()
+			vim.pack.add({
+				{
+					src = "https://github.com/cpea2506/relative-toggle.nvim",
+					name = "relative-toggle.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("relative-toggle").setup({
@@ -569,10 +762,15 @@ require("lze").load({
 	},
 
 	{
-		"vimplugin-gitgraph",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		"gitgraph",
+		enabled = true,
+		load = function()
+			vim.pack.add({
+				{
+					src = "https://github.com/isakbm/gitgraph.nvim",
+					name = "gitgraph.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("gitgraph").setup({
@@ -588,9 +786,14 @@ require("lze").load({
 
 	{
 		"lazygit.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/kdheepak/lazygit.nvim",
+					name = "lazygit.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			vim.keymap.set("n", "<leader>L", "<cmd>:LazyGit<cr>", { desc = "LazyGit" })
@@ -599,9 +802,14 @@ require("lze").load({
 
 	{
 		"diffview.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/sindrets/diffview.nvim",
+					name = "diffview.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("diffview").setup({})
@@ -612,9 +820,14 @@ require("lze").load({
 
 	{
 		"nvim-surround",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/kylechui/nvim-surround",
+					name = "nvim-surround",
+				},
+			})
 		end,
 		after = function(_)
 			require("nvim-surround").setup()
@@ -623,42 +836,62 @@ require("lze").load({
 
 	{
 		"package-info.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/vuki656/package-info.nvim",
+					name = "package-info.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("package-info").setup()
 		end,
 	},
 
-	{
-		"mkdnflow.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
-		end,
-		after = function(_)
-			require("mkdnflow").setup()
-		end,
-	},
+	-- TODO: Change mapping to not conflict with oil
+	-- {
+	-- 	"mkdnflow.nvim",
+	-- 	enabled = nixCats("general") or false,
+	-- 	load = function(name)
+	-- 		vim.cmd.packadd(name)
+	-- 	end,
+	-- 	after = function(_)
+	-- 		require("mkdnflow").setup()
+	-- 	end,
+	-- },
 
 	{
 		"markview.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/OXY2DEV/markview.nvim",
+					name = "markview.nvim",
+				},
+			})
 		end,
 		after = function(_)
-			require("markview").setup()
+			local preset = require("markview.presets").headings
+
+			require("markview").setup({
+				markdown = { headings = preset.marker },
+			})
 		end,
 	},
 
 	{
 		"nvim-colorizer.lua",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/norcalli/nvim-colorizer.lua",
+					name = "nvim-colorizer.lua",
+				},
+			})
 		end,
 		after = function(_)
 			require("colorizer").setup({
@@ -671,10 +904,15 @@ require("lze").load({
 	},
 
 	{
-		"vimplugin-tiny-glimmer",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
+		"tiny-glimmer.nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/rachartier/tiny-glimmer.nvim",
+					name = "tiny-glimmer.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("tiny-glimmer").setup({
@@ -719,7 +957,15 @@ require("lze").load({
 
 	{
 		"smear-cursor.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/sphamba/smear-cursor.nvim",
+					name = "smear-cursor.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			require("smear_cursor").setup({
 				enabled = true,
@@ -743,13 +989,21 @@ require("lze").load({
 
 	{
 		"nvim-treesitter",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("nvim-treesitter-textobjects")
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/nvim-treesitter/nvim-treesitter",
+					name = "nvim-treesitter",
+				},
+				{
+					src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+					name = "nvim-treesitter-textobjects",
+				},
+			})
 		end,
-		after = function(plugin)
+		after = function(_)
 			require("nvim-treesitter.configs").setup({
 				highlight = { enable = true },
 				indent = { enable = false },
@@ -812,20 +1066,33 @@ require("lze").load({
 
 	{
 		"nvim-treesitter-context",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/nvim-treesitter/nvim-treesitter-context",
+					name = "nvim-treesitter-context",
+				},
+			})
 		end,
-		after = function(plugin)
+		after = function(_)
 			require("treesitter-context").setup()
 		end,
 	},
 
 	{
 		"mini.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/nvim-mini/mini.nvim",
+					name = "mini.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			require("mini.pairs").setup()
 			require("mini.icons").setup()
@@ -834,10 +1101,15 @@ require("lze").load({
 
 	{
 		"aerial.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/stevearc/aerial.nvim",
+					name = "aerial.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("aerial").setup()
@@ -847,19 +1119,32 @@ require("lze").load({
 
 	{
 		"tiny-inline-diagnostic.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim",
+					name = "tiny-inline-diagnostic.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			require("tiny-inline-diagnostic").setup()
 		end,
 	},
 
 	{
-		"vimplugin-screenkey",
-		enabled = nixCats("general") or false,
+		"screenkey",
+		enabled = true,
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/NStefan002/screenkey.nvim",
+					name = "screenkey.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			require("screenkey").setup({
@@ -883,7 +1168,7 @@ require("lze").load({
 				disable = {
 					filetypes = {},
 					buftypes = {},
-					events = false,
+					-- events = false,
 				},
 				show_leader = true,
 				group_mappings = true,
@@ -931,8 +1216,16 @@ require("lze").load({
 
 	{
 		"vim-startuptime",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		cmd = { "StartupTime" },
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/dstein64/vim-startuptime",
+					name = "vim-startuptime",
+				},
+			})
+		end,
 		before = function(_)
 			vim.g.startuptime_event_width = 0
 			vim.g.startuptime_tries = 10
@@ -942,7 +1235,15 @@ require("lze").load({
 
 	{
 		"hlchunk.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/shellRaining/hlchunk.nvim",
+					name = "hlchunk.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			require("hlchunk").setup({
 				chunk = {
@@ -983,7 +1284,15 @@ require("lze").load({
 
 	{
 		"oil.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/stevearc/oil.nvim",
+					name = "oil.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			require("oil").setup({
 				default_file_explorer = true,
@@ -1029,12 +1338,26 @@ require("lze").load({
 
 	{
 		"telescope.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("plenary.nvim")
-			vim.cmd.packadd("telescope-fzf-native.nvim")
-			vim.cmd.packadd("telescope-ui-select.nvim")
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/nvim-telescope/telescope.nvim",
+					name = "telescope.nvim",
+				},
+				{
+					src = "https://github.com/nvim-lua/plenary.nvim",
+					name = "plenary.nvim",
+				},
+				{
+					src = "https://github.com/nvim-telescope/telescope-fzf-native.nvim",
+					name = "telescope-fzf-native.nvim",
+				},
+				{
+					src = "https://github.com/nvim-telescope/telescope-ui-select.nvim",
+					name = "telescope-ui-select.nvim",
+				},
+			})
 		end,
 		after = function(_)
 			local layout_strategies = require("telescope.pickers.layout_strategies")
@@ -1130,6 +1453,12 @@ require("lze").load({
 			vim.keymap.set("n", "<leader>F", builtin.resume, { desc = "Telescope resume last search" })
 			vim.keymap.set("n", "<leader>fe", builtin.diagnostics, { desc = "Telescope diagnostics" })
 			vim.keymap.set("n", "<leader>fq", builtin.quickfix, { desc = "Telescope quickfix list" })
+			vim.keymap.set(
+				"n",
+				"<leader>fl",
+				builtin.current_buffer_fuzzy_find,
+				{ desc = "Telescope fzf current buffer" }
+			)
 			vim.keymap.set("n", "<leader>fi", builtin.lsp_incoming_calls, { desc = "Telescope LSP incoming calls" })
 			vim.keymap.set("n", "<leader>fr", builtin.lsp_references, { desc = "Telescope LSP references" })
 			vim.keymap.set("n", "<leader>fn", builtin.lsp_implementations, { desc = "Telescope LSP implementations" })
@@ -1148,15 +1477,24 @@ require("lze").load({
 
 	{
 		"grapple.nvim",
-		enabled = nixCats("general") or false,
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("nvim-web-devicons")
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/cbochs/grapple.nvim",
+					name = "grapple.nvim",
+				},
+				{
+					src = "https://github.com/nvim-tree/nvim-web-devicons",
+					name = "nvim-web-devicons",
+				},
+			})
 		end,
 		after = function(_)
 			require("grapple").setup({
 				win_opts = {
 					footer = "",
+					border = "rounded",
 				},
 			})
 			vim.keymap.set("n", "<leader>a", "<cmd>Grapple toggle<cr>")
@@ -1166,14 +1504,25 @@ require("lze").load({
 
 	{
 		"lualine.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("lualine-lsp-progress")
-			vim.cmd.packadd("vimplugin-screenkey-nvim")
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/nvim-lualine/lualine.nvim",
+					name = "lualine.nvim",
+				},
+				{
+					src = "https://github.com/arkav/lualine-lsp-progress",
+					name = "lualine-lsp-progress",
+				},
+				{
+					src = "https://github.com/NStefan002/screenkey.nvim",
+					name = "screenkey.nvim",
+				},
+			})
 		end,
-		after = function(plugin)
+		after = function(_)
 			local palette = {
 				black = colors.base00,
 				white = colors.base08,
@@ -1295,8 +1644,16 @@ require("lze").load({
 
 	{
 		"gitsigns.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/lewis6991/gitsigns.nvim",
+					name = "gitsigns.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			require("gitsigns").setup({
 				signs = {
@@ -1312,9 +1669,17 @@ require("lze").load({
 
 	{
 		"which-key.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/folke/which-key.nvim",
+					name = "which-key.nvim",
+				},
+			})
+		end,
 		event = "DeferredUIEnter",
-		after = function(plugin)
+		after = function(_)
 			require("which-key").setup({})
 			require("which-key").add({
 				{ "<leader><leader>", group = "buffer commands" },
@@ -1341,13 +1706,21 @@ require("lze").load({
 
 	{
 		"nvim-lint",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "FileType",
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/mfussenegger/nvim-lint",
+					name = "nvim-lint",
+				},
+			})
+		end,
 		after = function(_)
 			require("lint").linters_by_ft = {
 				bash = { "bash" },
 				rust = { "clippy" },
-				json = { "jsonlint" },
+				-- json = { "jsonlint" },
 				javascript = { "biomejs" },
 				typescript = { "biomejs" },
 				javascriptreact = { "biomejs" },
@@ -1363,7 +1736,15 @@ require("lze").load({
 
 	{
 		"conform.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/stevearc/conform.nvim",
+					name = "conform.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			local conform = require("conform")
 			conform.setup({
@@ -1392,9 +1773,17 @@ require("lze").load({
 
 	{
 		"lazydev.nvim",
-		enabled = nixCats("lua") or false,
+		enabled = true,
 		cmd = { "LazyDev" },
 		ft = "lua",
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/folke/lazydev.nvim",
+					name = "lazydev.nvim",
+				},
+			})
+		end,
 		after = function(_)
 			require("lazydev").setup({
 				library = {
@@ -1405,11 +1794,19 @@ require("lze").load({
 	},
 
 	{
-		"vimplugin-nvim-lsp-endhints",
-		enabled = nixCats("general") or false,
+		"nvim-lsp-endhints",
+		enabled = true,
 		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("nvim-lspconfig")
+			vim.pack.add({
+				{
+					src = "https://github.com/neovim/nvim-lspconfig",
+					name = "nvim-lspconfig",
+				},
+				{
+					src = "https://github.com/chrisgrieser/nvim-lsp-endhints",
+					name = "nvim-lsp-endhints",
+				},
+			})
 		end,
 		after = function(_)
 			require("lsp-endhints").setup({

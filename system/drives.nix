@@ -19,4 +19,13 @@
       "x-gvfs-show"
     ];
   };
+
+  fileSystems."/home/bryce/media/drive" = {
+    device = "/dev/disk/by-uuid/2A27-463B";
+    options = [
+      "nofail"
+      "users"
+      "x-gvfs-show"
+    ];
+  };
 }

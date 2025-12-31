@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    clipgrab
+    # clipgrab
+    ytdownloader
     dolphin-emu
     # cemu
     # rar

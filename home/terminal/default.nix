@@ -56,7 +56,7 @@
     ripgrep
     # thefuck
     wget
-    xdragon
+    dragon-drop
     xidel
     zoxide
   ];
@@ -67,6 +67,6 @@
     ./mutt.nix
     ./ranger.nix
     ./tmux.nix
-    ./yazi.nix
+    # ./yazi.nix
   ];
 }

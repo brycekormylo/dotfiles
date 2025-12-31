@@ -1,6 +1,6 @@
 {pkgs, ...}: let
   dependencies = with pkgs; [
-    nodePackages.jsonlint
+    # nodePackages.jsonlint
     # yamllint
     # hadolint
   ];

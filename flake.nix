@@ -39,6 +39,12 @@
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
     nix-colors.url = "github:misterio77/nix-colors";
     nixd.url = "github:nix-community/nixd";
+
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";

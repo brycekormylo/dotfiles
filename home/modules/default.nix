@@ -1,6 +1,6 @@
 {
   imports = [
-    ./tauri.nix
+    # ./tauri.nix
     ./openGLfix.nix
     ./firefox.nix
     ./floorp.nix

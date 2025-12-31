@@ -1,8 +1,8 @@
 {pkgs, ...}: {
   home.packages = with pkgs; [
-    ffmpegthumbnailer
-    lsix
-    ueberzugpp
+    # ffmpegthumbnailer
+    # lsix
+    # ueberzugpp
   ];
   programs = {
     ranger = {

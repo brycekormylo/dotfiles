@@ -8,6 +8,7 @@
     ./hardware.nix
     ./hyprland.nix
     ./ivpn.nix
+    # ./jellyfin.nix
     ./locale.nix
     ./networking.nix
     ./pipewire.nix

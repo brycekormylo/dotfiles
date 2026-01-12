@@ -1,17 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
-  # nixpkgs = {
-  #   overlays = [
-  #     inputs.neovim-nightly-overlay.overlays
-  #   ];
-  # };
-  # programs.neovim = {
-  #   enable = true;
-  #   package = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.default;
-  # };
+{pkgs, ...}: {
   home.packages = with pkgs; [
     # bun
     # deno

@@ -6,10 +6,12 @@
     };
     git = {
       enable = true;
-      userName = "Bryce Kormylo";
-      userEmail = "brycekormylo@outlook.com";
       signing.format = "ssh";
-      extraConfig = {
+      settings = {
+        user = {
+          name = "Bryce Kormylo";
+          email = "brycekormylo@outlook.com";
+        };
         push = {autoSetupRemote = true;};
         http.postBuffer = 157286400;
         credential.helper = "${

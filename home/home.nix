@@ -40,7 +40,7 @@
   # Needs to be declared separately here for home-manger
   nix.gc = {
     automatic = true;
-    frequency = "weekly";
+    dates = "weekly";
     options = "--delete-older-than 30d";
   };
 }

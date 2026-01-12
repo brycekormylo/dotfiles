@@ -10,7 +10,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 vim.opt.inccommand = "split"
 
-vim.api.nvim_set_option("clipboard", "unnamedplus")
+vim.opt.clipboard = "unnamedplus"
 
 vim.wo.number = true
 vim.o.mouse = ""
@@ -60,14 +60,15 @@ vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagn
 vim.keymap.set("n", "<leader>w", "<cmd>:wall<CR>", { desc = "Write all open buffers" })
 
 vim.pack.add({
-	{
-		src = "https://github.com/mason-org/mason.nvim",
-		name = "mason.nvim",
-	},
-	{
-		src = "https://github.com/mason-org/mason-lspconfig.nvim",
-		name = "mason-lspconfig.nvim",
-	},
+	-- For use outside Nix
+	-- {
+	-- 	src = "https://github.com/mason-org/mason.nvim",
+	-- 	name = "mason.nvim",
+	-- },
+	-- {
+	-- 	src = "https://github.com/mason-org/mason-lspconfig.nvim",
+	-- 	name = "mason-lspconfig.nvim",
+	-- },
 	{
 		src = "https://github.com/neovim/nvim-lspconfig",
 		name = "nvim-lspconfig",
@@ -86,47 +87,94 @@ vim.pack.add({
 	},
 })
 
+-- For use outside Nix
 -- require("mason").setup()
 -- require("mason-lspconfig").setup({
---     ensure_installed = { "lua_ls" }, 
+--     ensure_installed = { "lua_ls", "ts_ls", "tailwindcss", "jsonls", "bashls", "nixd" },
 -- })
 --
--- local lspconfig = require('lspconfig')
--- lspconfig.lua_ls.setup({
---     settings = {
---         Lua = {
---             runtime = { version = "LuaJIT" },
---             diagnostics = { globals = { "vim" } },
---             workspace = { library = vim.api.nvim_get_runtime_file("", true) },
---         },
---     },
--- })
 
--- vim.lsp.config["lua_ls"] = {
--- 	cmd = { "lua-language-server" },
--- 	filetypes = { "lua" },
--- 	root_markers = { { ".luarc.json", ".luarc.jsonc" }, ".git" },
--- 	settings = {
--- 		Lua = {
--- 			runtime = {
--- 				version = "LuaJIT",
--- 			},
--- 			-- hint = {
--- 			-- 	enable = true,
--- 			-- },
--- 			-- formatters = {
--- 			-- 	ignoreComments = true,
--- 			-- },
--- 			-- signatureHelp = { enabled = true },
--- 			-- diagnostics = {
--- 			-- 	globals = { "nixCats", "vim" },
--- 			-- 	disable = { "missing-fields" },
--- 			-- },
--- 			-- telemetry = { enabled = false },
--- 		},
--- 	},
--- }
--- vim.lsp.enable('lua_ls')
+vim.lsp.config["lua_ls"] = {
+	filetypes = { "lua" },
+	settings = {
+		Lua = {
+			runtime = { version = "LuaJIT" },
+			hint = {
+				enable = true,
+			},
+			formatters = {
+				ignoreComments = true,
+			},
+			signatureHelp = { enabled = true },
+			diagnostics = {
+				globals = { "nixCats", "vim" },
+				disable = { "missing-fields" },
+			},
+			telemetry = { enabled = false },
+		},
+	},
+}
+vim.lsp.enable("lua_ls")
+
+vim.lsp.config["ts_ls"] = {
+	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+	settings = {
+		ts_ls = {},
+	},
+}
+vim.lsp.enable("ts_ls")
+
+vim.lsp.config["tailwindcss"] = {
+	filetypes = { "typescriptreact", "javascriptreact" },
+	settings = {
+		tailwindcss = {},
+	},
+}
+vim.lsp.enable("tailwindcss")
+
+vim.lsp.config["jsonls"] = {
+	filetypes = { "json" },
+	settings = {
+		jsonls = {},
+	},
+}
+vim.lsp.enable("jsonls")
+
+vim.lsp.config["bashls"] = {
+	filetypes = { "sh" },
+	settings = {
+		bashls = {},
+	},
+}
+vim.lsp.enable("bashls")
+
+vim.lsp.config["nixd"] = {
+	filetypes = { "nix" },
+	settings = {
+		nixd = {
+			nixpkgs = {
+				expr = nixCats.extra("nixdExtras.nixpkgs") or [[import <nixpkgs> {}]],
+			},
+			options = {
+				nixos = {
+					expr = nixCats.extra("nixdExtras.nixos_options"),
+				},
+				["home-manager"] = {
+					expr = nixCats.extra("nixdExtras.home_manager_options"),
+				},
+			},
+			formatting = {
+				command = { "alejandra" },
+			},
+			diagnostic = {
+				suppress = {
+					"sema-escaping-with",
+				},
+			},
+		},
+	},
+}
+vim.lsp.enable("nixd")
 
 require("snacks").setup({
 	bigfile = {},
@@ -157,7 +205,7 @@ require("lze").load({
 
 	{
 		"gruvbox",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		event = "DeferredUIEnter",
 		load = function(_)
 			vim.pack.add({
@@ -258,47 +306,274 @@ require("lze").load({
 		end,
 	},
 
+	-- {
+	-- 	"lspkind.nvim",
+	-- 	enabled = true,
+	-- 	event = "DeferredUIEnter",
+	-- 	load = function(_)
+	-- 		vim.pack.add({
+	-- 			{
+	-- 				src = "https://github.com/onsails/lspkind.nvim",
+	-- 				name = "lspkind.nvim",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	after = function(_)
+	-- 		local kind_icons = {
+	-- 			Text = "󰊄",
+	-- 			Method = "",
+	-- 			Function = "󰡱",
+	-- 			Constructor = "",
+	-- 			Field = "",
+	-- 			Variable = "󱀍",
+	-- 			Class = "",
+	-- 			Interface = "",
+	-- 			Module = "󰕳",
+	-- 			Property = "",
+	-- 			Unit = "",
+	-- 			Value = "",
+	-- 			Enum = "",
+	-- 			Keyword = "",
+	-- 			Snippet = "",
+	-- 			Color = "",
+	-- 			File = "",
+	-- 			Reference = "",
+	-- 			Folder = "",
+	-- 			EnumMember = "",
+	-- 			Constant = "",
+	-- 			Struct = "",
+	-- 			Event = "",
+	-- 			Operator = "",
+	-- 			TypeParameter = "",
+	-- 		}
+	--
+	-- 		require("lspkind").setup({
+	-- 			mode = "symbol",
+	-- 			maxwidth = {
+	-- 				menu = 50,
+	-- 				abbr = 50,
+	-- 			},
+	-- 			ellipsis_char = "-",
+	-- 			show_labelDetails = true,
+	-- 			symbol_map = kind_icons,
+	--
+	-- 			menu = {
+	-- 				buffer = "[buf]",
+	-- 				nvim_lsp = "[LSP]",
+	-- 				nvim_lua = "[api]",
+	-- 				path = "[path]",
+	-- 			},
+	-- 			before = function(entry, item)
+	-- 				local entryItem = entry:get_completion_item()
+	-- 				local color = entryItem.documentation
+	--
+	-- 				if color and type(color) == "string" and color:match("^#%x%x%x%x%x%x$") then
+	-- 					local hl = "hex-" .. color:sub(2)
+	--
+	-- 					if #vim.api.nvim_get_hl(0, { name = hl }) == 0 then
+	-- 						vim.api.nvim_set_hl(0, hl, { fg = color })
+	-- 					end
+	--
+	-- 					item.menu = " "
+	-- 					item.menu_hl_group = hl
+	--
+	-- 					-- else
+	-- 					-- add your lspkind icon here!
+	-- 					-- item.menu_hl_group = item.kind_hl_group
+	-- 				end
+	--
+	-- 				return item
+	-- 			end,
+	-- 			-- after = function(entry, item) end,
+	-- 		})
+	-- 	end,
+	-- },
+
 	{
-		"blink.cmp",
+		"nvim-cmp",
 		enabled = true,
 		event = "DeferredUIEnter",
-		on_require = "blink",
 		load = function(_)
 			vim.pack.add({
 				{
-					src = "https://github.com/Saghen/blink.cmp",
-					name = "blink.nvim",
+					src = "https://github.com/neovim/nvim-lspconfig",
+					name = "nvim-lspconfig",
+				},
+				{
+					src = "https://github.com/hrsh7th/nvim-cmp",
+					name = "nvim-cmp",
+				},
+				{
+					src = "https://github.com/hrsh7th/cmp-nvim-lsp",
+					name = "cmp-nvim-lsp",
+				},
+				{
+					src = "https://github.com/hrsh7th/cmp-buffer",
+					name = "cmp-buffer",
+				},
+				{
+					src = "https://github.com/hrsh7th/cmp-path",
+					name = "cmp-path",
+				},
+				{
+					src = "https://github.com/hrsh7th/cmp-cmdline",
+					name = "cmp-cmdline",
+				},
+				{
+					src = "https://github.com/ray-x/cmp-treesitter",
+					name = "cmp-treesitter",
+				},
+				{
+					src = "https://github.com/windwp/nvim-autopairs",
+					name = "nvim-autopairs",
+				},
+				{
+					src = "https://github.com/onsails/lspkind.nvim",
+					name = "lspkind.nvim",
 				},
 			})
 		end,
+
 		after = function(_)
-			require("blink.cmp").setup({
-				fuzzy = { implementation = "lua" },
-				keymap = {
-					preset = "enter",
-					["<Tab>"] = {
-						"select_next",
-						"snippet_forward",
-						"fallback",
+			require("nvim-autopairs").setup({})
+			local cmp = require("cmp")
+			local lspkind = require("lspkind")
+			local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+			cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
+			cmp.setup({
+				snippet = {
+					expand = function(args)
+						vim.snippet.expand(args.body)
+					end,
+				},
+				window = {
+					completion = {
+						border = {
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+						},
 					},
-					["<S-Tab>"] = {
-						"select_prev",
-						"snippet_backward",
-						"fallback",
+					documentation = {
+						border = {
+							"╭",
+							"─",
+							"╮",
+							"│",
+							"╯",
+							"─",
+							"╰",
+							"│",
+						},
 					},
 				},
-				completion = {
-					list = {
-						selection = { preselect = false, auto_insert = false },
+
+				mapping = {
+					["<C-d>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.close(),
+					["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
+					["<S-Tab>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "s" }),
+					["<CR>"] = cmp.mapping.confirm({ select = true }),
+				},
+				matching = {
+					disallow_fuzzy_matching = true,
+					disallow_fullfuzzy_matching = true,
+					disallow_partial_fuzzy_matching = true,
+					disallow_prefix_unmatching = true,
+				},
+				performance = {
+					debounce = 10,
+					fetchingTimeout = 10000,
+					maxViewEntries = 7,
+					throttle = 10,
+				},
+
+				formatting = {
+					fields = { "abbr", "kind", "menu" },
+					format = lspkind.cmp_format({
+						mode = "symbol",
+						maxwidth = {
+							menu = 50,
+							abbr = 50,
+						},
+						ellipsis_char = "-",
+						show_labelDetails = true,
+						before = function(entry, vim_item)
+							return vim_item
+						end,
+						after = function(entry, item)
+							local entryItem = entry:get_completion_item()
+							local color = entryItem.documentation
+
+							if color and type(color) == "string" and color:match("^#%x%x%x%x%x%x$") then
+								local hl = "hex-" .. color:sub(2)
+
+								if #vim.api.nvim_get_hl(0, { name = hl }) == 0 then
+									vim.api.nvim_set_hl(0, hl, { fg = color })
+								end
+
+								item.menu = " "
+								item.menu_hl_group = hl
+
+								-- else
+								-- add your lspkind icon here!
+								-- item.menu_hl_group = item.kind_hl_group
+							end
+
+							return item
+						end,
+					}),
+				},
+				experimental = {
+					native_menu = false,
+					ghost_text = false,
+				},
+				sources = cmp.config.sources({
+					{
+						name = "nvim_lsp",
+						max_item_count = 10,
+						keywordLength = 2,
+						option = {
+							markdown_oxide = {
+								keyword_pattern = "[[(k| |/|#)+]]",
+							},
+						},
+					},
+					{
+						name = "treesitter",
+						keywordLength = 1,
+					},
+					{
+						name = "path",
+						keywordLength = 1,
+					},
+				}, {
+					{ name = "buffer" },
+				}),
+
+				sorting = {
+					comparators = {
+						require("cmp.config.compare").recently_used,
+						require("cmp.config.compare").exact,
+						require("cmp.config.compare").offset,
+						require("cmp.config.compare").score,
+						require("cmp.config.compare").kind,
+						require("cmp.config.compare").locality,
+						require("cmp.config.compare").length,
+						require("cmp.config.compare").order,
 					},
 				},
-				appearance = {
-					nerd_font_variant = "mono",
-				},
-				signature = { enabled = true },
-				sources = {
-					default = { "lsp", "path", "snippets", "buffer" },
-				},
+			})
+			local capabilities = require("cmp_nvim_lsp").default_capabilities()
+			vim.lsp.config("*", {
+				capabilities = capabilities,
 			})
 		end,
 	},
@@ -373,6 +648,102 @@ require("lze").load({
 					extra = true,
 				},
 			})
+		end,
+	},
+
+	{
+		"snipe.nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/leath-dub/snipe.nvim",
+					name = "snipe.nvim",
+				},
+			})
+		end,
+		after = function(_)
+			local snipe = require("snipe")
+			snipe.setup({})
+			vim.keymap.set("n", "<leader>e", snipe.open_buffer_menu)
+		end,
+	},
+
+	-- {
+	-- 	"cellular-automaton.nvim",
+	-- 	enabled = true,
+	-- 	load = function(_)
+	-- 		vim.pack.add({
+	-- 			{
+	-- 				src = "https://github.com/Eandrju/cellular-automaton.nvim",
+	-- 				name = "cellular-automaton.nvim",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	after = function(_)
+	-- 		require("cellular-automaton.nvim").setup({})
+	-- 		vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
+	-- 	end,
+	-- },
+
+	{
+		"nui.nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/MunifTanjim/nui.nvim",
+					name = "nui.nvim",
+				},
+			})
+		end,
+	},
+
+	{
+		"illuminate.nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/danielosw/nvim-illuminate",
+					name = "illuminate.nvim",
+				},
+			})
+		end,
+		after = function(_)
+			require("illuminate").configure({})
+		end,
+	},
+
+	{
+		"flash.nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/folke/flash.nvim",
+					name = "flash.nvim",
+				},
+			})
+		end,
+		after = function(_)
+			require("flash").setup({})
+		end,
+	},
+
+	{
+		"wrapping.nvim",
+		enabled = true,
+		load = function(_)
+			vim.pack.add({
+				{
+					src = "https://github.com/andrewferrier/wrapping.nvim",
+					name = "wrapping.nvim",
+				},
+			})
+		end,
+		after = function(_)
+			require("wrapping").setup({})
 		end,
 	},
 
@@ -557,7 +928,7 @@ require("lze").load({
 		after = function(_)
 			require("reverb").setup({
 				opts = {
-					player = "mpv", -- options: paplay (default), pw-play, mpv
+					player = "pw-play", -- options: paplay (default), pw-play, mpv
 					max_sounds = 20,
 					BufWrite = { path = "~/.nvim/sounds/ttf2_kill.mp3", volume = 50 },
 					-- QuitPre = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
@@ -1796,7 +2167,7 @@ require("lze").load({
 	{
 		"nvim-lsp-endhints",
 		enabled = true,
-		load = function(name)
+		load = function(_)
 			vim.pack.add({
 				{
 					src = "https://github.com/neovim/nvim-lspconfig",
@@ -1825,7 +2196,6 @@ require("lze").load({
 				autoEnableHints = true,
 			})
 
-			-- tsserver
 			local inlayHints = {
 				includeInlayParameterNameHints = "all",
 				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
@@ -1882,7 +2252,7 @@ end)
 require("lze").load({
 	{
 		"nvim-lspconfig",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		on_require = { "lspconfig" },
 		lsp = function(plugin)
 			vim.lsp.config(plugin.name, plugin.lsp or {})
@@ -1893,105 +2263,5 @@ require("lze").load({
 				on_attach = lsp_on_attach,
 			})
 		end,
-	},
-
-	{
-		"lua_ls",
-		enabled = nixCats("lua") or false,
-		lsp = {
-			filetypes = { "lua" },
-			settings = {
-				Lua = {
-					runtime = { version = "LuaJIT" },
-					hint = {
-						enable = true,
-					},
-					formatters = {
-						ignoreComments = true,
-					},
-					signatureHelp = { enabled = true },
-					diagnostics = {
-						globals = { "nixCats", "vim" },
-						disable = { "missing-fields" },
-					},
-					telemetry = { enabled = false },
-				},
-			},
-		},
-	},
-
-	{
-		"ts_ls",
-		enabled = nixCats("web") or false,
-		lsp = {
-			filetypes = { "ts", "tsx", "js", "jsx" },
-			settings = {
-				ts_ls = {},
-			},
-		},
-	},
-
-	{
-		"tailwindcss",
-		enabled = nixCats("web") or false,
-		lsp = {
-			filetypes = { "tsx", "jsx" },
-			settings = {
-				tailwindcss = {},
-			},
-		},
-	},
-
-	{
-		"jsonls",
-		enabled = nixCats("web") or false,
-		lsp = {
-			filetypes = { "json" },
-			settings = {
-				jsonls = {},
-			},
-		},
-	},
-
-	{
-		"bashls",
-		enabled = nixCats("bash") or false,
-		lsp = {
-			filetypes = { "sh" },
-			settings = {
-				bashls = {},
-			},
-		},
-	},
-
-	{
-		"nixd",
-		enabled = nixCats("nix") or false,
-		lsp = {
-			filetypes = { "nix" },
-			settings = {
-				nixd = {
-					nixpkgs = {
-						expr = nixCats.extra("nixdExtras.nixpkgs") or [[import <nixpkgs> {}]],
-					},
-					options = {
-						nixos = {
-							expr = nixCats.extra("nixdExtras.nixos_options"),
-						},
-						["home-manager"] = {
-							expr = nixCats.extra("nixdExtras.home_manager_options"),
-						},
-					},
-					formatting = {
-						command = { "alejandra" },
-					},
-					diagnostic = {
-						suppress = {
-							"sema-escaping-with",
-						},
-					},
-				},
-			},
-		},
 	},
 })

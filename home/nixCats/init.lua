@@ -107,7 +107,7 @@ vim.lsp.config["lua_ls"] = {
 			},
 			signatureHelp = { enabled = true },
 			diagnostics = {
-				globals = { "nixCats", "vim" },
+				globals = { "vim" },
 				disable = { "missing-fields" },
 			},
 			telemetry = { enabled = false },
@@ -893,7 +893,7 @@ require("lze").load({
 
 	{
 		"inc-rename.nvim",
-		enabled = nixCats("general") or false,
+		enabled = true,
 		load = function(_)
 			vim.pack.add({
 				{
@@ -914,32 +914,33 @@ require("lze").load({
 		end,
 	},
 
-	{
-		"reverb-nvim",
-		enabled = true,
-		load = function(_)
-			vim.pack.add({
-				{
-					src = "https://github.com/whleucka/reverb.nvim",
-					name = "reverb",
-				},
-			})
-		end,
-		after = function(_)
-			require("reverb").setup({
-				opts = {
-					player = "pw-play", -- options: paplay (default), pw-play, mpv
-					max_sounds = 20,
-					BufWrite = { path = "~/.nvim/sounds/ttf2_kill.mp3", volume = 50 },
-					-- QuitPre = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
-					-- CursorMoved = { path = "~/.nvim/sounds/alternator.mp3", volume = 100 },
-					-- InsertCharPre = { path = "~/.nvim/sounds/alternator.mp3", volume = 100 },
-					-- CmdlineEnter = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
-					-- CmdlineLeave = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"reverb-nvim",
+	-- 	enabled = true,
+	-- 	load = function(_)
+	-- 		vim.pack.add({
+	-- 			{
+	-- 				src = "https://github.com/whleucka/reverb.nvim",
+	-- 				name = "reverb",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	after = function(_)
+	-- 		local sound_dir = "~/.nvim/sounds/"
+	-- 		require("reverb").setup({
+	-- 			opts = {
+	-- 				player = "pw-play", -- options: paplay (default), pw-play, mpv
+	-- 				max_sounds = 20,
+	-- 				-- BufWrite = { path = sound_dir .. "ttf2_kill.mp3", volume = 100 },
+	-- 				-- QuitPre = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
+	-- 				-- CursorMoved = { path = "~/.nvim/sounds/alternator.mp3", volume = 100 },
+	-- 				-- InsertCharPre = { path = sound_dir .. "alternator.mp3", volume = 100 },
+	-- 				-- CmdlineEnter = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
+	-- 				-- CmdlineLeave = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 
 	{
 		"csvview.nvim",
@@ -1224,7 +1225,7 @@ require("lze").load({
 	-- TODO: Change mapping to not conflict with oil
 	-- {
 	-- 	"mkdnflow.nvim",
-	-- 	enabled = nixCats("general") or false,
+	-- 	enabled = true,
 	-- 	load = function(name)
 	-- 		vim.cmd.packadd(name)
 	-- 	end,
@@ -1963,6 +1964,10 @@ require("lze").load({
 				vim.g.screenkey_statusline_component = not vim.g.screenkey_statusline_component
 			end, { desc = "Toggle screenkey statusline component" })
 
+			vim.keymap.set("n", "<leader>ts", function()
+				require("screenkey").toggle_statusline_component()
+			end, { desc = "Toggle screenkey statusline component" })
+
 			require("lualine").setup({
 				options = {
 					theme = custom_theme,
@@ -2125,7 +2130,7 @@ require("lze").load({
 				},
 				notify_on_error = true,
 				formatters_by_ft = {
-					lua = nixCats("lua") and { "stylua" } or nil,
+					lua = { "stylua" },
 					nix = { "alejandra", "stylua" },
 					javascript = { "biome", "rustywind" },
 					typescript = { "biome", "rustywind" },
@@ -2137,28 +2142,6 @@ require("lze").load({
 					yaml = { "yamlfix" },
 					rust = { "rustfmt", "leptosfmt" },
 					bash = { "beautysh" },
-				},
-			})
-		end,
-	},
-
-	{
-		"lazydev.nvim",
-		enabled = true,
-		cmd = { "LazyDev" },
-		ft = "lua",
-		load = function(_)
-			vim.pack.add({
-				{
-					src = "https://github.com/folke/lazydev.nvim",
-					name = "lazydev.nvim",
-				},
-			})
-		end,
-		after = function(_)
-			require("lazydev").setup({
-				library = {
-					{ words = { "nixCats" }, path = (nixCats.nixCatsPath or "") .. "/lua" },
 				},
 			})
 		end,
@@ -2244,10 +2227,10 @@ local function lsp_on_attach(_, bufnr)
 end
 
 require("lze").register_handlers(require("lzextras").lsp)
-require("lze").h.lsp.set_ft_fallback(function(name)
-	return dofile(nixCats.pawsible({ "allPlugins", "opt", "nvim-lspconfig" }) .. "/lsp/" .. name .. ".lua").filetypes
-		or {}
-end)
+-- require("lze").h.lsp.set_ft_fallback(function(name)
+-- 	return dofile(nixCats.pawsible({ "allPlugins", "opt", "nvim-lspconfig" }) .. "/lsp/" .. name .. ".lua").filetypes
+-- 		or {}
+-- end)
 
 require("lze").load({
 	{

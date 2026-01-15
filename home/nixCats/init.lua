@@ -1246,10 +1246,176 @@ require("lze").load({
 			})
 		end,
 		after = function(_)
-			local preset = require("markview.presets").headings
-
 			require("markview").setup({
-				markdown = { headings = preset.marker },
+				preview = {
+					icon_provider = "mini",
+				},
+				-- highlight_groups = {
+				-- 	{
+				-- 		group_name = "MarkviewHeading1",
+				-- 		value = { fg = colors.color9, bg = colors.color1 },
+				-- 	},
+				-- 	{
+				-- 		group_name = "MarkviewHeading1Sign",
+				-- 		value = { fg = colors.colorA, bg = colors.color1 },
+				-- 	},
+				-- 	{
+				-- 		group_name = "MarkviewHeading2",
+				-- 		value = { fg = colors.colorB, bg = colors.color1 },
+				-- 	},
+				-- 	{
+				-- 		group_name = "MarkviewHeading2Sign",
+				-- 		value = { fg = colors.colorC, bg = colors.color1 },
+				-- 	},
+				-- 	{
+				-- 		group_name = "MarkviewHeading3",
+				-- 		value = { fg = colors.colorD, bg = colors.color1 },
+				-- 	},
+				-- 	{
+				-- 		group_name = "MarkviewHeading3Sign",
+				-- 		value = { fg = colors.colorE, bg = colors.color1 },
+				-- 	},
+				-- 	{
+				-- 		group_name = "MarkviewHorizontalRules",
+				-- 		value = { fg = colors.colorF, bg = colors.color1 },
+				-- 	},
+				-- 	{
+				-- 		group_name = "MarkviewLink",
+				-- 		value = { fg = colors.colorA },
+				-- 	},
+				-- 	{
+				-- 		group_name = "MarkviewListItems",
+				-- 		value = { fg = colors.colorB },
+				-- 	},
+				-- },
+
+				markdown = {
+					headings = {
+						enable = true,
+						shift_width = 2,
+
+						heading_1 = {
+							style = "label",
+							align = "left",
+							hl = "MarkviewHeading1Fg",
+							padding_left = "▋ ",
+							padding_right = "  ",
+							corner_left_hl = "MarkviewHeading1Bg",
+							sign = "󰌕 ",
+							sign_hl = "MarkviewHeading1Fg",
+							icon = "",
+							icon_hl = "MarkviewHeading1Fg",
+						},
+
+						heading_2 = {
+							style = "label",
+							align = "left",
+							hl = "MarkviewHeading2Fg",
+							padding_left = "  ▋ ",
+							padding_right = "   ",
+							corner_left_hl = "MarkviewHeading2Fg",
+							padding_left_hl = 0,
+							padding_right_hl = 0,
+							corner_right_hl = "MarkviewHeading2Fg",
+							sign = "󰌕 ",
+							sign_hl = "MarkviewHeading2Fg",
+							icon = "",
+							icon_hl = "MarkviewHeading2Fg",
+						},
+
+						heading_3 = {
+							style = "label",
+							align = "left",
+							hl = "MarkviewHeading3Fg",
+							padding_left = "    ▋ ",
+							padding_right = "    ",
+							corner_left_hl = "MarkviewHeading3Fg",
+							padding_left_hl = 0,
+							padding_right_hl = 0,
+							corner_right_hl = "MarkviewHeading3Fg",
+							sign = "󰌕 ",
+							sign_hl = "MarkviewHeading3Fg",
+							icon = "",
+							icon_hl = "MarkviewHeading3Fg",
+						},
+
+						setext_1 = {
+							hl = "MarkviewHeading1Fg",
+							sign = "󰌕 ",
+							sign_hl = "MarkviewHeading1Fg",
+							icon = "  ",
+							icon_hl = "MarkviewHeading1Fg",
+							border = "▂",
+							border_hl = "MarkviewHeading1Fg",
+						},
+
+						setext_2 = {
+							hl = "MarkviewHeading2Fg",
+							sign = "󰌕 ",
+							sign_hl = "MarkviewHeading2Fg",
+							icon = "  ",
+							icon_hl = "MarkviewHeading2Fg",
+							border = "▂",
+							border_hl = "MarkviewHeading2Fg",
+						},
+					},
+
+					horizontal_rules = {
+						enable = true,
+						parts = {
+							{
+								type = "text",
+								text = "  ",
+								hl = "HorizontalRulesFg",
+							},
+							{
+								type = "repeating",
+								repeat_amount = 20,
+								text = "─",
+								hl = {
+									"HorizontalRulesFg",
+								},
+								direction = "left",
+							},
+							{
+								type = "text",
+								text = "  ",
+								hl = "HorizontalRulesFg",
+							},
+						},
+					},
+
+					code_blocks = {
+						enable = true,
+						-- icons = "mini",
+						style = "simple",
+						border_hl = "CursorLine",
+					},
+
+					links = {
+						enable = true,
+						hyperlinks = {
+							hl = "Link",
+						},
+					},
+
+					list_items = {
+						enable = true,
+						shift_width = 1,
+						marker_minus = {
+							text = "",
+							hl = "ListItemsFg",
+						},
+						marker_plus = {
+							text = "",
+							hl = "ListItemsFg",
+						},
+						marker_star = {
+							text = "",
+							hl = "ListItemsFg",
+						},
+					},
+				},
 			})
 		end,
 	},
@@ -2166,7 +2332,7 @@ require("lze").load({
 			require("lsp-endhints").setup({
 				icons = {
 					type = "󰔷 ",
-					parameter = "󰇙",
+					parameter = "󰇙 ",
 					offspec = " ", -- hint kind not defined in official LSP spec
 					unknown = "⊣ ", -- hint kind is nil
 				},

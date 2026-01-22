@@ -67,6 +67,7 @@
     ./mutt.nix
     ./ranger.nix
     ./tmux.nix
+    ./wezterm.nix
     # ./yazi.nix
   ];
 }

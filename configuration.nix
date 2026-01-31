@@ -32,7 +32,7 @@
         mesa
 
         libva-vdpau-driver
-        libva1
+        # libva1
         nvidia-vaapi-driver
         xrdp
       ];

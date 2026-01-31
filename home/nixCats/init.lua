@@ -1542,7 +1542,7 @@ require("lze").load({
 			})
 		end,
 		after = function(_)
-			require("nvim-treesitter.configs").setup({
+			require("nvim-treesitter").setup({
 				highlight = { enable = true },
 				indent = { enable = false },
 				incremental_selection = {
@@ -1559,7 +1559,6 @@ require("lze").load({
 						enable = true,
 						lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
 						keymaps = {
-							-- You can use the capture groups defined in textobjects.scm
 							["aa"] = "@parameter.outer",
 							["ia"] = "@parameter.inner",
 							["af"] = "@function.outer",

@@ -669,23 +669,6 @@ require("lze").load({
 		end,
 	},
 
-	-- {
-	-- 	"cellular-automaton.nvim",
-	-- 	enabled = true,
-	-- 	load = function(_)
-	-- 		vim.pack.add({
-	-- 			{
-	-- 				src = "https://github.com/Eandrju/cellular-automaton.nvim",
-	-- 				name = "cellular-automaton.nvim",
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- 	after = function(_)
-	-- 		require("cellular-automaton.nvim").setup({})
-	-- 		vim.keymap.set("n", "<leader>fml", "<cmd>CellularAutomaton make_it_rain<CR>")
-	-- 	end,
-	-- },
-
 	{
 		"nui.nvim",
 		enabled = true,
@@ -913,34 +896,6 @@ require("lze").load({
 			vim.keymap.set("n", "<leader>cr", ":IncRename ")
 		end,
 	},
-
-	-- {
-	-- 	"reverb-nvim",
-	-- 	enabled = true,
-	-- 	load = function(_)
-	-- 		vim.pack.add({
-	-- 			{
-	-- 				src = "https://github.com/whleucka/reverb.nvim",
-	-- 				name = "reverb",
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- 	after = function(_)
-	-- 		local sound_dir = "~/.nvim/sounds/"
-	-- 		require("reverb").setup({
-	-- 			opts = {
-	-- 				player = "pw-play", -- options: paplay (default), pw-play, mpv
-	-- 				max_sounds = 20,
-	-- 				-- BufWrite = { path = sound_dir .. "ttf2_kill.mp3", volume = 100 },
-	-- 				-- QuitPre = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
-	-- 				-- CursorMoved = { path = "~/.nvim/sounds/alternator.mp3", volume = 100 },
-	-- 				-- InsertCharPre = { path = sound_dir .. "alternator.mp3", volume = 100 },
-	-- 				-- CmdlineEnter = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
-	-- 				-- CmdlineLeave = { path = "~/.nvim/sounds/kraber.mp3", volume = 100 },
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
 
 	{
 		"csvview.nvim",
@@ -1535,10 +1490,10 @@ require("lze").load({
 					src = "https://github.com/nvim-treesitter/nvim-treesitter",
 					name = "nvim-treesitter",
 				},
-				{
-					src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
-					name = "nvim-treesitter-textobjects",
-				},
+				-- {
+				-- 	src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects",
+				-- 	name = "nvim-treesitter-textobjects",
+				-- },
 			})
 		end,
 		after = function(_)
@@ -1554,49 +1509,49 @@ require("lze").load({
 						node_decremental = "<M-space>",
 					},
 				},
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
-						keymaps = {
-							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.inner",
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
-						},
-					},
-					move = {
-						enable = true,
-						set_jumps = true, -- whether to set jumps in the jumplist
-						goto_next_start = {
-							["]m"] = "@function.outer",
-							["]]"] = "@class.outer",
-						},
-						goto_next_end = {
-							["]M"] = "@function.outer",
-							["]["] = "@class.outer",
-						},
-						goto_previous_start = {
-							["[m"] = "@function.outer",
-							["[["] = "@class.outer",
-						},
-						goto_previous_end = {
-							["[M"] = "@function.outer",
-							["[]"] = "@class.outer",
-						},
-					},
-					swap = {
-						enable = true,
-						swap_next = {
-							["<leader>s"] = "@parameter.inner",
-						},
-						swap_previous = {
-							["<leader>S"] = "@parameter.inner",
-						},
-					},
-				},
+				-- textobjects = {
+				-- 	select = {
+				-- 		enable = true,
+				-- 		lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+				-- 		keymaps = {
+				-- 			["aa"] = "@parameter.outer",
+				-- 			["ia"] = "@parameter.inner",
+				-- 			["af"] = "@function.outer",
+				-- 			["if"] = "@function.inner",
+				-- 			["ac"] = "@class.outer",
+				-- 			["ic"] = "@class.inner",
+				-- 		},
+				-- 	},
+				-- 	move = {
+				-- 		enable = true,
+				-- 		set_jumps = true, -- whether to set jumps in the jumplist
+				-- 		goto_next_start = {
+				-- 			["]m"] = "@function.outer",
+				-- 			["]]"] = "@class.outer",
+				-- 		},
+				-- 		goto_next_end = {
+				-- 			["]M"] = "@function.outer",
+				-- 			["]["] = "@class.outer",
+				-- 		},
+				-- 		goto_previous_start = {
+				-- 			["[m"] = "@function.outer",
+				-- 			["[["] = "@class.outer",
+				-- 		},
+				-- 		goto_previous_end = {
+				-- 			["[M"] = "@function.outer",
+				-- 			["[]"] = "@class.outer",
+				-- 		},
+				-- 	},
+				-- 	swap = {
+				-- 		enable = true,
+				-- 		swap_next = {
+				-- 			["<leader>s"] = "@parameter.inner",
+				-- 		},
+				-- 		swap_previous = {
+				-- 			["<leader>S"] = "@parameter.inner",
+				-- 		},
+				-- 	},
+				-- },
 			})
 		end,
 	},
@@ -2390,12 +2345,6 @@ local function lsp_on_attach(_, bufnr)
 		vim.lsp.buf.format()
 	end, { desc = "Format current buffer with LSP" })
 end
-
-require("lze").register_handlers(require("lzextras").lsp)
--- require("lze").h.lsp.set_ft_fallback(function(name)
--- 	return dofile(nixCats.pawsible({ "allPlugins", "opt", "nvim-lspconfig" }) .. "/lsp/" .. name .. ".lua").filetypes
--- 		or {}
--- end)
 
 require("lze").load({
 	{

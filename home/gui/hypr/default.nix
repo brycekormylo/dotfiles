@@ -73,17 +73,16 @@ in {
         enabled = false;
       };
 
+      gesture = [
+        "3,horizontal,workspace"
+      ];
+
       dwindle = {
         pseudotile = "yes";
         preserve_split = true;
         force_split = 2;
         # no_gaps_when_only = 1;
       };
-
-      # This got deprecated
-      # gestures = {
-      #   workspace_swipe = "on";
-      # };
 
       misc = {
         force_default_wallpaper = 0;
@@ -102,6 +101,7 @@ in {
         "uwsm app -- ags"
         "uwsm app -- firefox"
         "ivpn connect --last"
+        "qs -c noctalia-shell"
       ];
 
       env = [

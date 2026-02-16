@@ -11,6 +11,7 @@
     # ./jellyfin.nix
     ./locale.nix
     ./networking.nix
+    ./noctalia.nix
     ./pipewire.nix
     ./power.nix
     ./security.nix

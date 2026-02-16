@@ -32,7 +32,6 @@
         mesa
 
         libva-vdpau-driver
-        # libva1
         nvidia-vaapi-driver
         xrdp
       ];
@@ -157,7 +156,6 @@
     PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
 
     LIBVA_DRIVER_NAME = "iHD";
-    # LIBVA_DRIVER_NAME = "nvidia"; # Can't find the driver if i do this
     VDPAU_DRIVER = "va_gl"; # or "nvidia"
   };
 

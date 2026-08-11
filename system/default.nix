@@ -1,18 +1,19 @@
 {
   imports = [
     # ./polkit-agent.nix
+    ./audio.nix
     ./avahi.nix
     ./bluetooth.nix
     ./drives.nix
     ./greetd.nix
     ./hardware.nix
-    ./hyprland.nix
+    # ./hyprland.nix
     ./ivpn.nix
     # ./jellyfin.nix
     ./locale.nix
     ./networking.nix
-    ./noctalia.nix
-    ./pipewire.nix
+    ./niri.nix
+    # ./noctalia.nix
     ./power.nix
     ./security.nix
     ./substituters.nix

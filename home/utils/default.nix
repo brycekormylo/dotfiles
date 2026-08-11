@@ -1,10 +1,10 @@
 {
   imports = [
     ./arr.nix
-    ./gaming.nix
+    # ./gaming.nix
     ./obs.nix
     ./nh.nix
-    ./noctalia.nix
+    # ./noctalia.nix
     ./yt-dlp.nix
     ./zathura.nix
   ];

@@ -11,7 +11,7 @@
 
   imports = [
     inputs.nix-colors.homeManagerModules.default
-    inputs.noctalia.homeModules.default
+    # inputs.noctalia.homeModules.default
 
     ./git
     ./gui
@@ -29,7 +29,7 @@
     docker
 
     # PHOTOGRAPHY
-    darktable
+    # darktable
   ];
 
   home.sessionVariables = {

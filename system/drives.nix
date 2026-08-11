@@ -13,6 +13,7 @@
 
   fileSystems."/home/bryce/media/usb" = {
     device = "/dev/disk/by-uuid/24FD-CF07";
+    fsType = "exfat";
     options = [
       "nofail"
       "users"
@@ -22,6 +23,7 @@
 
   fileSystems."/home/bryce/media/drive" = {
     device = "/dev/disk/by-uuid/2A27-463B";
+    fsType = "exfat";
     options = [
       "nofail"
       "users"

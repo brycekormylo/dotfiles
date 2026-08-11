@@ -6,7 +6,6 @@
 }: {
   imports = [
     ./system
-    # TODO: ./disk-config.nix
   ];
 
   boot = {
@@ -76,12 +75,9 @@
     gvfs.enable = true; # Mount, trash, etc
     gnome.gnome-keyring.enable = true;
     tumbler.enable = true; # Thumbnails
-    # openssh = {
-    #   enable = true;
-    # };
   };
 
-  powerManagement.cpuFreqGovernor = "performance";
+  powerManagement.cpuFreqGovernor = "ondemand"; # performance, ondemand, powersave
 
   # programs.steam = {
   #   enable = true;
@@ -95,14 +91,13 @@
 
   environment.systemPackages = with pkgs; [
     firefox
-    ladybird
-    # floorp-bin
+    # ladybird
     ungoogled-chromium
 
-    neovim
-    vscodium
+    # neovim
+    # vscodium
 
-    libreoffice
+    # libreoffice
     obsidian
     vlc
 

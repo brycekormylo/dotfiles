@@ -116,12 +116,28 @@ vim.lsp.config["lua_ls"] = {
 }
 vim.lsp.enable("lua_ls")
 
+local inlayHints = {
+	includeInlayParameterNameHints = "all",
+	includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+	includeInlayFunctionParameterTypeHints = true,
+	includeInlayVariableTypeHints = true,
+	includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+	includeInlayPropertyDeclarationTypeHints = true,
+	includeInlayFunctionLikeReturnTypeHints = true,
+	includeInlayEnumMemberValueHints = true,
+}
 vim.lsp.config["ts_ls"] = {
 	filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
 	settings = {
-		ts_ls = {},
+		typescript = {
+			inlayHints = inlayHints,
+		},
+		javascript = {
+			inlayHints = inlayHints,
+		},
 	},
 }
+
 vim.lsp.enable("ts_ls")
 
 vim.lsp.config["tailwindcss"] = {
@@ -683,13 +699,13 @@ require("lze").load({
 	},
 
 	{
-		"illuminate.nvim",
+		"vim-illuminate",
 		enabled = true,
 		load = function(_)
 			vim.pack.add({
 				{
-					src = "https://github.com/danielosw/nvim-illuminate",
-					name = "illuminate.nvim",
+					src = "https://github.com/RRethy/vim-illuminate",
+					name = "vim-illuminate",
 				},
 			})
 		end,
@@ -947,21 +963,21 @@ require("lze").load({
 		end,
 	},
 
-	{
-		"hmts.nvim",
-		enabled = true,
-		load = function(_)
-			vim.pack.add({
-				{
-					src = "https://github.com/calops/hmts.nvim",
-					name = "hmts.nvim",
-				},
-			})
-		end,
-		after = function(_)
-			require("hmts").setup()
-		end,
-	},
+	-- {
+	-- 	"hmts.nvim",
+	-- 	enabled = true,
+	-- 	load = function(_)
+	-- 		vim.pack.add({
+	-- 			{
+	-- 				src = "https://github.com/calops/hmts.nvim",
+	-- 				name = "hmts.nvim",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- 	after = function(_)
+	-- 		require("hmts").setup()
+	-- 	end,
+	-- },
 
 	{
 		"fidget.nvim",
@@ -2273,10 +2289,6 @@ require("lze").load({
 		load = function(_)
 			vim.pack.add({
 				{
-					src = "https://github.com/neovim/nvim-lspconfig",
-					name = "nvim-lspconfig",
-				},
-				{
 					src = "https://github.com/chrisgrieser/nvim-lsp-endhints",
 					name = "nvim-lsp-endhints",
 				},
@@ -2297,27 +2309,6 @@ require("lze").load({
 					bracketedParameters = false,
 				},
 				autoEnableHints = true,
-			})
-
-			local inlayHints = {
-				includeInlayParameterNameHints = "all",
-				includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-				includeInlayFunctionParameterTypeHints = true,
-				includeInlayVariableTypeHints = true,
-				includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-				includeInlayPropertyDeclarationTypeHints = true,
-				includeInlayFunctionLikeReturnTypeHints = true,
-				includeInlayEnumMemberValueHints = true,
-			}
-			require("lspconfig").ts_ls.setup({
-				settings = {
-					typescript = {
-						inlayHints = inlayHints,
-					},
-					javascript = {
-						inlayHints = inlayHints,
-					},
-				},
 			})
 		end,
 	},

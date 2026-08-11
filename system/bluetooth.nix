@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{
   # Something here may have broken boot,
   hardware.bluetooth = {
     enable = true;

@@ -14,7 +14,7 @@
     hyperfine
 
     croc
-    imgp
+    # imgp
     pciutils
     termshark
 
@@ -62,12 +62,11 @@
   ];
 
   imports = [
-    ./kitty.nix
+    # ./kitty.nix
     ./lazygit.nix
-    ./mutt.nix
+    # ./mutt.nix
     ./ranger.nix
     ./tmux.nix
     ./wezterm.nix
-    # ./yazi.nix
   ];
 }

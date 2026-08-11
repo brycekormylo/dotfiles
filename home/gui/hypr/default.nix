@@ -12,6 +12,7 @@ in {
   imports = [
     ./hypridle.nix
     ./hyprlock.nix
+    ./wlr-which-key.nix
   ];
 
   home.packages = dependencies;
@@ -154,7 +155,7 @@ in {
 
       windowrulev2 = [
         "suppressevent maximize, class:.*"
-        "noborder, onworkspace:w[t1]"
+        "border_size 0, match:workspace w[t1]"
       ];
 
       "workspace" = "special:magic, on-created-empty: $config ";

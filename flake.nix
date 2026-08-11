@@ -35,7 +35,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags.url = "github:Aylur/ags/v1";
-    nixvim.url = "github:nix-community/nixvim";
     nixCats.url = "github:BirdeeHub/nixCats-nvim";
     nix-colors.url = "github:misterio77/nix-colors";
     nixd.url = "github:nix-community/nixd";
@@ -50,15 +49,21 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
+    stylix = {
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # noctalia = {
+    #   url = "github:noctalia-dev/noctalia-shell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = inputs @ {
     home-manager,
     nixpkgs,
+    stylix,
     ...
   }: let
     system = "x86_64-linux";
@@ -70,6 +75,8 @@
 
         modules = [
           ./configuration.nix
+
+          stylix.nixosModules.stylix
 
           home-manager.nixosModules.home-manager
 

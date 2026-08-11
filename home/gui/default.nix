@@ -1,8 +1,9 @@
 {
   imports = [
-    ./ags
+    # ./ags
     ./dunst
-    ./hypr
-    ./rofi
+    # ./hypr
+    ./niri
+    # ./rofi
   ];
 }

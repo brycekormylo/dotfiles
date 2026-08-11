@@ -3,8 +3,8 @@
     # clipgrab
     dolphin-emu
     jackett
-    kiwix
-    kiwix-tools
+    # kiwix
+    # kiwix-tools
     libgen-cli
     nicotine-plus
     pipx

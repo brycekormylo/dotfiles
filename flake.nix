@@ -3,10 +3,13 @@
 
   inputs = {
     nixpkgs.url = "git+https://github.com/NixOS/nixpkgs?shallow=1&ref=nixos-unstable";
+<<<<<<< HEAD
     nixos-hardware = {
       url = "github:NixOS/nixos-hardware";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+=======
+>>>>>>> main
     hyprland.url = "github:hyprwm/Hyprland";
 
     hypridle = {
@@ -66,7 +69,10 @@
 
   outputs = inputs @ {
     home-manager,
+<<<<<<< HEAD
     nixos-hardware,
+=======
+>>>>>>> main
     nixpkgs,
     stylix,
     ...
@@ -80,7 +86,10 @@
 
         modules = [
           ./configuration.nix
+<<<<<<< HEAD
           # nixos-hardware.nixosModules.lenovo-yoga-7-14ARH7-amdgpu
+=======
+>>>>>>> main
 
           stylix.nixosModules.stylix
 

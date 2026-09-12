@@ -913,6 +913,7 @@
         "type": "github"
       }
     },
+<<<<<<< HEAD
     "nixos-hardware": {
       "inputs": {
         "nixpkgs": [
@@ -933,6 +934,8 @@
         "type": "github"
       }
     },
+=======
+>>>>>>> main
     "nixpkgs": {
       "locked": {
         "lastModified": 1725634671,
@@ -1101,7 +1104,10 @@
         "nix-colors": "nix-colors",
         "nixCats": "nixCats",
         "nixd": "nixd",
+<<<<<<< HEAD
         "nixos-hardware": "nixos-hardware",
+=======
+>>>>>>> main
         "nixpkgs": "nixpkgs_4",
         "stylix": "stylix",
         "yazi": "yazi"

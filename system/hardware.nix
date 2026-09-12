@@ -1,5 +1,8 @@
 {
+<<<<<<< HEAD
   pkgs,
+=======
+>>>>>>> main
   config,
   lib,
   modulesPath,
@@ -9,6 +12,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
+<<<<<<< HEAD
   boot.initrd.availableKernelModules = [
     "nvme"
     "xhci_pci"
@@ -49,10 +53,46 @@
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/4e135e3b-385b-4c39-ab7c-f1bd7189a0be";
+=======
+  boot = {
+    initrd = {
+      systemd.enable = true;
+      kernelModules = [
+        "nvidia"
+        "i915"
+        "nvidia_modeset"
+        "nvidia_drm"
+      ];
+      availableKernelModules = [
+        "xhci_pci"
+        "ahci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+        "rtsx_pci_sdmmc"
+      ];
+    };
+    extraModulePackages = [config.boot.kernelPackages.nvidia_x11];
+    blacklistedKernelModules = ["nouveau"];
+
+    kernelParams = [
+      "intel_pstate=disable"
+      "i915.force_probe=3e94"
+      "nvidia_drm.fbdev=1"
+      # "nvidia_drm"
+      # "nvidia_drm.modeset=1"
+      # "nvidia.NVreg_PreserveVideoMemoryAllocations=1"
+    ];
+  };
+
+  fileSystems."/" = {
+    device = "/dev/disk/by-uuid/6c27bd63-e64f-4096-83fc-94b42d4167a0";
+>>>>>>> main
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
+<<<<<<< HEAD
     device = "/dev/disk/by-uuid/068E-B892";
     fsType = "vfat";
     options = ["fmask=0077" "dmask=0077"];
@@ -60,10 +100,18 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
+=======
+    device = "/dev/disk/by-uuid/E287-4E3A";
+    fsType = "vfat";
+    options = ["fmask=0022" "dmask=0022"];
+  };
+
+>>>>>>> main
   swapDevices = [];
 
   networking.useDHCP = lib.mkDefault true;
 
+<<<<<<< HEAD
   services.fwupd.enable = true;
 }
 # {
@@ -153,3 +201,9 @@
 #
 #   services.fwupd.enable = true;
 # }
+=======
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  services.fwupd.enable = true;
+}
+>>>>>>> main

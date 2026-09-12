@@ -50,8 +50,12 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
+<<<<<<< HEAD
     focus-follows-mouse 
     // focus-follows-mouse max-scroll-amount="0%"
+=======
+    focus-follows-mouse max-scroll-amount="0%"
+>>>>>>> main
 }
 
 // You can configure outputs by their name, which you can find
@@ -69,10 +73,17 @@ output "eDP-1" {
     // for the resolution.
     // If the mode is omitted altogether or is invalid, niri will pick one automatically.
     // Run `niri msg outputs` while inside a niri instance to list all outputs and their modes.
+<<<<<<< HEAD
     mode "1920x1200@60.002"
 
     // You can use integer or fractional scale, for example use 1.5 for 150% scale.
     scale 1.00 
+=======
+    mode "3940x2160@59.997"
+
+    // You can use integer or fractional scale, for example use 1.5 for 150% scale.
+    scale 2.0 
+>>>>>>> main
 
     // Transform allows to rotate the output counter-clockwise, valid values are:
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.

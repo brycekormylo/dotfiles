@@ -8,11 +8,14 @@
   stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+<<<<<<< HEAD
     cursor = {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Classic";
       size = 12;
     };
+=======
+>>>>>>> main
   };
 
   services = {

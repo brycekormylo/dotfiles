@@ -1,0 +1,171 @@
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    ./system
+  ];
+
+  boot = {
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 12;
+      };
+      efi.canTouchEfiVariables = true;
+    };
+  };
+
+  services.xserver = {
+    videoDrivers = ["amdgpu"];
+    libinput.enable = true;
+  };
+
+  hardware = {
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        intel-compute-runtime
+        intel-media-driver
+        libvdpau-va-gl
+        vpl-gpu-rt
+        mesa
+
+        libva-vdpau-driver
+        # nvidia-vaapi-driver
+        xrdp
+      ];
+      enable32Bit = true;
+      extraPackages32 = with pkgs.pkgsi686Linux; [
+        intel-vaapi-driver
+      ];
+    };
+  };
+
+  users.users.bryce = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    description = "bryce";
+    extraGroups = [
+      "input"
+      "networkmanager"
+      "transmission"
+      "video"
+      "wheel"
+    ];
+  };
+
+  services = {
+    thermald.enable = true;
+    blueman.enable = true;
+    usbmuxd.enable = true;
+    gvfs.enable = true; # Mount, trash, etc
+    gnome.gnome-keyring.enable = true;
+    tumbler.enable = true; # Thumbnails
+  };
+
+  powerManagement.cpuFreqGovernor = "ondemand"; # performance, ondemand, powersave
+
+  # programs.steam = {
+  #   enable = true;
+  #   gamescopeSession.enable = true;
+  # };
+
+  systemd.services = {
+    "getty@tty1".enable = false; # Autologin
+    "autovt@tty1".enable = false;
+  };
+
+  environment.systemPackages = with pkgs; [
+    firefox
+    # ladybird
+    ungoogled-chromium
+
+    # neovim
+    # vscodium
+
+    # libreoffice
+    obsidian
+    vlc
+
+    bluez
+    brightnessctl
+    dbus-broker
+    libnotify
+    nftables
+    networkmanagerapplet
+    wireplumber
+
+    gcc
+    libgcc
+
+    deadnix
+    nix-diff
+    nix-output-monitor
+    nix-prefetch-github
+    nix-tree
+    nvd
+
+    util-linux
+  ];
+
+  fonts = {
+    enableDefaultPackages = false;
+
+    packages = with pkgs; [
+      material-symbols
+      nerd-fonts.symbols-only
+
+      commit-mono
+      liberation_ttf
+      libertinus
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-color-emoji
+      roboto
+      vista-fonts
+    ];
+
+    fontconfig.defaultFonts = {
+      serif = ["Libertinus Serif"];
+      sansSerif = ["Inter"];
+      monospace = ["Commit Mono"];
+      emoji = ["Noto Color Emoji"];
+    };
+  };
+
+  environment.sessionVariables = {
+    PKG_CONFIG_PATH = "${pkgs.openssl.dev}/lib/pkgconfig";
+
+    LIBVA_DRIVER_NAME = "iHD";
+    VDPAU_DRIVER = "va_gl"; # or "nvidia"
+  };
+
+  system.stateVersion = "23.11"; # Do not change
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    nvidia.acceptLicense = true;
+  };
+
+  nix = {
+    settings = {
+      auto-optimise-store = true;
+      builders-use-substitutes = true;
+      experimental-features = ["nix-command" "flakes"];
+      trusted-users = ["root" "@wheel"];
+    };
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 8d";
+    };
+    optimise.automatic = true;
+    nixPath = [
+      "nixpkgs=${inputs.nixpkgs}"
+      "nixos-config=${config.users.users.bryce.home}/dot/configuration.nix"
+    ];
+  };
+}

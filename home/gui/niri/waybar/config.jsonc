@@ -7,30 +7,17 @@
     "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "modules-left": [
-<<<<<<< HEAD
-=======
-        // "niri/workspaces",
->>>>>>> main
         // "sway/mode",
         // "sway/scratchpad",
         // "power-profiles-daemon",
         "cpu",
         "memory",
-<<<<<<< HEAD
         "temperature"
         // "niri/workspaces"
     ],
     "modules-center": [
         "niri/workspaces"
     ],
-=======
-        "temperature",
-        "niri/workspaces"
-    ],
-    // "modules-center": [
-    //     "niri/workspaces"
-    // ],
->>>>>>> main
     "modules-right": [
         // "mpd",
         // "idle_inhibitor",
@@ -47,12 +34,8 @@
     ],
     // Modules configuration
     "niri/workspaces": {
-<<<<<<< HEAD
         "expand": true,
         "format": "{icon}",
-=======
-        "format": "{icon} {windows}",
->>>>>>> main
         "format-window-separator": " ",
         "window-rewrite-default": "",
         "window-rewrite": {
@@ -63,7 +46,6 @@
             "app_id<wezterm>": ""
         },
         "format-icons": {
-<<<<<<< HEAD
             "1": "-",
             "2": "-",
             "3": "-",
@@ -71,14 +53,6 @@
             "5": "-",
             "active": "󱥸",
             // "active": "󱥸",
-=======
-            "1": "1",
-            "2": "2",
-            "3": "3",
-            "4": "4",
-            "5": "5",
-            "active": "",
->>>>>>> main
             "default": ""
         }
     },
@@ -212,13 +186,8 @@
         // "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
-<<<<<<< HEAD
         "format-bluetooth-muted": "{icon} {format_source}",
         "format-muted": "{format_source}",
-=======
-        "format-bluetooth-muted": "󰅶 {icon} {format_source}",
-        "format-muted": "󰅶 {format_source}",
->>>>>>> main
         "format-source": "{volume}% ",
         "format-source-muted": "",
         "format-icons": {

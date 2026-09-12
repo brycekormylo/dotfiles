@@ -18,14 +18,10 @@
     };
   };
 
-<<<<<<< HEAD
   services.xserver = {
     videoDrivers = ["amdgpu"];
     libinput.enable = true;
   };
-=======
-  services.xserver.videoDrivers = ["nvidia"];
->>>>>>> main
 
   hardware = {
     graphics = {
@@ -38,11 +34,7 @@
         mesa
 
         libva-vdpau-driver
-<<<<<<< HEAD
         # nvidia-vaapi-driver
-=======
-        nvidia-vaapi-driver
->>>>>>> main
         xrdp
       ];
       enable32Bit = true;
@@ -50,23 +42,6 @@
         intel-vaapi-driver
       ];
     };
-<<<<<<< HEAD
-=======
-
-    nvidia = {
-      open = false;
-      modesetting.enable = true;
-      nvidiaSettings = true;
-      prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-        nvidiaBusId = "PCI:1:0:0";
-        intelBusId = "PCI:0:2:0";
-      };
-    };
->>>>>>> main
   };
 
   users.users.bryce = {

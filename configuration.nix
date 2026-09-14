@@ -20,7 +20,18 @@
 
   services.xserver = {
     videoDrivers = ["amdgpu"];
-    libinput.enable = true;
+  };
+  services.libinput.enable = true;
+
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;
+    writebackDevice = "/dev/sda1";
+  };
+
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 100;
+    "vm.vfs_cache_pressure" = 50;
   };
 
   hardware = {

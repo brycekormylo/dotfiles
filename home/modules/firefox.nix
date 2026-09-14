@@ -1,10 +1,12 @@
 {
   pkgs,
   inputs,
+  config,
   ...
 }: {
   programs.firefox = {
     enable = true;
+    configPath = "${config.xdg.configHome}/mozilla/firefox";
     profiles.bryce = {
       search = {
         default = "ddg";
@@ -56,4 +58,6 @@
       ];
     };
   };
+
+  stylix.targets.firefox.profileNames = ["bryce"];
 }

@@ -12,48 +12,20 @@
     loader = {
       systemd-boot = {
         enable = true;
-        configurationLimit = 12;
+        # configurationLimit = 12;
       };
       efi.canTouchEfiVariables = true;
     };
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
-
   hardware = {
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [
-        intel-compute-runtime
-        intel-media-driver
-        libvdpau-va-gl
-        vpl-gpu-rt
-        mesa
-
-        libva-vdpau-driver
-        nvidia-vaapi-driver
-        xrdp
-      ];
       enable32Bit = true;
-      extraPackages32 = with pkgs.pkgsi686Linux; [
-        intel-vaapi-driver
-      ];
-    };
-
-    nvidia = {
-      open = false;
-      modesetting.enable = true;
-      nvidiaSettings = true;
-      prime = {
-        offload = {
-          enable = true;
-          enableOffloadCmd = true;
-        };
-        nvidiaBusId = "PCI:1:0:0";
-        intelBusId = "PCI:0:2:0";
-      };
     };
   };
+
+  zramSwap.enable = true;
 
   users.users.bryce = {
     isNormalUser = true;
@@ -69,6 +41,9 @@
   };
 
   services = {
+    xserver.videoDrivers = ["amdgpu"];
+    libinput.enable = true;
+    udisks2.enable = true;
     thermald.enable = true;
     blueman.enable = true;
     usbmuxd.enable = true;
@@ -94,7 +69,6 @@
     # ladybird
     ungoogled-chromium
 
-    # neovim
     # vscodium
 
     # libreoffice
@@ -110,7 +84,6 @@
     wireplumber
 
     gcc
-    libgcc
 
     deadnix
     nix-diff
@@ -158,7 +131,6 @@
 
   nixpkgs.config = {
     allowUnfree = true;
-    nvidia.acceptLicense = true;
   };
 
   nix = {

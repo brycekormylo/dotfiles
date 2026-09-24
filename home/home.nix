@@ -11,12 +11,10 @@
 
   imports = [
     inputs.nix-colors.homeManagerModules.default
-    # inputs.noctalia.homeModules.default
 
     ./git
     ./gui
     ./modules
-    # ./neovim
     ./nixCats
     ./script
     ./terminal

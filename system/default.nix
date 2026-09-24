@@ -1,6 +1,5 @@
 {
   imports = [
-    # ./polkit-agent.nix
     ./audio.nix
     ./avahi.nix
     ./bluetooth.nix
@@ -8,13 +7,11 @@
     ./greetd.nix
     #./hardware.nix
     ./hardware-configuration.nix
-    # ./hyprland.nix
     ./ivpn.nix
     # ./jellyfin.nix
     ./locale.nix
     ./networking.nix
     ./niri.nix
-    # ./noctalia.nix
     ./power.nix
     ./security.nix
     ./substituters.nix

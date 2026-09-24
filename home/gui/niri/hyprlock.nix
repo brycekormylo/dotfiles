@@ -1,12 +1,12 @@
 {
-  inputs,
-  pkgs,
-  ...
-}: {
-  programs.hyprlock = {
+  stylix.targets.hyprlock = {
     enable = false;
+    colors.enable = false;
+    image.enable = false;
+  };
 
-    package = inputs.hyprlock.packages.${pkgs.stdenv.hostPlatform.system}.hyprlock;
+  programs.hyprlock = {
+    enable = true;
 
     settings = {
       general = {

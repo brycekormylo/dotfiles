@@ -4,10 +4,6 @@
   ...
 }: {
   services.greetd = let
-    # session = {
-    #   command = "${lib.getExe config.programs.uwsm.package} start hyprland-uwsm.desktop";
-    #   user = "bryce";
-    # };
     session = {
       command = "${config.programs.niri.package}/bin/niri-session";
       user = "bryce";

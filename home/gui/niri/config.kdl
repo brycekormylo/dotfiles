@@ -90,12 +90,12 @@ output "eDP-1" {
     position x=0 y=0
 }
 
-//   output "HDMI-A-2" {
-    //   mode "2560x1440@119.998"
-    //   scale 1.5
-    //   transform "normal"
-    //   position x=1280 y=0
-//   }
+output "HDMI-A-2" {
+  mode "2560x1440@119.998"
+  scale 1.5
+  transform "normal"
+  position x=1280 y=0
+}
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
@@ -260,9 +260,10 @@ layout {
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
 spawn-at-startup "waybar"
+spawn-at-startup "firefox"
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
-// spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
+spawn-sh-at-startup "cd ~/dot && dev"
 
 hotkey-overlay {
     // Uncomment this line to disable the "Important Hotkeys" pop-up at startup.
@@ -308,6 +309,8 @@ animations {
     // match app-id=r#"^org\.wezfurlong\.wezterm$"#
     // default-column-width {}
 // }
+
+// workspace "config"
 
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
@@ -355,7 +358,6 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+T hotkey-overlay-title="Open a Terminal: wezterm" { spawn "wezterm"; }
     Mod+D hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
-    // Mod+E hotkey-overlay-title="Run an Application: rofi" { spawn-sh "rofi -show drun -show-icons  -run-command '{cmd}'"; }
     // Mod+W hotkey-overlay-title="Run an Application: firefox" { spawn "firefox"; }
     // Mod+Shift+W hotkey-overlay-title="Run an Application: floorp" { spawn "floorp"; }
     Mod+B hotkey-overlay-title="Run an Application: waybar" { spawn-sh "wb"; }
@@ -533,6 +535,8 @@ binds {
     Mod+Shift+8 { move-column-to-workspace 8; }
     Mod+Shift+9 { move-column-to-workspace 9; }
 
+    // Mod+S { focus-workspace "config"; }
+    // Mod+Shift+S { move-column-to-workspace "config"; }
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }
 

@@ -1,9 +1,7 @@
 {
   imports = [
-    # ./ags
     ./dunst
-    # ./hypr
+    ./fuzzel
     ./niri
-    # ./rofi
   ];
 }

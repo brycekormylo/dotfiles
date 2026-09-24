@@ -23,7 +23,6 @@
       zsh-autoenv.enable = true;
       ohMyZsh = {
         enable = true;
-        # theme = "robbyrussell";
         theme = "cypher";
         plugins = [
           "git"

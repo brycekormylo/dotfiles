@@ -4,7 +4,7 @@
     # ./gaming.nix
     ./obs.nix
     ./nh.nix
-    # ./noctalia.nix
+    ./udiskie.nix
     ./yt-dlp.nix
     ./zathura.nix
   ];

@@ -1397,7 +1397,7 @@ require("lze").load({
 		load = function(_)
 			vim.pack.add({
 				{
-					src = "https://github.com/norcalli/nvim-colorizer.lua",
+					src = "https://github.com/catgoose/nvim-colorizer.lua",
 					name = "nvim-colorizer.lua",
 				},
 			})
@@ -1426,7 +1426,7 @@ require("lze").load({
 		after = function(_)
 			require("tiny-glimmer").setup({
 				enabled = true,
-				disable_warnings = false,
+				disable_warnings = true,
 				default_animation = "bounce",
 				animations = {
 					bounce = {

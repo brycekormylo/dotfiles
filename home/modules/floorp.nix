@@ -5,6 +5,9 @@
 }: {
   programs.floorp = {
     enable = true;
+    policies = {
+      DefaultDownloadDirectory = "$HOME/download";
+    };
     profiles.bryce = {
       search = {
         default = "ddg";

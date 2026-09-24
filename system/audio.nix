@@ -9,7 +9,7 @@
 
   services = {
     pipewire = {
-      enable = false;
+      enable = true;
       pulse.enable = true;
       # jack.enable = true;
       alsa = {
@@ -19,5 +19,5 @@
     };
   };
 
-  services.pulseaudio.enable = lib.mkForce true;
+  services.pulseaudio.enable = false;
 }

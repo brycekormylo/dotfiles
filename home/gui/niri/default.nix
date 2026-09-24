@@ -1,6 +1,8 @@
 {
   imports = [
     ./waybar
+    ./hypridle.nix
+    ./hyprlock.nix
   ];
 
   xdg.configFile."niri/config.kdl".source = ./config.kdl;

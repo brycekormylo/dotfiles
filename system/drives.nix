@@ -1,8 +1,5 @@
 {pkgs, ...}: {
   environment.systemPackages = with pkgs; [
-    ifuse
-    libimobiledevice
-
     exfat
     gparted
     mount

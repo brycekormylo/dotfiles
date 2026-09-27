@@ -12,10 +12,9 @@
   imports = [
     inputs.nix-colors.homeManagerModules.default
 
-    ./git
+    ./browser
     ./gui
-    ./modules
-    ./nixCats
+    ./nvim
     ./script
     ./terminal
     ./utils

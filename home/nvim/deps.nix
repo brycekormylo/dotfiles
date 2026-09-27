@@ -3,6 +3,7 @@
     # bun
     # deno
     nodejs_22
+    # vitejs
     # rustup
     cargo
     # alsa-lib.dev

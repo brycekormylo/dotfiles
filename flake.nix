@@ -41,7 +41,7 @@
         inherit system;
 
         modules = [
-          ./configuration.nix
+          ./system
 
           stylix.nixosModules.stylix
 

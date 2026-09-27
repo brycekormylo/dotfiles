@@ -1,4 +1,6 @@
 {
+  powerManagement.cpuFreqGovernor = "ondemand"; # performance, ondemand, powersave
+
   services = {
     logind.settings.Login.HandlePowerKey = "suspend";
 
